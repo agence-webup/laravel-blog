@@ -3,8 +3,10 @@
 namespace Webup\LaravelBlog;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Routing\Router;
 use Webup\LaravelBlog\Entities\User;
 use Webup\LaravelBlog\Console\BlogUserCreate;
+use Webup\LaravelBlog\Http\Middleware\BlogRedirectIfNotAuth;
 
 class BlogServiceProvider extends ServiceProvider
 {
@@ -20,13 +22,13 @@ class BlogServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(Router $router)
     {
         $this->publishes([
           __DIR__.'/../config/blog.php' => config_path('blog.php'),
         ]);
 
-
+        $router->aliasMiddleware('blog.auth', BlogRedirectIfNotAuth::class);
 
         $this->loadMigrationsFrom(__DIR__.'/../database');
 
