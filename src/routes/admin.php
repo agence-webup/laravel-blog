@@ -12,8 +12,11 @@ Route::group([
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
     Route::group(['middleware' => ['blog.auth:blog']], function () {
+        Route::get('', function () {
+            return redirect()->route("admin.blog.login");
+        })->name("index");
         Route::group(['prefix' => 'users', 'as' => 'user.'], function () {
-            Route::get('/', 'UserController@index')->name('index');
+            Route::get('', 'UserController@index')->name('index');
         });
     });
 });

@@ -5,7 +5,7 @@ namespace Webup\LaravelBlog\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class BlogRedirectIfNotAuth
+class RedirectIfUnauthenticated
 {
     /**
      * Handle an incoming request.
@@ -17,15 +17,14 @@ class BlogRedirectIfNotAuth
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->guest()) {
+        if (!Auth::guard($guard)->check()) {
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
             } else {
-                if ($guard == 'blog') {
-                    return redirect()->guest(route('admin.blog.login'));
-                }
+                return redirect()->guest(route('admin.blog.login'));
             }
         }
+
         return $next($request);
     }
 }

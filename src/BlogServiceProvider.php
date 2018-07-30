@@ -6,7 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Routing\Router;
 use Webup\LaravelBlog\Entities\User;
 use Webup\LaravelBlog\Console\BlogUserCreate;
-use Webup\LaravelBlog\Http\Middleware\BlogRedirectIfNotAuth;
+use Webup\LaravelBlog\Http\Middleware\RedirectIfUnauthenticated;
+use Webup\LaravelBlog\Http\Middleware\RedirectIfAuthenticated;
 
 class BlogServiceProvider extends ServiceProvider
 {
@@ -28,7 +29,8 @@ class BlogServiceProvider extends ServiceProvider
           __DIR__.'/../config/blog.php' => config_path('blog.php'),
         ]);
 
-        $router->aliasMiddleware('blog.auth', BlogRedirectIfNotAuth::class);
+        $router->aliasMiddleware('blog.auth', RedirectIfUnauthenticated::class);
+        $router->aliasMiddleware('blog.guest', RedirectIfAuthenticated::class);
 
         $this->loadMigrationsFrom(__DIR__.'/../database');
 
