@@ -3,7 +3,7 @@
 /* ----------------------------------------------------------- */
 
 body {
-  background-color: #fff;
+  background-color: #F7F7F7;
   color: $color-dark-text;
   font-family: $fontstack1;
 }
@@ -72,4 +72,15 @@ hr {
   height: .1rem;
   border: 0;
   border-top: .1rem solid #ccc;
+}
+
+/* divers
+-------------------------------------------------------------- */
+
+.avatar--rounded {
+  border-radius: 50%;
+}
+
+.avatar--small {
+  width: 4rem;
 }

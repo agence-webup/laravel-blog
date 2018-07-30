@@ -2,6 +2,8 @@
 
 @section('content')
 
+ici un super post
+
 @endsection
 
 @section('css')
