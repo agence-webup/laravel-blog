@@ -27,6 +27,7 @@ class BlogServiceProvider extends ServiceProvider
     {
         $this->publishes([
           __DIR__.'/../config/blog.php' => config_path('blog.php'),
+          __DIR__.'/../public/assets/' => public_path('vendor/laravel-blog')
         ]);
 
         $router->aliasMiddleware('blog.auth', RedirectIfUnauthenticated::class);

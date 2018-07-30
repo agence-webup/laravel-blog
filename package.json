@@ -1,0 +1,28 @@
+{
+  "name": "laravel-blog",
+  "version": "0.1.0",
+  "description": "",
+  "main": "gulpfile.babel.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agence-webup/laravel-blog.git"
+  },
+  "author": "Agence Webup",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/agence-webup/laravel-blog/issues"
+  },
+  "homepage": "https://github.com/agence-webup/laravel-blog#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "gulp-babel": "^7.0.1",
+    "gulp-sass": "^4.0.1"
+  },
+  "dependencies": {
+    "gulp": "^4.0.0"
+  }
+}
