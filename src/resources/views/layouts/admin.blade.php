@@ -21,10 +21,10 @@
             </div>
             <div class="navigation-menu">
                 <div class="navigation-menu__main">
-                    <a href="#" class="is-active">@include('laravel-blog::svg.add') Écrire un article</a>
-                    <a href="#">@include('laravel-blog::svg.list') Mes articles</a>
-                    <a href="#">@include('laravel-blog::svg.website') Voir mon site</a>
-                    <a href="#">@include('laravel-blog::svg.user') Utilisateurs</a>
+                    <a href="{{route('admin.blog.post.create')}}" class="is-active">@include('laravel-blog::svg.add') Écrire un article</a>
+                    <a href="{{route('admin.blog.post.index')}}">@include('laravel-blog::svg.list') Mes articles</a>
+                    <a href="{{route('blog.index')}}" target="_blank">@include('laravel-blog::svg.website') Voir mon site</a>
+                    <a href="{{route('admin.blog.user.index')}}">@include('laravel-blog::svg.user') Utilisateurs</a>
                     <a href="#">@include('laravel-blog::svg.settings') Réglages</a>
                 </div>
                 <div class="navigation-menu__bottom">
