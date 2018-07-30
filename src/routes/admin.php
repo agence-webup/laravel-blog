@@ -15,8 +15,24 @@ Route::group([
         Route::get('', function () {
             return redirect()->route("admin.blog.login");
         })->name("index");
+
         Route::group(['prefix' => 'users', 'as' => 'user.'], function () {
             Route::get('', 'UserController@index')->name('index');
+
+            Route::get('/create', 'UserController@create')->name('create');
+            Route::post('/store', 'UserController@store')->name('store');
         });
+
+
+        Route::group(['prefix' => 'posts', 'as' => 'post.'], function () {
+            Route::get('', 'PostController@index')->name('index');
+
+            Route::get('/create', 'PostController@create')->name('create');
+            Route::post('/store', 'PostController@store')->name('store');
+        });
+
+
+
+        Route::post('image', 'ImageController@upload')->name('image.upload');
     });
 });

@@ -2,12 +2,12 @@
 
 namespace Webup\LaravelBlog\Http\Controllers\Admin\Auth;
 
-use App\Http\Controllers\Controller;
+use Webup\LaravelBlog\Http\Controllers\Admin\BaseController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth as AuthFacade;
 
-class LoginController extends Controller
+class LoginController extends BaseController
 {
     /*
     |--------------------------------------------------------------------------
