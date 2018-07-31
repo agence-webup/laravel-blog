@@ -17,7 +17,7 @@
     <div class="app">
         <nav class="navigation">
             <div class="navigation-profil">
-                <img src="https://randomuser.me/api/portraits/women/21.jpg" width="40" height="40" alt="Profil picture" class="avatar--rounded avatar--small mr05"> Martin
+                <img src="{{ Auth::guard("blog")->user()->picture ? Auth::guard("blog")->user()->picture : "https://randomuser.me/api/portraits/women/21.jpg" }}" width="40" height="40" alt="Profil picture" class="avatar--rounded avatar--small mr05"> {{ Auth::guard("blog")->user()->email }}
             </div>
             <div class="navigation-menu">
                 <div class="navigation-menu__main">

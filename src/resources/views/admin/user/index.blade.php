@@ -6,7 +6,7 @@
 
 <ul>
   @foreach ($users as $key => $user)
-    <li>{{ $user->name }} ({{ $user->email }}) {{ $user->isAdmin }}</li>
+    <li>{{ $user->name }} ({{ $user->email }}) {{ $user->isAdmin }} <a href="{{ route('admin.blog.user.edit',[$user->id]) }}">Edit</a></li>
   @endforeach
 </ul>
 

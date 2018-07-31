@@ -5,6 +5,12 @@ namespace Webup\LaravelBlog\Http\Controllers\Admin;
 use Webup\LaravelBlog\Http\Controllers\Admin\BaseController;
 use Webup\LaravelBlog\Entities\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Mail;
+use Webup\LaravelBlog\Mail\BlogAdminUserCreated;
+use Webup\LaravelBlog\Events\User\Register as BlogUserRegistered;
+use Webup\LaravelBlog\Events\User\Update as BlogUserUpdated;
+use Illuminate\Validation\Rule;
 
 class UserController extends BaseController
 {
@@ -24,16 +30,73 @@ class UserController extends BaseController
     public function store(Request $request)
     {
         $data = $this->validate($request, [
+            "name" => "required|string",
+            "email" => [
+                "required",
+                "string",
+                "email",
+                "unique:".(new User())->getConnectionName().".".(new User())->getTable().",email",
+            ],
+            "picture" => "required|string",
+            "biography" => "nullable|string",
+            "isAdmin" => "",
+        ]);
+
+        $data["isAdmin"] = false;
+
+        $user = new User($data);
+        $password = str_random(10);
+        $user->password = Hash::make($password);
+        $user->save();
+
+        if (config()->get('blog.mails.enable', false) && config()->get('blog.mails.users.register', false)) {
+            Mail::to($user->email)->send(new BlogAdminUserCreated($user, $password));
+        }
+
+        event("laravel-blog.user.register", new BlogUserRegistered($user, $password));
+
+        return redirect()->to($this->redirectAfterStore($user));
+    }
+
+    protected function redirectAfterStore(User $user)
+    {
+        return route("admin.blog.user.index");
+    }
+
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        return view('laravel-blog::admin.user.edit', compact('user'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $data = $this->validate($request, [
           "name" => "required|string",
-          "email" => "required|string|email",
+          "email" => [
+              "required",
+              "string",
+              "email",
+              "unique:".(new User())->getConnectionName().".".(new User())->getTable().",email,".$user->id,
+          ],
           "picture" => "required|string",
           "biography" => "nullable|string",
           "isAdmin" => "",
         ]);
 
+        $data["isAdmin"] = false;
 
-        $user = new User($data);
-        $user->password();
-        $user->save();
+        $user->update($data);
+
+        event("laravel-blog.user.update", new BlogUserUpdated($user));
+
+        return redirect()->to($this->redirectAfterUpdate($user));
+    }
+
+    protected function redirectAfterUpdate(User $user)
+    {
+        return route("admin.blog.user.index");
     }
 }

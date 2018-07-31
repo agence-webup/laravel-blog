@@ -20,7 +20,7 @@ class BlogAdminUserCreated extends Mailable implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(User $user, String $password)
+    public function __construct(User $user, string $password)
     {
         $this->user = $user;
         $this->password = $password;

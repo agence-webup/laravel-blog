@@ -21,6 +21,9 @@ Route::group([
 
             Route::get('/create', 'UserController@create')->name('create');
             Route::post('/store', 'UserController@store')->name('store');
+
+            Route::get('/edit/{id}', 'UserController@edit')->name('edit');
+            Route::post('/update/{id}', 'UserController@update')->name('update');
         });
 
 

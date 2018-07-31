@@ -6,6 +6,8 @@ use Webup\LaravelBlog\Http\Controllers\Admin\BaseController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth as AuthFacade;
+use Webup\LaravelBlog\Events\User\Login as BlogUserLogin;
+use Webup\LaravelBlog\Events\User\Logout as BlogUserLogout;
 
 class LoginController extends BaseController
 {
@@ -41,6 +43,36 @@ class LoginController extends BaseController
     public function showLoginForm()
     {
         return view('laravel-blog::admin.auth.login');
+    }
+
+
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        event("laravel-blog.user.login", new BlogUserLogin($user));
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        event("laravel-blog.user.logout", new BlogUserLogout($this->guard()->user()));
+
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        return $this->loggedOut($request) ?: redirect('/');
     }
 
     /**
