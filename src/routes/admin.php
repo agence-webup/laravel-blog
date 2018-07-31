@@ -23,7 +23,9 @@ Route::group([
             Route::post('/store', 'UserController@store')->name('store');
 
             Route::get('/edit/{id}', 'UserController@edit')->name('edit');
-            Route::post('/update/{id}', 'UserController@update')->name('update');
+            Route::put('/update/{id}', 'UserController@update')->name('update');
+
+            Route::delete('/delete/{id}', 'UserController@delete')->name('delete');
         });
 
 

@@ -10,6 +10,7 @@ use Mail;
 use Webup\LaravelBlog\Mail\BlogAdminUserCreated;
 use Webup\LaravelBlog\Events\User\Register as BlogUserRegistered;
 use Webup\LaravelBlog\Events\User\Update as BlogUserUpdated;
+use Webup\LaravelBlog\Events\User\Delete as BlogUserDeleted;
 use Illuminate\Validation\Rule;
 
 class UserController extends BaseController
@@ -37,7 +38,7 @@ class UserController extends BaseController
                 "email",
                 "unique:".(new User())->getConnectionName().".".(new User())->getTable().",email",
             ],
-            "picture" => "required|string",
+            "picture" => "",
             "biography" => "nullable|string",
             "isAdmin" => "",
         ]);
@@ -81,7 +82,7 @@ class UserController extends BaseController
               "email",
               "unique:".(new User())->getConnectionName().".".(new User())->getTable().",email,".$user->id,
           ],
-          "picture" => "required|string",
+          "picture" => "",
           "biography" => "nullable|string",
           "isAdmin" => "",
         ]);
@@ -96,6 +97,23 @@ class UserController extends BaseController
     }
 
     protected function redirectAfterUpdate(User $user)
+    {
+        return route("admin.blog.user.index");
+    }
+
+
+    public function delete(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        event("laravel-blog.user.delete", new BlogUserDeleted($user));
+
+        $user->delete();
+
+        return redirect()->to($this->redirectAfterDelete($user));
+    }
+
+    protected function redirectAfterDelete(User $user)
     {
         return route("admin.blog.user.index");
     }

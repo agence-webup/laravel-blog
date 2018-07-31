@@ -11,7 +11,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Webup\LaravelBlog\Entities\User;
 
-class Update
+class Delete
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

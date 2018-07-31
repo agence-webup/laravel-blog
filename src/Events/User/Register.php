@@ -29,14 +29,4 @@ class Register
         $this->user = $user;
         $this->password = $password;
     }
-
-    /**
-     * The event's broadcast name.
-     *
-     * @return string
-     */
-    public function broadcastAs()
-    {
-        return 'laravel-blog.user.register';
-    }
 }

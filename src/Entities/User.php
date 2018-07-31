@@ -4,6 +4,7 @@ namespace Webup\LaravelBlog\Entities;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Storage;
 
 class User extends Authenticatable
 {
@@ -32,4 +33,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function getPictureUrlAttribute()
+    {
+        if (!$this->picture) {
+            return "https://randomuser.me/api/portraits/women/21.jpg";
+        }
+        return Storage::url($this->picture);
+    }
 }

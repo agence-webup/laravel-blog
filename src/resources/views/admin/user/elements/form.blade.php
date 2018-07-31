@@ -20,12 +20,13 @@
 
   <div>
     <label for="picture">Profil picture</label>
-    <div class="colibri" id="picture" data-pic="" data-post="{{ route('admin.blog.image.upload')."?fieldName=picture&_token=".csrf_token() }}">
+    <div class="colibri" id="colibri" data-pic="{{ $user->pictureUrl }}" data-post="{{ route('admin.blog.image.upload')."?fieldName=picture&_token=".csrf_token() }}">
         <label for="file">
-            <div>Choisir une image</div>
+            <div>Choose a picture</div>
         </label>
-        <input type="file" name="picture" id="file" data-message="Téléchargement en cours...">
+        <input type="file" id="file" data-message="Upload in progress...">
     </div>
+    <input type="hidden" name="picture" data-js="picture" value="">
   </div>
 
   <div>
