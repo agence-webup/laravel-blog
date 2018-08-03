@@ -1,0 +1,125 @@
+/* ----------------------------------------------------------- */
+
+/* == editor */
+
+/* ----------------------------------------------------------- */
+
+.editor {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 62rem;
+}
+
+.editor-title {
+  margin-top: 7rem;
+  margin-bottom: 3.5rem;
+  padding: 0;
+  max-width: 100%;
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+  color: #585858;
+  font-size: 3.3rem;
+}
+
+.editor-title:focus {
+  box-shadow: none;
+}
+
+/* ----------------------------------------------------------- */
+
+/* == Topbar */
+
+/* ----------------------------------------------------------- */
+
+.editor-topbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 25rem;
+  z-index: 100;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.editor-topbar__actions {
+  display: flex;
+}
+
+.editor-topbar__actions button {
+  background-color: transparent;
+  border: none;
+  font-size: 1.6rem;
+  padding: 0 1.5rem;
+  border-left: 1px solid #cfd2d8;
+  line-height: 0;
+}
+
+/* ----------------------------------------------------------- */
+/* == editor */
+/* ----------------------------------------------------------- */
+
+.editor {
+  padding-bottom: 7rem;
+}
+
+/* ----------------------------------------------------------- */
+/* == status */
+/* ----------------------------------------------------------- */
+
+.editor-status {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 25rem;
+  display: flex;
+  justify-content: space-between;
+  padding: .8rem;
+  background-color: #fff;
+  height: 4rem;
+  align-items: center;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* ----------------------------------------------------------- */
+
+/* == Quill */
+
+/* ----------------------------------------------------------- */
+
+.editor .ql-container.ql-snow {
+  padding: 0;
+  border: none;
+}
+
+.editor .ql-editor {
+  padding: 0;
+  color: #585858;
+  font-size: 1.6rem;
+  line-height: 1.7;
+}
+
+.editor .ql-editor.ql-blank::before {
+  left: 0;
+  color: lighten($color-dark-text, 0%);
+  font-style: normal;
+}
+
+.editor-topbar .ql-toolbar.ql-snow {
+  padding: 0;
+  border: none;
+}
+
+.editor-topbar .ql-toolbar.ql-snow .ql-formats:first-of-type {
+  padding-left: .8rem;
+}
+
+.editor-topbar .ql-toolbar.ql-snow .ql-formats {
+  margin-right: .8rem;
+  padding-top: .8rem;
+  padding-right: .8rem;
+  padding-bottom: .5rem;
+  border-right: 1px solid #cfd2d8;
+}

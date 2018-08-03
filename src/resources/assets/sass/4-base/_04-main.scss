@@ -20,11 +20,11 @@ body {
 -------------------------------------------------------------- */
 
 h1 {
-  @include flow(50);
+  @include flow(40);
 }
 
 h2 {
-  @include flow(22);
+  @include flow(20);
 }
 
 h3 {

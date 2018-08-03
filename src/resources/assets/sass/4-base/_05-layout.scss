@@ -1,76 +1,73 @@
-.app {
-    display: flex;
-    flex-direction: row;
-    min-height: 100vh;
-}
-
 .navigation {
-    background-color: #fff;
-    flex: 0 0 25rem;
-    color: #6C7688;
-    display: flex;
-    flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 25rem;
+  background-color: #fff;
+  color: #6c7688;
+  border-right: 1px solid #f0f0f0;
 }
 
 .navigation-profil {
-    border-bottom: 1px solid #CFD2D8;
-    padding: 1.5rem;
-    font-size: 1.8rem;
-}
-
-.navigation-menu {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+  padding: 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 1.8rem;
 }
 
 .navigation-menu__bottom {
-    border-top: 1px solid #CFD2D8;
-    text-align: center;
-    margin-top: auto;
+  border-top: 1px solid #f0f0f0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  width: 25rem;
+  height: 4rem;;
 }
 
 .navigation-logout {
-    color: #d64a5f;
-    text-decoration: none;
-    padding: 1rem;
-    display: block;
-    font-size: 1.6rem;
-    background: transparent;
-    border: none;
-    box-shadow: transparent;
-    text-align: center;
-    display: block;
-    width: 100%;
+  display: block;
+  display: block;
+  padding: 1rem;
+  width: 100%;
+  border: none;
+  background: transparent;
+  box-shadow: transparent;
+  color: #d64a5f;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1.6rem;
 }
 
-
 .navigation-menu__main a {
-    display: block;
-    font-size: 1.6rem;
-    padding: 1.3rem;
-    border-left: 3px solid transparent;
-    text-decoration: none;
+  display: block;
+  padding: 1.3rem;
+  border-left: 3px solid transparent;
+  text-decoration: none;
+  font-size: 1.6rem;
 }
 
 .navigation-menu__main a svg {
-    vertical-align: middle;
-    margin-right: .5rem;
+  margin-right: .5rem;
+  vertical-align: middle;
 }
 
 .navigation-menu__main .is-active,
 .navigation-menu__main a:hover {
-    border-left: 3px solid #d64a5f;
+  border-left: 3px solid #d64a5f;
 }
 
 .navigation-menu__main a,
 .navigation-menu__main a:hover,
 .navigation-menu__main a:visited {
-    color: #6C7688;
-    font-size: 1.6rem;
+  color: #6c7688;
+  font-size: 1.6rem;
 }
 
+/* ----------------------------------------------------------- */
+/* == content */
+/* ----------------------------------------------------------- */
+
 .content {
-    flex: 1;
-    padding: 3rem;
+  padding-left: 25rem;
 }

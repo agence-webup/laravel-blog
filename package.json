@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/agence-webup/laravel-blog/issues"
   },
-  "homepage": "https://github.com/agence-webup/laravel-blog#readme"
+  "homepage": "https://github.com/agence-webup/laravel-blog#readme",
+  "dependencies": {
+    "timeago.js": "^3.0.2"
+  },
+  "devDependencies": {
+    "gulp-npm-files": "^0.1.3"
+  }
 }
