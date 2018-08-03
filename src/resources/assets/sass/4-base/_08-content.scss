@@ -2,5 +2,19 @@
 /* == content */
 /* ----------------------------------------------------------- */
 
-.content {
+.content-pa {
+  padding: 2rem 4rem;
+}
+
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #cfd2d8;
+}
+
+.content-header h1 {
+  font-size: 2.4rem;
 }

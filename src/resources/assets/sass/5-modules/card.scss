@@ -1,0 +1,34 @@
+/* ----------------------------------------------------------- */
+/* == card */
+/* ----------------------------------------------------------- */
+
+.card,
+.card:visited {
+  margin-bottom: 2rem;
+  padding: 2rem 2rem;
+  background-color: #fff;
+  box-shadow: 2px 2px 2px 0 #e2e2e2;
+  display: block;
+  cursor: pointer;
+  color: $color-dark-text;
+  text-decoration: none;
+}
+
+.card:hover {
+  text-decoration: none;
+  box-shadow: 3px 3px 4px 0 #e2e2e2;
+}
+
+
+.card > div {
+  padding-left: 2rem;
+  border-left: 3px solid #c7cad0;
+}
+
+.card h2 {
+  margin: 0 0 1rem 0;
+}
+
+.card-blog--published > div {
+  border-left-color: #00d6a5;
+}

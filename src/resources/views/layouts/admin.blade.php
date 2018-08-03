@@ -17,7 +17,7 @@
     <div class="app">
         <nav class="navigation">
             <div class="navigation-profil">
-                <img src="{{ Auth::guard("blog")->user()->pictureUrl }}" width="40" height="40" alt="Profil picture" class="avatar--rounded avatar--small mr05"> {{ Auth::guard("blog")->user()->email }}
+                <img src="{{ Auth::guard("blog")->user()->pictureUrl }}" width="40" height="40" alt="Profil picture" class="avatar--rounded avatar--small mr05"> {{ Auth::guard("blog")->user()->name }}
             </div>
             <div class="navigation-menu">
                 <div class="navigation-menu__main">
@@ -34,7 +34,6 @@
                     </form>
                 </div>
             </div>
-
         </nav>
         <main class="content">
             @yield('content')

@@ -24,7 +24,6 @@
 
 .switch[type="checkbox"]::-ms-check {
   opacity: 0;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; // IE 8
 }
 
 /* Checked state

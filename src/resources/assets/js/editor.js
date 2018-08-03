@@ -1,7 +1,7 @@
 let Editor = (() => {
     const Delta = Quill.import('delta');
     const AUTOSAVE_REFRESH = 5000;
-    const TIMEAGO_REFRESH = 30000;
+    const TIMEAGO_REFRESH = 10000;
 
     class Editor {
         init() {
