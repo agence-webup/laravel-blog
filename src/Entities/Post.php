@@ -12,6 +12,14 @@ class Post extends BaseModel
    * @var array
    */
     protected $fillable = [
-      'title', 'text'
-  ];
+      'user_id',
+      'title',
+      'content',
+      'quill_content',
+    ];
+
+    public function author()
+    {
+        return $this->belongsTo("Webup\LaravelBlog\Entities\User", "user_id");
+    }
 }

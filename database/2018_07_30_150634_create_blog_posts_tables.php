@@ -16,8 +16,14 @@ class CreateBlogPostsTables extends Migration
         Schema::connection(config()->get('blog.database.connection'))->create('posts', function ($table) {
             $table->increments('id');
 
+            $table->integer('user_id')->unsigned()->nullable();
+
             $table->string('title')->nullable();
-            $table->text('text')->nullable();
+            $table->text('content')->nullable();
+            $table->text('quill_content')->nullable();
+
+            $table->foreign('user_id')->references('id')->on('users');
+
             $table->timestamps();
         });
     }

@@ -22,10 +22,10 @@ Route::group([
             Route::get('/create', 'UserController@create')->name('create');
             Route::post('/store', 'UserController@store')->name('store');
 
-            Route::get('/edit/{id}', 'UserController@edit')->name('edit');
-            Route::put('/update/{id}', 'UserController@update')->name('update');
+            Route::get('/edit/{id}', 'UserController@edit')->name('edit')->where(['id' => '[0-9]+']);
+            Route::put('/update/{id}', 'UserController@update')->name('update')->where(['id' => '[0-9]+']);
 
-            Route::delete('/delete/{id}', 'UserController@delete')->name('delete');
+            Route::delete('/delete/{id}', 'UserController@delete')->name('delete')->where(['id' => '[0-9]+']);
         });
 
 
@@ -33,7 +33,8 @@ Route::group([
             Route::get('', 'PostController@index')->name('index');
 
             Route::get('/create', 'PostController@create')->name('create');
-            Route::post('/store', 'PostController@store')->name('store');
+            Route::get('/edit/{id}', 'PostController@edit')->name('edit')->where(['id' => '[0-9]+']);
+            Route::post('/update/{id}', 'PostController@update')->name('update')->where(['id' => '[0-9]+']);
         });
 
 

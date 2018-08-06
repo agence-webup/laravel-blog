@@ -6,33 +6,16 @@
         <h1>Tous mes articles (2)</h1>
         <a href="{{ route("admin.blog.post.create") }}" class="btn btn--primary">Écrire un article</a>
     </div>
-    
-    <!--
-        <ul>
-            @foreach ($posts as $key => $post)
-            <article class="card card-blog card-blog--published">
-                <div>
-                    <h2>{{ $post->title }}</h2>
-                    <div>@include('laravel-blog::svg.list') 18/11/2018 à 12:00 - article rédigé par Martin</div>
-                </div>
-            </article>
-            @endforeach
-        </ul>
-    -->
-    
-    <a class="card card-blog card-blog--published">
-        <div>
-            <h2>Ici le titre de mon article</h2>
-            <div>@include('laravel-blog::svg.list') 18/11/2018 à 12:00 - article rédigé par Martin</div>
-        </div>
-    </a>
-    
-    <a class="card card-blog card-blog--published">
-        <div>
-            <h2>Ici le titre de mon article</h2>
-            <div>@include('laravel-blog::svg.list') 18/11/2018 à 12:00 - article rédigé par Martin</div>
-        </div>
-    </a>
+
+    @foreach ($posts as $key => $post)
+
+      <a class="card card-blog card-blog--published" href="{{ route("admin.blog.post.edit",[$post->id]) }}">
+          <div>
+              <h2>{{ $post->title }}</h2>
+              <div>@include('laravel-blog::svg.list') {{ $post->created_at->formatLocalized('%c') }} (dernière modification : {{ $post->updated_at->formatLocalized('%c') }}) - article rédigé par {{ $post->author->name }}</div>
+          </div>
+      </a>
+    @endforeach
 </div>
 @endsection
 

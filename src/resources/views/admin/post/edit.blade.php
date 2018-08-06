@@ -29,7 +29,7 @@
                 <button class="ql-list" value="bullet" type="button"></button>
                 <button type="button" class="ql-indent" value="-1"></button>
                 <button type="button" class="ql-indent" value="+1"></button>
-            </span>            
+            </span>
             <span class="ql-formats">
                 <button type="button" class="ql-image"></button>
                 <button type="button" class="ql-video"></button>
@@ -45,18 +45,8 @@
 </div>
 
 <div class="editor">
-    <input type="text" class="editor-title" placeholder="Ici le titre de votre article...">
+    <input type="text" data-post="title" class="editor-title" placeholder="Ici le titre de votre article..." value="{{ $post->title }}">
     <div id="editorContent">
-        Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Aenean lacinia bibendum nulla sed consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lacinia bibendum nulla sed consectetur. Aenean lacinia bibendum nulla sed consectetur.
-        
-        Etiam porta sem malesuada magna mollis euismod. Maecenas sed diam eget risus varius blandit sit amet non magna. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Nullam id dolor id nibh ultricies vehicula ut id elit. Nullam id dolor id nibh ultricies vehicula ut id elit. Maecenas faucibus mollis interdum.
-        
-        Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id dolor id nibh ultricies vehicula ut id elit. Nulla vitae elit libero, a pharetra augue.
-        Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Aenean lacinia bibendum nulla sed consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lacinia bibendum nulla sed consectetur. Aenean lacinia bibendum nulla sed consectetur.
-        
-        Etiam porta sem malesuada magna mollis euismod. Maecenas sed diam eget risus varius blandit sit amet non magna. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Nullam id dolor id nibh ultricies vehicula ut id elit. Nullam id dolor id nibh ultricies vehicula ut id elit. Maecenas faucibus mollis interdum.
-        
-        Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id dolor id nibh ultricies vehicula ut id elit. Nulla vitae elit libero, a pharetra augue.
     </div>
 </div>
 
@@ -72,7 +62,14 @@
 <script src="{{ asset('vendor/laravel-blog/node_modules/timeago.js/dist/timeago.min.js') }}"></script>
 <script src="{{ asset('vendor/laravel-blog/node_modules/timeago.js/dist/timeago.locales.min.js') }}"></script>
 <script>
-    var editor = new Editor().init();
-    
+    var editor = new Editor({
+      interfaceLang : "fr",
+      updateUrl : "{{ route("admin.blog.post.update",[$post->id]) }}",
+      customHeaders : {
+        'X-CSRF-TOKEN' : "{{ csrf_token() }}"
+      },
+      content : {!! ($post->quill_content) ? $post->quill_content : "{}" !!}
+    }).init();
+
 </script>
 @endsection
