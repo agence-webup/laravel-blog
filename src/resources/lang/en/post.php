@@ -12,5 +12,30 @@ return [
       "word_count" => "Number of words :",
       "last_save" => "Last save :",
       "update" => "Update",
-    ]
+    ],
+    "topbar" => [
+      "reset" => "Reset formatting",
+      "bold" => "Bold",
+      "italic" => "Italic",
+      "underline" => "Underline",
+      "alignment" => "Align",
+      "align" => [
+        "left" => "Left",
+        "center" => "Center",
+        "right" => "Right",
+        "justify" => "Justify",
+      ],
+      "header" => "Header",
+      "quote" => "Blockquote",
+      "list" => [
+        "ordered" => "Ordered list",
+        "bullet" =>  "Unordered list"
+      ],
+      "indent" => "Indent",
+      "unindent" => "Unindent",
+      "image" => "Add picture",
+      "video" => "Add video",
+      "link" => "Add link",
+      "settings" => "Settings",
+    ],
 ];
