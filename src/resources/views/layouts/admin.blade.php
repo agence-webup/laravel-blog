@@ -25,7 +25,7 @@
                     <a href="{{route('admin.blog.post.index')}}">@include('laravel-blog::svg.list') {{ __("laravel-blog::menu.posts") }}</a>
                     <a href="{{route('blog.index')}}" target="_blank">@include('laravel-blog::svg.website') {{ __("laravel-blog::menu.website") }}</a>
                     <a href="{{route('admin.blog.user.index')}}">@include('laravel-blog::svg.user') {{ __("laravel-blog::menu.users") }}</a>
-                    <a href="#">@include('laravel-blog::svg.settings') {{ __("laravel-blog::menu.settings") }}</a>
+                    <a href="{{route('admin.blog.setting.index')}}">@include('laravel-blog::svg.settings') {{ __("laravel-blog::menu.settings") }}</a>
                 </div>
                 <div class="navigation-menu__bottom">
                     <form action="{{ route("admin.blog.logout") }}" method="post">

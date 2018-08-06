@@ -64,7 +64,7 @@
 <script>
     var editor = new Editor({
       quillConfig:{
-        placeholder : "{{ __('laravel-blog::post.form.content_placeholder') }}"
+        placeholder : "{!! __('laravel-blog::post.form.content_placeholder') !!}"
       },
       interfaceLang : "{{ app()->getLocale() }}",
       updateUrl : "{{ route("admin.blog.post.update",[$post->id]) }}",

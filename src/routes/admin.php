@@ -37,6 +37,11 @@ Route::group([
             Route::post('/update/{id}', 'PostController@update')->name('update')->where(['id' => '[0-9]+']);
         });
 
+        Route::group(['prefix' => 'settings', 'as' => 'setting.'], function () {
+            Route::get('', 'SettingController@index')->name('index');
+        });
+
+
 
 
         Route::post('image', 'ImageController@upload')->name('image.upload');
