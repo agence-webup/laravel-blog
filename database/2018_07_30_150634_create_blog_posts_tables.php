@@ -19,8 +19,8 @@ class CreateBlogPostsTables extends Migration
             $table->integer('user_id')->unsigned()->nullable();
 
             $table->string('title')->nullable();
-            $table->text('content')->nullable();
-            $table->text('quill_content')->nullable();
+            $table->longText('content')->nullable();
+            $table->longText('quill_content')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users');
 
