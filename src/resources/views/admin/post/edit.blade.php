@@ -39,20 +39,20 @@
     </div>
     <div class="editor-topbar__actions">
         <button>FR</button>
-        <button>Mettre à jour</button>
+        <button>{{ __("laravel-blog::post.form.update") }}</button>
         <button>@include('laravel-blog::svg.settings2')</button>
     </div>
 </div>
 
 <div class="editor">
-    <input type="text" data-post="title" class="editor-title" placeholder="Ici le titre de votre article..." value="{{ $post->title }}">
+    <input type="text" data-post="title" class="editor-title" placeholder="{{ __("laravel-blog::post.form.title_placeholder") }}" value="{{ $post->title }}">
     <div id="editorContent">
     </div>
 </div>
 
 <div class="editor-status">
-    <div>Nombre de mots : <span data-counter>0</span></div>
-    <div><i class="tag tag--green mr1"></i>Dernière sauvegarde : <span data-timeago>à l'instant</span></div>
+    <div>{{ __("laravel-blog::post.form.word_count") }} <span data-counter>0</span></div>
+    <div><i class="tag tag--green mr1"></i>{{ __("laravel-blog::post.form.last_save") }} <span data-timeago></span></div>
 </div>
 @endsection
 
@@ -63,7 +63,10 @@
 <script src="{{ asset('vendor/laravel-blog/node_modules/timeago.js/dist/timeago.locales.min.js') }}"></script>
 <script>
     var editor = new Editor({
-      interfaceLang : "fr",
+      quillConfig:{
+        placeholder : "{{ __('laravel-blog::post.form.content_placeholder') }}"
+      },
+      interfaceLang : "{{ app()->getLocale() }}",
       updateUrl : "{{ route("admin.blog.post.update",[$post->id]) }}",
       customHeaders : {
         'X-CSRF-TOKEN' : "{{ csrf_token() }}"

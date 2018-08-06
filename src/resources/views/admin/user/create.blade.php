@@ -8,7 +8,7 @@
 
   @include("laravel-blog::admin.user.elements.form")
 
-  <button class="btn btn--primary" type="submit">Ajouter</button>
+  <button class="btn btn--primary" type="submit">{{ __('laravel-blog::user.create.submit') }}</button>
 
 </form>
 
@@ -18,6 +18,7 @@
   <script>
     var colibri = new Colibri('.colibri', {
         onUploadComplete: function(code, response) {
+          var response = JSON.parse(response);
           var pictureInput = document.querySelector('[data-js=picture]');
           if(response.path){
             pictureInput.value = response.path;

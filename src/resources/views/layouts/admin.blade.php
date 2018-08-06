@@ -21,16 +21,16 @@
             </div>
             <div class="navigation-menu">
                 <div class="navigation-menu__main">
-                    <a href="{{route('admin.blog.post.create')}}" class="is-active">@include('laravel-blog::svg.add') Écrire un article</a>
-                    <a href="{{route('admin.blog.post.index')}}">@include('laravel-blog::svg.list') Mes articles</a>
-                    <a href="{{route('blog.index')}}" target="_blank">@include('laravel-blog::svg.website') Voir mon site</a>
-                    <a href="{{route('admin.blog.user.index')}}">@include('laravel-blog::svg.user') Utilisateurs</a>
-                    <a href="#">@include('laravel-blog::svg.settings') Réglages</a>
+                    <a href="{{route('admin.blog.post.create')}}" class="is-active">@include('laravel-blog::svg.add') {{ __("laravel-blog::menu.newpost") }}</a>
+                    <a href="{{route('admin.blog.post.index')}}">@include('laravel-blog::svg.list') {{ __("laravel-blog::menu.posts") }}</a>
+                    <a href="{{route('blog.index')}}" target="_blank">@include('laravel-blog::svg.website') {{ __("laravel-blog::menu.website") }}</a>
+                    <a href="{{route('admin.blog.user.index')}}">@include('laravel-blog::svg.user') {{ __("laravel-blog::menu.users") }}</a>
+                    <a href="#">@include('laravel-blog::svg.settings') {{ __("laravel-blog::menu.settings") }}</a>
                 </div>
                 <div class="navigation-menu__bottom">
                     <form action="{{ route("admin.blog.logout") }}" method="post">
                         {{ csrf_field() }}
-                        <button type="submit" name="button" class="navigation-logout">Se déconnecter</button>
+                        <button type="submit" name="button" class="navigation-logout">{{ __("logout") }}</button>
                     </form>
                 </div>
             </div>

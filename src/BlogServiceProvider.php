@@ -25,9 +25,12 @@ class BlogServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
+        $this->loadTranslationsFrom(__DIR__.'/resources/lang/', 'laravel-blog');
+
         $this->publishes([
           __DIR__.'/../config/blog.php' => config_path('blog.php'),
-          __DIR__.'/../public/assets/' => public_path('vendor/laravel-blog')
+          __DIR__.'/../public/assets/' => public_path('vendor/laravel-blog'),
+          __DIR__.'/resources/lang/' => resource_path('lang/vendor/laravel-blog'),
         ]);
 
         $router->aliasMiddleware('blog.auth', RedirectIfUnauthenticated::class);

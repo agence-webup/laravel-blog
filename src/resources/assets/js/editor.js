@@ -1,11 +1,12 @@
 let Editor = (() => {
     const Delta = Quill.import('delta');
-    const AUTOSAVE_REFRESH = 1000;
+    const AUTOSAVE_REFRESH = 5000;
     const TIMEAGO_REFRESH = 10000;
 
     class Editor {
 
         constructor(config){
+          this.quillConfig = config.quillConfig;
           this.updateUrl = config.updateUrl;
           this.customHeaders = config.customHeaders;
           this.interfaceLang = config.interfaceLang;
@@ -14,6 +15,7 @@ let Editor = (() => {
 
         init() {
             this.ui = {
+                title: document.querySelector('[data-post=title]'),
                 counter: document.querySelector('[data-counter]'),
                 timeAgo: document.querySelector('[data-timeago]'),
                 editorContent: document.querySelector('#editorContent')
@@ -31,15 +33,16 @@ let Editor = (() => {
 
         initQuill() {
             this.change = new Delta;
-            this.quill = new Quill('#editorContent', {
+            let defaultConfig = {
                 theme: 'snow',
-                placeholder: "Qu'allez-vous raconter aujourd'hui ?",
                 modules: {
                     toolbar: {
                         container: '#topbar'
                     },
                 }
-            });
+            }
+            //Init Quill with defaultConfig merged with customConfig
+            this.quill = new Quill(this.ui.editorContent, Object.assign({}, defaultConfig,this.quillConfig));
 
             if(this.content){
                 this.quill.setContents(this.content);
@@ -87,7 +90,7 @@ let Editor = (() => {
         getFormData() {
           let formData = new FormData();
 
-          formData.append("title",document.querySelector("[data-post='title']").value);
+          formData.append("title",this.ui.title.value);
           formData.append("content",this.quill.root.innerHTML);
           formData.append("quill_content",JSON.stringify(this.quill.getContents()));
 
@@ -101,7 +104,7 @@ let Editor = (() => {
 
               request.setRequestHeader('Accept', 'application/json');
 
-              for (var header in this.customHeaders) {
+              for (let header in this.customHeaders) {
                 if (this.customHeaders.hasOwnProperty(header)) {
                   request.setRequestHeader(header, this.customHeaders[header]);
                 }
