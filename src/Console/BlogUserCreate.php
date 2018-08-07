@@ -34,13 +34,17 @@ class BlogUserCreate extends Command
         $email = $this->ask('Email');
         $password = $this->ask('Password');
 
-        $admin = new User();
-        $admin->name = $name;
-        $admin->email = $email;
-        $admin->password = bcrypt($password);
-        $admin->isAdmin = true;
-        $admin->save();
-
-        $this->comment("Blog admin user was created");
+        try {
+            $admin = new User();
+            $admin->name = $name;
+            $admin->email = $email;
+            $admin->password = bcrypt($password);
+            $admin->isAdmin = true;
+            $admin->save();
+            $this->comment("Blog admin user was created");
+        } catch (\Exception $e) {
+            $this->error("Cannot create blog admin user");
+            $this->error($e->getMessage());
+        }
     }
 }
