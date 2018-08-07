@@ -20,6 +20,7 @@
     "timeago.js": "^3.0.2"
   },
   "devDependencies": {
+    "gulp-autoprefixer": "^5.0.0",
     "gulp-npm-files": "^0.1.3"
   }
 }

@@ -2,11 +2,13 @@ const gulp = require('gulp');
 const babel = require('gulp-babel');
 const sass = require('gulp-sass');
 const gnf = require('gulp-npm-files');
+const autoprefixer = require('gulp-autoprefixer');
 
 
 gulp.task('sass', function () {
     return gulp.src('./src/resources/assets/sass/*.scss')
         .pipe(sass().on('error', sass.logError))
+        .pipe(autoprefixer())
         .pipe(gulp.dest('../../public/vendor/laravel-blog/css'));
 });
 

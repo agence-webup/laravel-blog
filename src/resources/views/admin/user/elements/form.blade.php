@@ -37,6 +37,7 @@
   </div>
 
   <div>
-    <label for="isAdmin">{{ __("laravel-blog::user.form.isAdmin") }}</label>
-    <input id="isAdmin" type="text" name="isAdmin" value="{{ old('isAdmin', $user->isAdmin) }}">
+    <label>Divers</label>
+    <input type="checkbox" name="isAdmin" id="isAdmin" class="switch" @if(old('isAdmin', $user->isAdmin)) checked @endif>
+    <label for="isAdmin">Administrateur</label>
   </div>
