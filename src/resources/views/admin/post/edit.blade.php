@@ -22,6 +22,7 @@
             </span>
             <span class="ql-formats" title="pouet">
                 <button type="button" class="ql-header" value="2" title="{{ __("laravel-blog::post.topbar.header") }}"></button>
+                <button type="button" class="ql-header" value="3" title="{{ __("laravel-blog::post.topbar.header") }}"></button>
                 <button type="button" class="ql-blockquote" title="{{ __("laravel-blog::post.topbar.quote") }}"></button>
             </span>
             <span class="ql-formats" title="pouet">
@@ -68,6 +69,7 @@
       },
       interfaceLang : "{{ app()->getLocale() }}",
       updateUrl : "{{ route("admin.blog.post.update",[$post->id]) }}",
+      uploadImageUrl : "{{ route("admin.blog.image.upload") }}",
       customHeaders : {
         'X-CSRF-TOKEN' : "{{ csrf_token() }}"
       },

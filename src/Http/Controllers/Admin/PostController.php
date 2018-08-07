@@ -18,9 +18,15 @@ class PostController extends BaseController
 
     public function create()
     {
-        $post = new Post();
-        $post->user_id = $this->guard()->user()->id;
-        $post->save();
+        //get last post for user
+        $post = Post::where("user_id", $this->guard()->user()->id)->orderBy("created_at", "DESC")->first();
+
+        //Check if last post is recently created (avoid empty post list)
+        if (!$post || !$post->isRecentlyCreated()) {
+            $post = new Post();
+            $post->user_id = $this->guard()->user()->id;
+            $post->save();
+        }
 
         return redirect()->to(route("admin.blog.post.edit", [$post->id]));
     }

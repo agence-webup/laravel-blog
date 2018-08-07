@@ -1,13 +1,14 @@
 let Editor = (() => {
     const Delta = Quill.import('delta');
     const AUTOSAVE_REFRESH = 5000;
-    const TIMEAGO_REFRESH = 10000;
+    const TIMEAGO_REFRESH = 2000;
 
     class Editor {
 
         constructor(config){
           this.quillConfig = config.quillConfig;
           this.updateUrl = config.updateUrl;
+          this.uploadImageUrl = config.uploadImageUrl;
           this.customHeaders = config.customHeaders;
           this.interfaceLang = config.interfaceLang;
           this.content = config.content;
@@ -37,7 +38,10 @@ let Editor = (() => {
                 theme: 'snow',
                 modules: {
                     toolbar: {
-                        container: '#topbar'
+                        container: '#topbar',
+                        handlers: {
+                          'image': this.quillImageHandler.bind(this)
+                        }
                     },
                 }
             }
@@ -67,14 +71,14 @@ let Editor = (() => {
                     this.change = new Delta();
 
                     this.sendData(this.getFormData()).then(
-                      //Success
+                      // Success
                       (response) => {
                         console.log("save ok !");
                         // update save status
                         this.lastSave = Date.now();
                         this.updateTimeAgo();
                       },
-                      //Error
+                      // Error
                       (error) => {
                         console.error("save ko !");
                       }
@@ -101,7 +105,6 @@ let Editor = (() => {
           return new Promise((resolve, reject) => {
               let request = new XMLHttpRequest();
               request.open("POST", this.updateUrl, true);
-
               request.setRequestHeader('Accept', 'application/json');
 
               for (let header in this.customHeaders) {
@@ -123,6 +126,83 @@ let Editor = (() => {
               request.send(data);
           });
         }
+
+        sendImage(data){
+          return new Promise((resolve, reject) => {
+              let request = new XMLHttpRequest();
+              request.open("POST", this.uploadImageUrl, true);
+
+              request.setRequestHeader('Accept', 'application/json');
+
+              for (let header in this.customHeaders) {
+                if (this.customHeaders.hasOwnProperty(header)) {
+                  request.setRequestHeader(header, this.customHeaders[header]);
+                }
+              }
+
+              request.upload.addEventListener("progress", function(e) {
+                var progress = Math.round((e.loaded * 100.0) / e.total);
+                console.log("Progress = "+progress);
+              });
+
+              request.onload = function(event) {
+                  if (request.status == 200) {
+                      const data = JSON.parse(request.response);
+                      resolve(data.url);
+                  } else {
+                      const data = JSON.parse(request.response);
+                      reject(data);
+                  }
+              };
+
+              request.send(data);
+          });
+        }
+
+
+        /**
+        * Handlers
+        */
+
+        quillImageHandler(){
+          //this.quill.enable(false);
+          let fileInput = this.quill.container.querySelector('input.ql-image[type=file]');
+          if (fileInput == null) {
+            fileInput = document.createElement('input');
+            fileInput.setAttribute('type', 'file');
+            fileInput.setAttribute('accept', 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon');
+            fileInput.classList.add('ql-image');
+            fileInput.style.display = "none";
+            fileInput.addEventListener('change', () => {
+              if (fileInput.files != null && fileInput.files[0] != null) {
+                var formData = new FormData();
+                formData.append("file", fileInput.files[0]);
+                this.sendImage(formData).then(
+                  // Success
+                  (data) => {
+                    //this.quill.enable(true);
+                    let range = this.quill.getSelection(true);
+                    this.quill.updateContents(new Delta()
+                      .retain(range.index)
+                      .delete(range.length)
+                      .insert({ image: data })
+                    , Quill.sources.USER);
+                    fileInput.value = "";
+                    fileInput.remove();
+                  },
+                  // Error
+                  (error) => {
+                    //this.quill.enable(true);
+                    alert(error);
+                  }
+                );
+              }
+            });
+            this.quill.container.appendChild(fileInput);
+          }
+          fileInput.click();
+      }
+
 
         /**
          * UI

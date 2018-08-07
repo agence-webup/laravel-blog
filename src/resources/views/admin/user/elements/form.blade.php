@@ -20,7 +20,7 @@
 
   <div>
     <label for="picture">{{ __("laravel-blog::user.form.picture") }}</label>
-    <div class="colibri" id="colibri" data-pic="{{ $user->pictureUrl }}" data-post="{{ route('admin.blog.image.upload')."?fieldName=picture&_token=".csrf_token() }}">
+    <div class="colibri" id="colibri" data-pic="{{ $user->pictureUrl }}" data-post="{{ route('admin.blog.image.upload')."?fieldName=picture&maxWidth=500&maxHeight=500&_token=".csrf_token() }}">
         <label for="file">
             <div>{{ __("laravel-blog::user.form.choose") }}</div>
         </label>

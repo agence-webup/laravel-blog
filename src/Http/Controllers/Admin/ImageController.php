@@ -20,7 +20,7 @@ class ImageController extends BaseController
         $ext = '.'.$file->getClientOriginalExtension();
         $name = str_replace($ext, "", str_slug($file->getClientOriginalName())).'-'.uniqid().$ext;
 
-        $img = $this->resizeIfOutOfBounds(Image::make($file), 500, 500);
+        $img = $this->resizeIfOutOfBounds(Image::make($file), $request->get("maxWidth", null), $request->get("maxHeight", null));
         $img->save();
 
         $path = Storage::putFileAs("/public/blog/images", new \SplFileInfo($file), $name, 'public');
@@ -33,15 +33,12 @@ class ImageController extends BaseController
 
     private function resizeIfOutOfBounds(\Intervention\Image\Image $image, $maxWidth = null, $maxHeight = null)
     {
-        $maxWidth = ($maxWidth) ? $maxWidth : 1000;
-        $maxHeight = ($maxHeight) ? $maxHeight : 1000;
-
-        if ($image->width() > $maxWidth) {
+        if ($maxWidth && $image->width() > $maxWidth) {
             $image->resize($maxWidth, null, function ($constraint) {
                 $constraint->aspectRatio();
             });
         }
-        if ($image->height() > $maxHeight) {
+        if ($maxHeight && $image->height() > $maxHeight) {
             $image->resize(null, $maxHeight, function ($constraint) {
                 $constraint->aspectRatio();
             });

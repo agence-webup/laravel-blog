@@ -22,4 +22,9 @@ class Post extends BaseModel
     {
         return $this->belongsTo("Webup\LaravelBlog\Entities\User", "user_id");
     }
+
+    public function isRecentlyCreated()
+    {
+        return $this->created_at == $this->updated_at;
+    }
 }
