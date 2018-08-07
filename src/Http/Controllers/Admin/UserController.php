@@ -43,7 +43,7 @@ class UserController extends BaseController
             "isAdmin" => "",
         ]);
 
-        $data["isAdmin"] = false;
+        $data["isAdmin"] = (array_get($data, "isAdmin", "") == "on") ? true : false;
 
         $user = new User($data);
         $password = str_random(10);
@@ -87,7 +87,7 @@ class UserController extends BaseController
           "isAdmin" => "",
         ]);
 
-        $data["isAdmin"] = false;
+        $data["isAdmin"] = (array_get($data, "isAdmin", "") == "on") ? true : false;
 
         $user->update($data);
 

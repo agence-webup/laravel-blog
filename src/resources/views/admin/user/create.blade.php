@@ -1,16 +1,24 @@
 @extends('laravel-blog::layouts.admin')
 
 @section('content')
-<h1>{{ __('laravel-blog::user.create.title') }}</h1>
 
-<form class="" action="{{ route("admin.blog.user.store") }}" method="post">
-  {{ csrf_field() }}
+<div class="content-pa">
+    <div class="content-header">
+        <h1>{{ __('laravel-blog::user.create.title') }}</h1>
+    </div>
 
-  @include("laravel-blog::admin.user.elements.form")
+    <form class="" action="{{ route("admin.blog.user.store") }}" method="post">
+      {{ csrf_field() }}
 
-  <button class="btn btn--primary" type="submit">{{ __('laravel-blog::user.create.submit') }}</button>
+      @include("laravel-blog::admin.user.elements.form")
 
-</form>
+      <div class="mt3">
+          <button type="submit" class="btn btn--primary">{{ __('laravel-blog::user.create.submit') }}</button>
+      </div>
+
+    </form>
+
+</div>
 
 @endsection
 
