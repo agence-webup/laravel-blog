@@ -11,4 +11,10 @@ return [
         'register' => true,
     ],
   ],
+  'default_locale' => 'en',
+  'locales' => [
+    'en' => 'English',
+    'fr' => 'French',
+    'es' => 'Spanish',
+  ],
 ];

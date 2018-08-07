@@ -11,7 +11,7 @@ class PostController extends BaseController
 {
     public function index()
     {
-        $posts = Post::get();
+        $posts = Post::with('author')->get();
 
         return view('laravel-blog::admin.post.index', compact('posts'));
     }
@@ -28,13 +28,18 @@ class PostController extends BaseController
             $post->save();
         }
 
-        return redirect()->to(route("admin.blog.post.edit", [$post->id]));
+        return redirect()->to(route("admin.blog.post.edit", ["id" => $post->id,"lang" => config()->get('blog.default_locale')]));
     }
 
     public function edit(Request $request, $id)
     {
+        if (!array_key_exists($request->get("lang"), config()->get('blog.locales'))) {
+            abort(404);
+        }
+
         $post = Post::findOrFail($id);
-        return view('laravel-blog::admin.post.edit', compact('post'));
+        $locale = $request->get("lang");
+        return view('laravel-blog::admin.post.edit', compact('post', 'locale'));
     }
 
     public function update(Request $request, $id)

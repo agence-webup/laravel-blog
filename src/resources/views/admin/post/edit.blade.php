@@ -5,6 +5,10 @@
 @endsection
 
 @section('content')
+
+<input type="hidden" name="post_id" value="{{ $post->id }}">
+<input type="hidden" name="locale" value="{{ $locale }}">
+
 <div class="editor-topbar">
     <div id="topbar">
         <div id="toolbar">
