@@ -30,10 +30,12 @@ class BlogUserCreate extends Command
     {
         $this->comment("Create a blog admin user");
 
-        $email = $this->ask('email');
-        $password = $this->ask('password');
+        $name = $this->ask('Name');
+        $email = $this->ask('Email');
+        $password = $this->ask('Password');
 
         $admin = new User();
+        $admin->name = $name;
         $admin->email = $email;
         $admin->password = bcrypt($password);
         $admin->isAdmin = true;
