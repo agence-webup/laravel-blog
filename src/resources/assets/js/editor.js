@@ -2,6 +2,10 @@ let Editor = (() => {
     const Delta = Quill.import('delta');
     const AUTOSAVE_REFRESH = 5000;
     const TIMEAGO_REFRESH = 2000;
+    const CSS = {
+        EDITOR_SIDEBAR_OPEN: 'editor-sidebar--open',
+        EDITOR_SIDEBAR_CLOSING_MODE: 'editor-sidebarBtn--closingMode'
+    };
 
     class Editor {
 
@@ -19,17 +23,31 @@ let Editor = (() => {
                 title: document.querySelector('[data-post=title]'),
                 counter: document.querySelector('[data-counter]'),
                 timeAgo: document.querySelector('[data-timeago]'),
-                editorContent: document.querySelector('#editorContent')
+                editorContent: document.querySelector('#editorContent'),
+                btnSettings: document.querySelector('[data-btn-settings]'),
+                sidebar: document.querySelector('[data-sidebar]')
             };
 
             this.initQuill();
             this.initTimeAgo();
             this.initEvents();
             this.initTimer();
+            this.bindEvents();
 
             // update counter at page load
             this.updateCounter(this.countWords(this.ui.editorContent.innerText));
             this.lastSave = null;
+        }
+
+        bindEvents() {
+            this.ui.btnSettings.addEventListener('click', () => {
+                this.toggleSidebar();
+            });
+        }
+
+        toggleSidebar() {
+            this.ui.sidebar.classList.toggle(CSS.EDITOR_SIDEBAR_OPEN);
+            this.ui.btnSettings.classList.toggle(CSS.EDITOR_SIDEBAR_CLOSING_MODE);
         }
 
         initQuill() {

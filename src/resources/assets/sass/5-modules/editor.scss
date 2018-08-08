@@ -1,7 +1,5 @@
 /* ----------------------------------------------------------- */
-
 /* == editor */
-
 /* ----------------------------------------------------------- */
 
 .editor {
@@ -27,9 +25,7 @@
 }
 
 /* ----------------------------------------------------------- */
-
 /* == Topbar */
-
 /* ----------------------------------------------------------- */
 
 .editor-topbar {
@@ -38,10 +34,11 @@
   right: 0;
   left: 25rem;
   z-index: 100;
-  background-color: #f0f0f0;
   display: flex;
   justify-content: space-between;
   align-items: stretch;
+  height: 4rem;
+  background-color: #f0f0f0;
 }
 
 .editor-topbar__actions {
@@ -49,21 +46,14 @@
 }
 
 .editor-topbar__actions button {
-  background-color: transparent;
-  border: none;
-  font-size: 1.6rem;
   padding: 0 1.5rem;
+  border: none;
   border-left: 1px solid #cfd2d8;
+  background-color: transparent;
+  font-size: 1.6rem;
   line-height: 0;
 }
 
-/* ----------------------------------------------------------- */
-/* == editor */
-/* ----------------------------------------------------------- */
-
-.editor {
-  padding-bottom: 7rem;
-}
 
 /* ----------------------------------------------------------- */
 /* == status */
@@ -76,17 +66,15 @@
   left: 25rem;
   display: flex;
   justify-content: space-between;
-  padding: .8rem;
-  background-color: #fff;
-  height: 4rem;
   align-items: center;
+  padding: .8rem;
+  height: 4rem;
   border-top: 1px solid #f0f0f0;
+  background-color: #fff;
 }
 
 /* ----------------------------------------------------------- */
-
 /* == Quill */
-
 /* ----------------------------------------------------------- */
 
 .editor .ql-container.ql-snow {
@@ -122,4 +110,71 @@
   padding-right: .8rem;
   padding-bottom: .5rem;
   border-right: 1px solid #cfd2d8;
+}
+
+/* ----------------------------------------------------------- */
+/* == editor */
+/* ----------------------------------------------------------- */
+
+.editor {
+  flex-grow: 1;
+  padding-bottom: 7rem;
+}
+
+
+/* ----------------------------------------------------------- */
+/* == editor wrapper */
+/* ----------------------------------------------------------- */
+
+.editor-wrapper {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+/* ----------------------------------------------------------- */
+/* == sidebar */
+/* ----------------------------------------------------------- */
+
+.editor-sidebarBtn > svg:nth-child(2) {
+  display: none;
+}
+
+.editor-sidebarBtn--closingMode svg:nth-child(2) {
+  display: inline;
+}
+.editor-sidebarBtn--closingMode svg:nth-child(1) {
+  display: none;
+}
+
+.editor-sidebar {
+  position: fixed;
+  top: 4rem;
+  right: 0;
+  bottom: 4rem;
+  padding: 0 2rem;
+  width: 30rem;
+  background-color: #fff;
+  transition: transform .5s ease;
+  transform: translateX(30rem);
+  border-left: 1px solid #f0f0f0;
+}
+
+.editor-sidebar__section {
+  margin: 0 -2rem;
+  padding: 1rem 2rem;
+  border-top: 1px solid #cfd2d8;
+  border-bottom: 1px solid #cfd2d8;
+  background-color: #f0f0f0;
+  color: #6C7688;
+  font-size: 1.6rem;
+}
+
+.editor-sidebar--open {
+  transform: translateX(0);
+}
+
+.editor-sidebar input,
+.editor-sidebar textarea {
+  min-width: 0;
 }
