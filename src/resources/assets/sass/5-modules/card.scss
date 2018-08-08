@@ -20,21 +20,48 @@
 }
 
 
-.card > div {
-  padding-left: 2rem;
-  border-left: 3px solid #c7cad0;
-}
-
-.card h2 {
-  margin: 0 0 1rem 0;
-}
+/* card blog
+-------------------------------------------------------------- */
 
 .card-blog--published > div {
   border-left-color: #00d6a5;
 }
 
 .card-blog__sub > svg {
-  vertical-align: middle;
   display: inline-block;
   margin-right: .2rem;
+  vertical-align: middle;
+}
+
+.card-blog > div {
+  padding-left: 2rem;
+  border-left: 3px solid #c7cad0;
+}
+
+.card-blog h2 {
+  margin: 0 0 1rem 0;
+}
+
+/* card user
+-------------------------------------------------------------- */
+
+.card-user:link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.card-user h2 {
+  margin: 0;
+  font-size: 1.7rem;
+  line-height: normal;
+}
+
+.card-user__separator {
+  display: inline-block;
+  margin: 0 .8rem;
+}
+
+.card-user__status {
+  margin-left: auto;
 }
