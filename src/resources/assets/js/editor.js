@@ -28,8 +28,7 @@ let Editor = (() => {
             this.initTimeAgo();
             this.initEvents();
             this.initTimer();
-            this.bindEvents();
-
+            
             // update counter at page load
             this.updateCounter(this.countWords(this.ui.editorContent.innerText));
             this.lastSave = null;
@@ -55,6 +54,7 @@ let Editor = (() => {
                 this.quill.setContents(this.content);
             }
         }
+
 
         initTimeAgo() {
             this.timeagoInstance = timeago();

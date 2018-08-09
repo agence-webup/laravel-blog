@@ -44,9 +44,9 @@
             </div>
         </div>
         <div class="editor-topbar__actions">
-            <button data-trigger="i18nSidebar">FR</button>
+            <button data-sidebar="triggerI18n">FR</button>
             <button>{{ __("laravel-blog::post.form.update") }}</button>
-            <button title="{{ __("laravel-blog::post.topbar.settings") }}" class="editor-sidebarBtn" data-trigger="sidebar">
+            <button title="{{ __("laravel-blog::post.topbar.settings") }}" class="editor-sidebarBtn" data-sidebar="triggerMain">
                 @include('laravel-blog::svg.settings2') 
                 @include('laravel-blog::svg.close')
             </button>
@@ -58,7 +58,7 @@
         <div id="editorContent">
         </div>
     </div>
-    <aside class="editor-sidebar" data-target="sidebar">
+    <aside class="editor-sidebar" data-sidebar="main">
         <div class="editor-sidebar__section">Propriété de l'article</div>
         <label for="hyperlink">Hyperlien</label>
         <input type="text" id="hyperlink" name="hyperlink">
@@ -73,9 +73,13 @@
             <input type="checkbox" name="isIndexed" id="isIndexed" class="switch" checked>
             <label for="isIndexed" checked>Article indexé</label>
         </div>
+        <div class="editor-sidebar__section">SEO</div>
+        <div class="editor-sidebar__section">Twitter</div>
+        <div class="editor-sidebar__section">Facebook</div>
+
     </aside>
     
-    <aside class="editor-sidebar" data-target="i18nSidebar">
+    <aside class="editor-sidebar" data-sidebar="i18n">
         <div class="editor-sidebar-list">
             <a href="#"><i class="tag tag--green mr05"></i> Français (en cours)</a>
             <a href="#"><i class="tag tag--red mr05"></i> Anglais</a>
@@ -100,13 +104,13 @@
 <script src="{{ asset('vendor/laravel-blog/node_modules/timeago.js/dist/timeago.locales.min.js') }}"></script>
 <script>
     var mainSidebar = new Sidebar(
-    document.querySelector('[data-target="sidebar"]'), 
-    document.querySelector('[data-trigger="sidebar"]')
+        document.querySelector('[data-sidebar="main"]'), 
+        document.querySelector('[data-sidebar="triggerMain"]')
     ).init();
     
     var i18nSidebar = new Sidebar(
-    document.querySelector('[data-target="i18nSidebar"]'), 
-    document.querySelector('[data-trigger="i18nSidebar"]') 
+        document.querySelector('[data-sidebar="i18n"]'), 
+        document.querySelector('[data-sidebar="triggerI18n"]') 
     ).init();
     
     var editor = new Editor({
