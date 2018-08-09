@@ -120,10 +120,7 @@
         uiLang : "{{ app()->getLocale() }}",
         updateUrl : "{{ route("admin.blog.post.update",[$post->id]) }}",
         uploadImageUrl : "{{ route("admin.blog.image.upload") }}",
-        quillContent : {!! ($post->quill_content) ? $post->quill_content : "{}" !!},
-        customHeaders : {
-            'X-CSRF-TOKEN' : "{{ csrf_token() }}"
-        },
+        quillContent : {!! ($post->quill_content) ? $post->quill_content : "{}" !!}
     };
 </script>
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>

@@ -10,7 +10,7 @@ let Editor = (() => {
                 title: document.querySelector('[data-post=title]'),
                 editorContent: document.querySelector('#editorContent'),
             };
-            
+
             console.log(LBConfig.quillContent);
             this.content = LBConfig.quillContent;
         }
@@ -90,13 +90,7 @@ let Editor = (() => {
                 let request = new XMLHttpRequest();
                 request.open("POST", LBConfig.updateUrl, true);
                 request.setRequestHeader('Accept', 'application/json');
-
-                for (let header in LBConfig.customHeaders) {
-                    if (LBConfig.customHeaders.hasOwnProperty(header)) {
-                        request.setRequestHeader(header, LBConfig.customHeaders[header]);
-                    }
-                }
-
+                request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
                 request.onload = function (event) {
                     if (request.status == 200) {
                         const data = JSON.parse(request.response);
