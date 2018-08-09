@@ -39,7 +39,7 @@
             @yield('content')
         </main>
     <div>
-    <script src="https://cdn.rawgit.com/agence-webup/colibri/83b76ae3/dist/colibri.js" charset="utf-8"></script>
+    <script src="https://cdn.rawgit.com/agence-webup/colibri/83b76ae3/dist/colibri.js" async></script>
     @yield('js')
 </body>
 </html>

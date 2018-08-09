@@ -44,9 +44,9 @@
             </div>
         </div>
         <div class="editor-topbar__actions">
-            <button>FR</button>
+            <button data-trigger="i18nSidebar">FR</button>
             <button>{{ __("laravel-blog::post.form.update") }}</button>
-            <button title="{{ __("laravel-blog::post.topbar.settings") }}" class="editor-sidebarBtn" data-btn-settings>
+            <button title="{{ __("laravel-blog::post.topbar.settings") }}" class="editor-sidebarBtn" data-trigger="sidebar">
                 @include('laravel-blog::svg.settings2') 
                 @include('laravel-blog::svg.close')
             </button>
@@ -58,7 +58,7 @@
         <div id="editorContent">
         </div>
     </div>
-    <aside class="editor-sidebar" data-sidebar>
+    <aside class="editor-sidebar" data-target="sidebar">
         <div class="editor-sidebar__section">Propriété de l'article</div>
         <label for="hyperlink">Hyperlien</label>
         <input type="text" id="hyperlink" name="hyperlink">
@@ -75,20 +75,40 @@
         </div>
     </aside>
     
+    <aside class="editor-sidebar" data-target="i18nSidebar">
+        <div class="editor-sidebar-list">
+            <a href="#"><i class="tag tag--green mr05"></i> Français (en cours)</a>
+            <a href="#"><i class="tag tag--red mr05"></i> Anglais</a>
+            <a href="#"><i class="tag tag--red mr05"></i> Allemand</a>
+        </div>
+    </aside>
+    
     <div class="editor-status">
         <div>{{ __("laravel-blog::post.form.word_count") }} <span data-counter>0</span></div>
         <div><i class="tag tag--green mr1"></i>{{ __("laravel-blog::post.form.last_save") }} <span data-timeago></span></div>
     </div>
+    
 </div>
 
 @endsection
 
 @section('js')
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script src="{{ asset('vendor/laravel-blog/js/sidebar.js') }}"></script>
 <script src="{{ asset('vendor/laravel-blog/js/editor.js') }}"></script>
 <script src="{{ asset('vendor/laravel-blog/node_modules/timeago.js/dist/timeago.min.js') }}"></script>
 <script src="{{ asset('vendor/laravel-blog/node_modules/timeago.js/dist/timeago.locales.min.js') }}"></script>
 <script>
+    var mainSidebar = new Sidebar(
+    document.querySelector('[data-target="sidebar"]'), 
+    document.querySelector('[data-trigger="sidebar"]')
+    ).init();
+    
+    var i18nSidebar = new Sidebar(
+    document.querySelector('[data-target="i18nSidebar"]'), 
+    document.querySelector('[data-trigger="i18nSidebar"]') 
+    ).init();
+    
     var editor = new Editor({
         quillConfig:{
             placeholder : "{!! __('laravel-blog::post.form.content_placeholder') !!}"

@@ -23,10 +23,6 @@
 /* card blog
 -------------------------------------------------------------- */
 
-.card-blog--published > div {
-  border-left-color: #00d6a5;
-}
-
 .card-blog__sub > svg {
   display: inline-block;
   margin-right: .2rem;
@@ -36,6 +32,10 @@
 .card-blog > div {
   padding-left: 2rem;
   border-left: 3px solid #c7cad0;
+}
+
+.card-blog--published > div {
+  border-left-color: #00d6a5;
 }
 
 .card-blog h2 {

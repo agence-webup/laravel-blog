@@ -154,10 +154,10 @@
   bottom: 4rem;
   padding: 0 2rem;
   width: 30rem;
+  border-left: 1px solid #f0f0f0;
   background-color: #fff;
   transition: transform .5s ease;
   transform: translateX(30rem);
-  border-left: 1px solid #f0f0f0;
 }
 
 .editor-sidebar__section {
@@ -166,7 +166,7 @@
   border-top: 1px solid #cfd2d8;
   border-bottom: 1px solid #cfd2d8;
   background-color: #f0f0f0;
-  color: #6C7688;
+  color: #6c7688;
   font-size: 1.6rem;
 }
 
@@ -177,4 +177,17 @@
 .editor-sidebar input,
 .editor-sidebar textarea {
   min-width: 0;
+}
+
+/* sidebar list
+-------------------------------------------------------------- */
+
+.editor-sidebar-list a,
+.editor-sidebar-list a:visited,
+.editor-sidebar-list a:hover {
+  display: block;
+  padding: 1rem;
+  border-bottom: 1px solid #cfd2d8;
+  color: $color-dark-text;
+  text-decoration: none;
 }
