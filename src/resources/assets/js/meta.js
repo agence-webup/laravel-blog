@@ -6,7 +6,11 @@ let Meta = (() => {
         'isFeatured',
         'isIndexed',
         'seoTitle',
-        'seoDescription'
+        'seoDescription',
+        'twitterTitle',
+        'twitterDescription',
+        'facebookTitle',
+        'facebookDescription',
     ];
 
     class Meta {
@@ -44,6 +48,7 @@ let Meta = (() => {
                 }
             }; 
 
+            // @brybry: get post metadata from here :)
             console.log(data);
             return data;
         }

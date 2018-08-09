@@ -11,7 +11,6 @@ let Editor = (() => {
                 editorContent: document.querySelector('#editorContent'),
             };
 
-            console.log(LBConfig.quillContent);
             this.content = LBConfig.quillContent;
         }
 

@@ -58,7 +58,8 @@
         <div id="editorContent" data-quill-placeholder="{{__('laravel-blog::post.form.content_placeholder')}}">
         </div>
     </div>
-    <aside class="editor-sidebar editor-sidebar--open" data-sidebar="meta">
+    
+    <aside class="editor-sidebar" data-sidebar="meta">
         <div class="editor-sidebar__section">Propriété de l'article</div>
         <label for="hyperlink">Hyperlien</label>
         <input type="text" id="hyperlink" name="hyperlink">
@@ -81,8 +82,20 @@
         <textarea name="seoDescription" id="seoDescription"></textarea>
         
         <div class="editor-sidebar__section">Twitter</div>
+        
+        <label for="twitterTitle">Twitter title</label>
+        <input type="text" id="twitterTitle" name="twitterTitle">
+        
+        <label for="twitterDescription">Twitter description</label>
+        <textarea name="twitterDescription" id="twitterDescription"></textarea>
+        
         <div class="editor-sidebar__section">Facebook</div>
         
+        <label for="facebookTitle">Facebook title</label>
+        <input type="text" id="facebookTitle" name="facebookTitle">
+        
+        <label for="facebookDescription">Facebook description</label>
+        <textarea name="facebookDescription" id="facebookDescription"></textarea>
     </aside>
     
     <aside class="editor-sidebar" data-sidebar="i18n">
