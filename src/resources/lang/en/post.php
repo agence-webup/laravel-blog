@@ -11,7 +11,7 @@ return [
       "content_placeholder" => "What are you going to say today?",
       "word_count" => "Number of words :",
       "last_save" => "Last save :",
-      "update" => "Update",
+      "update" => "Publish",
     ],
     "topbar" => [
       "reset" => "Reset formatting",

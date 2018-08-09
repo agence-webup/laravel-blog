@@ -45,8 +45,8 @@
         </div>
         <div class="editor-topbar__actions">
             <button data-sidebar="triggerI18n">FR</button>
-            <button>{{ __("laravel-blog::post.form.update") }}</button>
-            <button title="{{ __("laravel-blog::post.topbar.settings") }}" class="editor-sidebarBtn" data-sidebar="triggerMain">
+            <button data-sidebar="triggerStatus">{{ __("laravel-blog::post.form.update") }}</button>
+            <button title="{{ __("laravel-blog::post.topbar.settings") }}" class="editor-sidebarBtn" data-sidebar="triggerMeta">
                 @include('laravel-blog::svg.settings2') 
                 @include('laravel-blog::svg.close')
             </button>
@@ -55,10 +55,10 @@
     
     <div class="editor">
         <input type="text" data-post="title" class="editor-title" placeholder="{{ __("laravel-blog::post.form.title_placeholder") }}" value="{{ $post->title }}">
-        <div id="editorContent">
+        <div id="editorContent" data-quill-placeholder="{{__('laravel-blog::post.form.content_placeholder')}}">
         </div>
     </div>
-    <aside class="editor-sidebar" data-sidebar="main">
+    <aside class="editor-sidebar editor-sidebar--open" data-sidebar="meta">
         <div class="editor-sidebar__section">Propriété de l'article</div>
         <label for="hyperlink">Hyperlien</label>
         <input type="text" id="hyperlink" name="hyperlink">
@@ -74,9 +74,15 @@
             <label for="isIndexed" checked>Article indexé</label>
         </div>
         <div class="editor-sidebar__section">SEO</div>
+        <label for="seoTitle">Title</label>
+        <input type="text" id="seoTitle" name="seoTitle">
+        
+        <label for="seoDescription">Meta description</label>
+        <textarea name="seoDescription" id="seoDescription"></textarea>
+        
         <div class="editor-sidebar__section">Twitter</div>
         <div class="editor-sidebar__section">Facebook</div>
-
+        
     </aside>
     
     <aside class="editor-sidebar" data-sidebar="i18n">
@@ -84,6 +90,18 @@
             <a href="#"><i class="tag tag--green mr05"></i> Français (en cours)</a>
             <a href="#"><i class="tag tag--red mr05"></i> Anglais</a>
             <a href="#"><i class="tag tag--red mr05"></i> Allemand</a>
+        </div>
+    </aside>
+    
+    <aside class="editor-sidebar" data-sidebar="status">
+        <div>
+            <input type="checkbox" name="isPublished" id="isPublished" class="switch" checked>
+            <label for="isPublished" checked>Publish article</label>
+        </div>
+        <label for="schedule">Schedule</label>
+        <input type="datetime-local" id="schedule">
+        <div class="mt3">
+            <button class="btn btn--primary btn--wide">Update article</button>
         </div>
     </aside>
     
@@ -97,33 +115,23 @@
 @endsection
 
 @section('js')
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-<script src="{{ asset('vendor/laravel-blog/js/sidebar.js') }}"></script>
-<script src="{{ asset('vendor/laravel-blog/js/editor.js') }}"></script>
-<script src="{{ asset('vendor/laravel-blog/node_modules/timeago.js/dist/timeago.min.js') }}"></script>
-<script src="{{ asset('vendor/laravel-blog/node_modules/timeago.js/dist/timeago.locales.min.js') }}"></script>
 <script>
-    var mainSidebar = new Sidebar(
-        document.querySelector('[data-sidebar="main"]'), 
-        document.querySelector('[data-sidebar="triggerMain"]')
-    ).init();
-    
-    var i18nSidebar = new Sidebar(
-        document.querySelector('[data-sidebar="i18n"]'), 
-        document.querySelector('[data-sidebar="triggerI18n"]') 
-    ).init();
-    
-    var editor = new Editor({
-        quillConfig:{
-            placeholder : "{!! __('laravel-blog::post.form.content_placeholder') !!}"
-        },
-        interfaceLang : "{{ app()->getLocale() }}",
+    var LBConfig = {
+        uiLang : "{{ app()->getLocale() }}",
         updateUrl : "{{ route("admin.blog.post.update",[$post->id]) }}",
         uploadImageUrl : "{{ route("admin.blog.image.upload") }}",
+        quillContent : {!! ($post->quill_content) ? $post->quill_content : "{}" !!},
         customHeaders : {
             'X-CSRF-TOKEN' : "{{ csrf_token() }}"
         },
-        content : {!! ($post->quill_content) ? $post->quill_content : "{}" !!}
-    }).init();
+    };
 </script>
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script src="{{ asset('vendor/laravel-blog/js/sidebar.js') }}"></script>
+<script src="{{ asset('vendor/laravel-blog/js/status-bar.js') }}"></script>
+<script src="{{ asset('vendor/laravel-blog/js/editor.js') }}"></script>
+<script src="{{ asset('vendor/laravel-blog/js/meta.js') }}"></script>
+<script src="{{ asset('vendor/laravel-blog/node_modules/timeago.js/dist/timeago.min.js') }}"></script>
+<script src="{{ asset('vendor/laravel-blog/node_modules/timeago.js/dist/timeago.locales.min.js') }}"></script>
+<script src="{{ asset('vendor/laravel-blog/js/pages/post.js') }}"></script>
 @endsection

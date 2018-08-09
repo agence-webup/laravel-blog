@@ -162,13 +162,17 @@
 }
 
 .editor-sidebar__section {
-  margin: 0 -2rem;
+  margin: 3rem -2rem 1rem;
   padding: 1rem 2rem;
   border-top: 1px solid #cfd2d8;
   border-bottom: 1px solid #cfd2d8;
   background-color: #f0f0f0;
   color: #6c7688;
   font-size: 1.6rem;
+}
+
+.editor-sidebar__section:first-of-type {
+  margin-top: 0;
 }
 
 .editor-sidebar--open {

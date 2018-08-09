@@ -11,7 +11,7 @@ return [
       "content_placeholder" => "Qu'allez-vous raconter aujourd'hui ?",
       "word_count" => "Nombre de mots :",
       "last_save" => "Dernière sauvegarde :",
-      "update" => "Mettre à jour",
+      "update" => "Publier",
     ],
     "topbar" => [
       "reset" => "Supprimer le formatage",

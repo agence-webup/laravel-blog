@@ -1,41 +1,31 @@
 let Editor = (() => {
     const Delta = Quill.import('delta');
     const AUTOSAVE_REFRESH = 2000;
-    const TIMEAGO_REFRESH = 1000;
+
 
     class Editor {
 
-        constructor(config) {
-            this.quillConfig = config.quillConfig;
-            this.updateUrl = config.updateUrl;
-            this.uploadImageUrl = config.uploadImageUrl;
-            this.customHeaders = config.customHeaders;
-            this.interfaceLang = config.interfaceLang;
-            this.content = config.content;
+        constructor() {
+            this.ui = {
+                title: document.querySelector('[data-post=title]'),
+                editorContent: document.querySelector('#editorContent'),
+            };
+            
+            console.log(LBConfig.quillContent);
+            this.content = LBConfig.quillContent;
         }
 
         init() {
-            this.ui = {
-                title: document.querySelector('[data-post=title]'),
-                counter: document.querySelector('[data-counter]'),
-                timeAgo: document.querySelector('[data-timeago]'),
-                editorContent: document.querySelector('#editorContent'),
-                btnSettings: document.querySelector('[data-btn-settings]'),
-                sidebar: document.querySelector('[data-sidebar]')
-            };
-
             this.initQuill();
-            this.initTimeAgo();
             this.initEvents();
             this.initTimer();
-            
             // update counter at page load
-            this.updateCounter(this.countWords(this.ui.editorContent.innerText));
-            this.lastSave = null;
+            statusBar.updateCounter(this.countWords(this.ui.editorContent.innerText));
         }
 
         initQuill() {
             this.change = new Delta;
+
             let defaultConfig = {
                 theme: 'snow',
                 modules: {
@@ -47,23 +37,18 @@ let Editor = (() => {
                     },
                 }
             }
-            //Init Quill with defaultConfig merged with customConfig
-            this.quill = new Quill(this.ui.editorContent, Object.assign({}, defaultConfig, this.quillConfig));
+
+            this.quill = new Quill(this.ui.editorContent, defaultConfig);
 
             if (this.content) {
                 this.quill.setContents(this.content);
             }
         }
 
-
-        initTimeAgo() {
-            this.timeagoInstance = timeago();
-        }
-
         initEvents() {
             this.quill.on('text-change', (delta, oldDelta, source) => {
                 this.change = this.change.compose(delta);
-                this.updateCounter();
+                statusBar.updateCounter(this.countWords(this.ui.editorContent.innerText));
             });
         }
 
@@ -79,7 +64,7 @@ let Editor = (() => {
                             console.log("save ok !");
                             // update save status
                             this.lastSave = Date.now();
-                            this.updateTimeAgo();
+                            statusBar.updateTimeAgo();
                         },
                         // Error
                         (error) => {
@@ -88,10 +73,6 @@ let Editor = (() => {
                     )
                 }
             }, AUTOSAVE_REFRESH);
-
-            setInterval(() => {
-                this.updateTimeAgo();
-            }, TIMEAGO_REFRESH);
         }
 
         getFormData() {
@@ -107,12 +88,12 @@ let Editor = (() => {
         sendData(data) {
             return new Promise((resolve, reject) => {
                 let request = new XMLHttpRequest();
-                request.open("POST", this.updateUrl, true);
+                request.open("POST", LBConfig.updateUrl, true);
                 request.setRequestHeader('Accept', 'application/json');
 
-                for (let header in this.customHeaders) {
-                    if (this.customHeaders.hasOwnProperty(header)) {
-                        request.setRequestHeader(header, this.customHeaders[header]);
+                for (let header in LBConfig.customHeaders) {
+                    if (LBConfig.customHeaders.hasOwnProperty(header)) {
+                        request.setRequestHeader(header, LBConfig.customHeaders[header]);
                     }
                 }
 
@@ -133,19 +114,19 @@ let Editor = (() => {
         sendImage(data) {
             return new Promise((resolve, reject) => {
                 let request = new XMLHttpRequest();
-                request.open("POST", this.uploadImageUrl, true);
+                request.open("POST", LBConfig.uploadImageUrl, true);
 
                 request.setRequestHeader('Accept', 'application/json');
 
-                for (let header in this.customHeaders) {
-                    if (this.customHeaders.hasOwnProperty(header)) {
-                        request.setRequestHeader(header, this.customHeaders[header]);
+                for (let header in LBConfig.customHeaders) {
+                    if (LBConfig.customHeaders.hasOwnProperty(header)) {
+                        request.setRequestHeader(header, LBConfig.customHeaders[header]);
                     }
                 }
 
                 request.upload.addEventListener("progress", function (e) {
                     var progress = Math.round((e.loaded * 100.0) / e.total);
-                    console.log("Progress = " + progress);
+                    //console.log("Progress = " + progress);
                 });
 
                 request.onload = function (event) {
@@ -205,19 +186,6 @@ let Editor = (() => {
                 this.quill.container.appendChild(fileInput);
             }
             fileInput.click();
-        }
-
-        /**
-         * UI
-         */
-
-        updateTimeAgo() {
-            this.ui.timeAgo.innerHTML = this.timeagoInstance.format(this.lastSave, this.interfaceLang);
-        }
-
-        updateCounter(value = null) {
-            let counter = counter ? value : this.countWords(this.quill.getText());
-            this.ui.counter.innerHTML = counter;
         }
 
         /**

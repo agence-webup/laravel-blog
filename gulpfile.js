@@ -13,7 +13,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('js', () =>
-    gulp.src('./src/resources/assets/js/*.js')
+    gulp.src('./src/resources/assets/js/**/*.js')
     .pipe(babel({
         presets: ['env']
     }))
