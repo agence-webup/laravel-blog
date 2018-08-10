@@ -56,17 +56,21 @@ let Editor = (() => {
                 // if there are changes
                 if (this.change.length() > 0) {
                     this.change = new Delta();
+                    
+                    // saving state
+                    statusBar.stateSaving();
 
                     this.sendData(this.getFormData()).then(
                         // Success
                         (response) => {
-                            console.log("save ok !");
                             // update save status
-                            this.lastSave = Date.now();
+                            statusBar.lastSave = Date.now();
                             statusBar.updateTimeAgo();
+                            statusBar.stateNormal();
                         },
                         // Error
                         (error) => {
+                            statusBar.stateError();
                             console.error("save ko !");
                         }
                     )
@@ -110,12 +114,7 @@ let Editor = (() => {
                 request.open("POST", LBConfig.uploadImageUrl, true);
 
                 request.setRequestHeader('Accept', 'application/json');
-
-                for (let header in LBConfig.customHeaders) {
-                    if (LBConfig.customHeaders.hasOwnProperty(header)) {
-                        request.setRequestHeader(header, LBConfig.customHeaders[header]);
-                    }
-                }
+                request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
 
                 request.upload.addEventListener("progress", function (e) {
                     var progress = Math.round((e.loaded * 100.0) / e.total);

@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+
 <div>
     <input type="hidden" name="post_id" value="{{ $post->id }}">
     <input type="hidden" name="locale" value="{{ $locale }}">
@@ -117,10 +118,15 @@
             <button class="btn btn--primary btn--wide">Update article</button>
         </div>
     </aside>
-    
-    <div class="editor-status">
+
+    <div class="editor-infos">
         <div>{{ __("laravel-blog::post.form.word_count") }} <span data-counter>0</span></div>
-        <div><i class="tag tag--green mr1"></i>{{ __("laravel-blog::post.form.last_save") }} <span data-timeago></span></div>
+        <div data-status="wrapper" class="editor-status">
+            <i class="tag tag--green mr05" data-status="indicator"></i>
+            <span data-status="normal">{{ __("laravel-blog::post.form.last_save") }} <span data-timeago></span></span>
+            <span data-status="saving"><span class="loading-dot">Saving your post</span></span>
+            <span data-status="error">Error while saving</span>
+        </div>
     </div>
     
 </div>

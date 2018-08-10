@@ -59,7 +59,7 @@
 /* == status */
 /* ----------------------------------------------------------- */
 
-.editor-status {
+.editor-infos {
   position: fixed;
   right: 0;
   bottom: 0;
@@ -67,10 +67,37 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: .8rem;
+  padding: .8rem 2rem;
   height: 4rem;
   border-top: 1px solid #f0f0f0;
   background-color: #fff;
+}
+
+.editor-status > * {
+  display: none;
+}
+
+.editor-status--normal > i,
+.editor-status--normal > span:nth-of-type(1) {
+  display: inline-block;
+}
+
+.editor-status--saving > i,
+.editor-status--saving > span:nth-of-type(2) {
+  display: inline-block;
+}
+
+.editor-status--error > i,
+.editor-status--error > span:nth-of-type(3) {
+  display: inline-block;
+}
+
+.editor-status--error > span {
+  color: #ff9cae;
+}
+
+.editor-status--error .tag {
+  background-color: #ff9cae;
 }
 
 /* ----------------------------------------------------------- */

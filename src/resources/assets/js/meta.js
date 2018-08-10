@@ -50,6 +50,7 @@ let Meta = (() => {
 
             // @brybry: get post metadata from here :)
             console.log(data);
+            statusBar.stateSaving();
             return data;
         }
     }
