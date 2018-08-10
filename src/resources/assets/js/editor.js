@@ -10,7 +10,7 @@ let Editor = (() => {
                 title: document.querySelector('[data-post=title]'),
                 editorContent: document.querySelector('#editorContent'),
             };
-
+            this.placeholder = this.ui.editorContent.dataset.quillPlaceholder;
             this.content = LBConfig.quillContent;
         }
 
@@ -26,6 +26,7 @@ let Editor = (() => {
             this.change = new Delta;
 
             let defaultConfig = {
+                placeholder: this.placeholder,
                 theme: 'snow',
                 modules: {
                     toolbar: {

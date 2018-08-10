@@ -118,7 +118,7 @@
             <button class="btn btn--primary btn--wide">Update article</button>
         </div>
     </aside>
-
+    
     <div class="editor-infos">
         <div>{{ __("laravel-blog::post.form.word_count") }} <span data-counter>0</span></div>
         <div data-status="wrapper" class="editor-status">
