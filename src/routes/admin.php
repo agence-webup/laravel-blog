@@ -35,6 +35,7 @@ Route::group([
             Route::get('/create', 'PostController@create')->name('create');
             Route::get('/edit/{id}', 'PostController@edit')->name('edit')->where(['id' => '[0-9]+']);
             Route::post('/update/{id}', 'PostController@update')->name('update')->where(['id' => '[0-9]+']);
+            Route::post('/updateMeta/{id}', 'PostController@updateMeta')->name('updateMeta')->where(['id' => '[0-9]+']);
         });
 
         Route::group(['prefix' => 'settings', 'as' => 'setting.'], function () {

@@ -141,6 +141,7 @@
     var LBConfig = {
         uiLang : "{{ app()->getLocale() }}",
         updateUrl : "{{ route("admin.blog.post.update",["id" => $post->id,"lang" => $locale]) }}",
+        updateMetaUrl : "{{ route("admin.blog.post.updateMeta",["id" => $post->id,"lang" => $locale]) }}",
         uploadImageUrl : "{{ route("admin.blog.image.upload") }}",
         quillContent : {!! ($post->translatedOrNew($locale)->quill_content) ? $post->translatedOrNew($locale)->quill_content : "{}" !!}
     };

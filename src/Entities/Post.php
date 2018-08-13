@@ -27,9 +27,7 @@ class Post extends BaseModel
 
     public function hasTranslation($code)
     {
-        // if (!in_array($request->get("lang"), config()->get('blog.locales'))) {
-        //     return false;
-        // }
+        $this->testAuthorizedLocal($code);
 
         foreach ($this->translations as $translation) {
             if ($translation->lang == $code) {
@@ -42,6 +40,8 @@ class Post extends BaseModel
 
     public function translated($code)
     {
+        $this->testAuthorizedLocal($code);
+
         foreach ($this->translations as $translation) {
             if ($translation->lang == $code) {
                 return $translation;
@@ -49,6 +49,13 @@ class Post extends BaseModel
         }
 
         return null;
+    }
+
+    private function testAuthorizedLocal($locale)
+    {
+        if (!in_array($locale, config()->get('blog.locales'))) {
+            throw new \Exception("No '".$locale."' found in blog.locales");
+        }
     }
 
     public function translatedOrNew($code)

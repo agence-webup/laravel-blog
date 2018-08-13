@@ -59,4 +59,9 @@ class PostController extends BaseController
 
         return response()->json(["success" => true]);
     }
+
+    public function updateMeta(Request $request, $id)
+    {
+        return response()->json(["success" => true]);
+    }
 }

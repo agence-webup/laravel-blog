@@ -72,7 +72,7 @@ let Meta = (() => {
         sendData(data) {
             return new Promise((resolve, reject) => {
                 let request = new XMLHttpRequest();
-                request.open("POST", LBConfig.updateUrl, true);
+                request.open("POST", LBConfig.updateMetaUrl, true);
                 request.setRequestHeader('Accept', 'application/json');
                 request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
                 request.onload = function (event) {
