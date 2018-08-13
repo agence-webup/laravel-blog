@@ -18,11 +18,25 @@ class CreateBlogPostsTables extends Migration
 
             $table->integer('user_id')->unsigned()->nullable();
 
+            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->timestamps();
+        });
+
+
+        Schema::connection(config()->get('blog.database.connection'))->create('post_translations', function ($table) {
+            $table->increments('id');
+
+            $table->integer('post_id')->unsigned();
+            $table->string('lang')->index();
+
             $table->string('title')->nullable();
             $table->longText('content')->nullable();
             $table->longText('quill_content')->nullable();
 
-            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->unique(['post_id','lang']);
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -35,6 +49,7 @@ class CreateBlogPostsTables extends Migration
      */
     public function down()
     {
+        Schema::connection(config()->get('blog.database.connection'))->dropIfExists('post_translations');
         Schema::connection(config()->get('blog.database.connection'))->dropIfExists('posts');
     }
 }

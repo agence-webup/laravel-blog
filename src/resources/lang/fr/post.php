@@ -11,6 +11,8 @@ return [
       "content_placeholder" => "Qu'allez-vous raconter aujourd'hui ?",
       "word_count" => "Nombre de mots :",
       "last_save" => "Dernière sauvegarde :",
+      "saving" => "Sauvegarde en cours",
+      "error" => "Impossible de sauvegarder",
       "update" => "Publier",
     ],
     "topbar" => [
@@ -38,4 +40,37 @@ return [
       "link" => "Ajouter un lien",
       "settings" => "Paramètres",
     ],
+    "meta" => [
+      "post" => [
+        "section" => "Propriétés de l'article",
+        "hyperlink" => "Hyperlien",
+        "excerpt" => "Résumé",
+        "other_settings" => "Autres paramètres",
+        "featured" => "Mettre en avant",
+        "indexed" => "Indexer",
+      ],
+      "seo" => [
+        "section" => "Référencement",
+        "title" => "Titre",
+        "description" => "Meta description",
+      ],
+      "twitter" => [
+        "section" => "Twitter",
+        "title" => "Titre Twitter",
+        "description" => "Description Twitter",
+      ],
+      "facebook" => [
+        "section" => "Facebook",
+        "title" => "Titre Facebook",
+        "description" => "Description Facebook",
+      ],
+    ],
+    "i18n" => [
+      "current" => "(actuel)",
+    ],
+    "status" => [
+      "publish" => "Publier l'article",
+      "schedule" => "Planifier",
+      "update" => "Mettre à jour l'article",
+    ]
 ];

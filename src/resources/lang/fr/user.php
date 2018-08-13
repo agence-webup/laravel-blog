@@ -17,6 +17,7 @@ return [
     "form" => [
       "name" => "Nom",
       "email" => "Adresse e-mail",
+      "lang" => "Langue de l'interface",
       "picture" => "Photo de profil",
       "choose" => "Choisissez une image",
       "uploading" => "Téléchargement en cours...",

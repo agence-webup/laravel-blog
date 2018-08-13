@@ -21,8 +21,8 @@
   <div>
     <label for="email">{{ __("laravel-blog::user.form.lang") }}</label>
     <select name="lang">
-        @foreach (config()->get("blog.locales") as $locale => $name)
-          <option value="{{ $locale }}" @if(old('lang', $user->lang) == $locale) selected @endif>{{ __($name) }}</option>
+        @foreach (config()->get("blog.locales") as $code)
+          <option value="{{ $code }}" @if(old('lang', $user->lang) == $code) selected @endif>{{ __("laravel-blog::language.$code") }}</option>
         @endforeach
     </select>
   </div>

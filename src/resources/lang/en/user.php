@@ -17,6 +17,7 @@ return [
     "form" => [
       "name" => "Name",
       "email" => "Email address",
+      "lang" => "Interface language",
       "picture" => "Profil picture",
       "choose" => "Choose a picture",
       "uploading" => "Upload in progress...",

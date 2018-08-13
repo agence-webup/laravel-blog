@@ -13,8 +13,8 @@ return [
   ],
   'default_locale' => 'en',
   'locales' => [
-    'en' => 'English',
-    'fr' => 'French',
-    'es' => 'Spanish',
+    'en',
+    'fr',
+    'es',
   ],
 ];

@@ -33,7 +33,7 @@ class PostController extends BaseController
 
     public function edit(Request $request, $id)
     {
-        if (!array_key_exists($request->get("lang"), config()->get('blog.locales'))) {
+        if (!in_array($request->get("lang"), config()->get('blog.locales'))) {
             abort(404);
         }
 
@@ -46,8 +46,9 @@ class PostController extends BaseController
     {
         try {
             $post = Post::findOrFail($id);
-            $post->fill($request->except('_token'));
-            $post->save();
+            $translation = $post->translatedOrNew($request->get("lang"));
+            $translation->fill($request->except('_token'));
+            $translation->save();
         } catch (\Exception $e) {
             return response()->json([
               "success" => false,

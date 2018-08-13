@@ -11,6 +11,8 @@ return [
       "content_placeholder" => "What are you going to say today?",
       "word_count" => "Number of words :",
       "last_save" => "Last save :",
+      "saving" => "Saving your post",
+      "error" => "Error while saving",
       "update" => "Publish",
     ],
     "topbar" => [
@@ -38,4 +40,37 @@ return [
       "link" => "Add link",
       "settings" => "Settings",
     ],
+    "meta" => [
+      "post" => [
+        "section" => "Post properties",
+        "hyperlink" => "Hyperlink",
+        "excerpt" => "Excerpt",
+        "other_settings" => "Other settings",
+        "featured" => "Featured",
+        "indexed" => "Indexed",
+      ],
+      "seo" => [
+        "section" => "SEO",
+        "title" => "Title",
+        "description" => "Meta description",
+      ],
+      "twitter" => [
+        "section" => "Twitter",
+        "title" => "Twitter title",
+        "description" => "Twitter description",
+      ],
+      "facebook" => [
+        "section" => "Facebook",
+        "title" => "Facebook title",
+        "description" => "Facebook description",
+      ],
+    ],
+    "i18n" => [
+      "current" => "(current)",
+    ],
+    "status" => [
+      "publish" => "Publish article",
+      "schedule" => "Schedule",
+      "update" => "Update article",
+    ]
 ];

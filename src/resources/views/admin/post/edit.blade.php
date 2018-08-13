@@ -45,90 +45,93 @@
             </div>
         </div>
         <div class="editor-topbar__actions">
-            <button data-sidebar="triggerI18n">FR</button>
+            <button data-sidebar="triggerI18n">{{ strtoupper($locale) }}</button>
             <button data-sidebar="triggerStatus">{{ __("laravel-blog::post.form.update") }}</button>
             <button title="{{ __("laravel-blog::post.topbar.settings") }}" class="editor-sidebarBtn" data-sidebar="triggerMeta">
-                @include('laravel-blog::svg.settings2') 
+                @include('laravel-blog::svg.settings2')
                 @include('laravel-blog::svg.close')
             </button>
         </div>
     </div>
-    
+
     <div class="editor">
-        <input type="text" data-post="title" class="editor-title" placeholder="{{ __("laravel-blog::post.form.title_placeholder") }}" value="{{ $post->title }}">
+        <input type="text" data-post="title" class="editor-title" placeholder="{{ __("laravel-blog::post.form.title_placeholder") }}" value="{{ $post->translatedOrNew($locale)->title }}">
         <div id="editorContent" data-quill-placeholder="{{__('laravel-blog::post.form.content_placeholder')}}">
         </div>
     </div>
-    
+
     <aside class="editor-sidebar" data-sidebar="meta">
-        <div class="editor-sidebar__section">Propriété de l'article</div>
-        <label for="hyperlink">Hyperlien</label>
+        <div class="editor-sidebar__section">{{ __("laravel-blog::post.meta.post.section") }}</div>
+        <label for="hyperlink">{{ __("laravel-blog::post.meta.post.hyperlink") }}</label>
         <input type="text" id="hyperlink" name="hyperlink">
-        <label for="excerpt">Extrait de l'article</label>
+        <label for="excerpt">{{ __("laravel-blog::post.meta.post.excerpt") }}</label>
         <textarea id="excerpt" name="excerpt"></textarea>
-        <label>Autres réglages</label>
+        <label>{{ __("laravel-blog::post.meta.post.other_settings") }}</label>
         <div>
             <input type="checkbox" name="isFeatured" id="isFeatured" class="switch">
-            <label for="isFeatured">Mise en avant</label>
+            <label for="isFeatured">{{ __("laravel-blog::post.meta.post.featured") }}</label>
         </div>
         <div>
             <input type="checkbox" name="isIndexed" id="isIndexed" class="switch" checked>
-            <label for="isIndexed" checked>Article indexé</label>
+            <label for="isIndexed" checked>{{ __("laravel-blog::post.meta.post.indexed") }}</label>
         </div>
-        <div class="editor-sidebar__section">SEO</div>
-        <label for="seoTitle">Title</label>
+        <div class="editor-sidebar__section">{{ __("laravel-blog::post.meta.seo.section") }}</div>
+        <label for="seoTitle">{{ __("laravel-blog::post.meta.seo.title") }}</label>
         <input type="text" id="seoTitle" name="seoTitle">
-        
-        <label for="seoDescription">Meta description</label>
+
+        <label for="seoDescription">{{ __("laravel-blog::post.meta.seo.description") }}</label>
         <textarea name="seoDescription" id="seoDescription"></textarea>
-        
-        <div class="editor-sidebar__section">Twitter</div>
-        
-        <label for="twitterTitle">Twitter title</label>
+
+        <div class="editor-sidebar__section">{{ __("laravel-blog::post.meta.twitter.section") }}</div>
+
+        <label for="twitterTitle">{{ __("laravel-blog::post.meta.twitter.title") }}</label>
         <input type="text" id="twitterTitle" name="twitterTitle">
-        
-        <label for="twitterDescription">Twitter description</label>
+
+        <label for="twitterDescription">{{ __("laravel-blog::post.meta.twitter.description") }}</label>
         <textarea name="twitterDescription" id="twitterDescription"></textarea>
-        
-        <div class="editor-sidebar__section">Facebook</div>
-        
-        <label for="facebookTitle">Facebook title</label>
+
+        <div class="editor-sidebar__section">{{ __("laravel-blog::post.meta.facebook.section") }}</div>
+
+        <label for="facebookTitle">{{ __("laravel-blog::post.meta.facebook.title") }}</label>
         <input type="text" id="facebookTitle" name="facebookTitle">
-        
-        <label for="facebookDescription">Facebook description</label>
+
+        <label for="facebookDescription">{{ __("laravel-blog::post.meta.facebook.description") }}</label>
         <textarea name="facebookDescription" id="facebookDescription"></textarea>
     </aside>
-    
+
     <aside class="editor-sidebar" data-sidebar="i18n">
         <div class="editor-sidebar-list">
-            <a href="#"><i class="tag tag--green mr05"></i> Français (en cours)</a>
-            <a href="#"><i class="tag tag--red mr05"></i> Anglais</a>
-            <a href="#"><i class="tag tag--red mr05"></i> Allemand</a>
+            @foreach (config()->get('blog.locales') as $code)
+              <a href="{{ route("admin.blog.post.edit",["id" => $post->id,"lang" => $code]) }}">
+                <i class="tag @if($post->hasTranslation($code)) {{ "tag--green" }} @else {{ "tag--red" }} @endif mr05"></i>&nbsp;
+                {{ __("laravel-blog::language.$code") }} @if($code == $locale) {{ __("laravel-blog::post.i18n.current") }} @endif
+              </a>
+            @endforeach
         </div>
     </aside>
-    
+
     <aside class="editor-sidebar" data-sidebar="status">
         <div>
             <input type="checkbox" name="isPublished" id="isPublished" class="switch" checked>
-            <label for="isPublished" checked>Publish article</label>
+            <label for="isPublished" checked>{{ __("laravel-blog::post.status.publish") }}</label>
         </div>
-        <label for="schedule">Schedule</label>
+        <label for="schedule">{{ __("laravel-blog::post.status.schedule") }}</label>
         <input type="datetime-local" id="schedule">
         <div class="mt3">
-            <button class="btn btn--primary btn--wide">Update article</button>
+            <button class="btn btn--primary btn--wide">{{ __("laravel-blog::post.status.update") }}</button>
         </div>
     </aside>
-    
+
     <div class="editor-infos">
         <div>{{ __("laravel-blog::post.form.word_count") }} <span data-counter>0</span></div>
         <div data-status="wrapper" class="editor-status">
             <i class="tag tag--green mr05" data-status="indicator"></i>
             <span data-status="normal">{{ __("laravel-blog::post.form.last_save") }} <span data-timeago></span></span>
-            <span data-status="saving"><span class="loading-dot">Saving your post</span></span>
-            <span data-status="error">Error while saving</span>
+            <span data-status="saving"><span class="loading-dot">{{ __("laravel-blog::post.form.saving") }}</span></span>
+            <span data-status="error">{{ __("laravel-blog::post.form.error") }}</span>
         </div>
     </div>
-    
+
 </div>
 
 @endsection
@@ -137,9 +140,9 @@
 <script>
     var LBConfig = {
         uiLang : "{{ app()->getLocale() }}",
-        updateUrl : "{{ route("admin.blog.post.update",[$post->id]) }}",
+        updateUrl : "{{ route("admin.blog.post.update",["id" => $post->id,"lang" => $locale]) }}",
         uploadImageUrl : "{{ route("admin.blog.image.upload") }}",
-        quillContent : {!! ($post->quill_content) ? $post->quill_content : "{}" !!}
+        quillContent : {!! ($post->translatedOrNew($locale)->quill_content) ? $post->translatedOrNew($locale)->quill_content : "{}" !!}
     };
 </script>
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>

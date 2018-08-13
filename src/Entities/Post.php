@@ -13,9 +13,6 @@ class Post extends BaseModel
    */
     protected $fillable = [
       'user_id',
-      'title',
-      'content',
-      'quill_content',
     ];
 
     public function author()
@@ -26,5 +23,48 @@ class Post extends BaseModel
     public function isRecentlyCreated()
     {
         return $this->created_at == $this->updated_at;
+    }
+
+    public function hasTranslation($code)
+    {
+        // if (!in_array($request->get("lang"), config()->get('blog.locales'))) {
+        //     return false;
+        // }
+
+        foreach ($this->translations as $translation) {
+            if ($translation->lang == $code) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function translated($code)
+    {
+        foreach ($this->translations as $translation) {
+            if ($translation->lang == $code) {
+                return $translation;
+            }
+        }
+
+        return null;
+    }
+
+    public function translatedOrNew($code)
+    {
+        $tranlsation = $this->translated($code);
+        if (!$tranlsation) {
+            $tranlsation = new PostTranslation();
+            $tranlsation->post_id = $this->id;
+            $tranlsation->lang = $code;
+        }
+
+        return $tranlsation;
+    }
+
+    public function translations()
+    {
+        return $this->hasMany("Webup\LaravelBlog\Entities\PostTranslation");
     }
 }

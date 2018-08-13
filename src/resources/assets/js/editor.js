@@ -57,7 +57,7 @@ let Editor = (() => {
                 // if there are changes
                 if (this.change.length() > 0) {
                     this.change = new Delta();
-                    
+
                     // saving state
                     statusBar.stateSaving();
 
@@ -82,6 +82,7 @@ let Editor = (() => {
         getFormData() {
             let formData = new FormData();
 
+            formData.append("lang", this.ui.title.value);
             formData.append("title", this.ui.title.value);
             formData.append("content", this.quill.root.innerHTML);
             formData.append("quill_content", JSON.stringify(this.quill.getContents()));
