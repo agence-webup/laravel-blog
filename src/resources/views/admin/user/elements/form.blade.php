@@ -19,6 +19,15 @@
   </div>
 
   <div>
+    <label for="email">{{ __("laravel-blog::user.form.lang") }}</label>
+    <select name="lang">
+        @foreach (config()->get("blog.locales") as $locale => $name)
+          <option value="{{ $locale }}" @if(old('lang', $user->lang) == $locale) selected @endif>{{ __($name) }}</option>
+        @endforeach
+    </select>
+  </div>
+
+  <div>
     <label for="picture">{{ __("laravel-blog::user.form.picture") }}</label>
     <div class="colibri" id="colibri" data-pic="{{ $user->pictureUrl }}" data-post="{{ route('admin.blog.image.upload')."?fieldName=picture&maxWidth=500&maxHeight=500&_token=".csrf_token() }}">
         <label for="file">

@@ -8,6 +8,7 @@ use Webup\LaravelBlog\Entities\User;
 use Webup\LaravelBlog\Console\BlogUserCreate;
 use Webup\LaravelBlog\Http\Middleware\RedirectIfUnauthenticated;
 use Webup\LaravelBlog\Http\Middleware\RedirectIfAuthenticated;
+use Webup\LaravelBlog\Http\Middleware\TranslateAdmin;
 
 class BlogServiceProvider extends ServiceProvider
 {
@@ -35,6 +36,7 @@ class BlogServiceProvider extends ServiceProvider
 
         $router->aliasMiddleware('blog.auth', RedirectIfUnauthenticated::class);
         $router->aliasMiddleware('blog.guest', RedirectIfAuthenticated::class);
+        $router->aliasMiddleware('blog.translate', TranslateAdmin::class);
 
         $this->loadMigrationsFrom(__DIR__.'/../database');
 

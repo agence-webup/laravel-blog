@@ -28,7 +28,7 @@ class PostController extends BaseController
             $post->save();
         }
 
-        return redirect()->to(route("admin.blog.post.edit", ["id" => $post->id,"lang" => config()->get('blog.default_locale')]));
+        return redirect()->to(route("admin.blog.post.edit", ["id" => $post->id,"lang" =>  $this->guard()->user()->lang ?  $this->guard()->user()->lang : config()->get('blog.default_locale')]));
     }
 
     public function edit(Request $request, $id)

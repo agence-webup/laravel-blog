@@ -20,6 +20,7 @@ class CreateBlogUsersTables extends Migration
             $table->string('email')->unique();
             $table->string('picture')->nullable();
             $table->text('biography')->nullable();
+            $table->string('lang')->nullable();
             $table->boolean('isAdmin')->default(false);
             $table->string('password');
             $table->rememberToken();

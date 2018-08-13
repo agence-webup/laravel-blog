@@ -11,7 +11,7 @@ Route::group([
     Route::post('/login', 'Auth\LoginController@login');
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
-    Route::group(['middleware' => ['blog.auth:blog']], function () {
+    Route::group(['middleware' => ['blog.auth:blog','blog.translate:blog']], function () {
         Route::get('', function () {
             return redirect()->route("admin.blog.login");
         })->name("index");
