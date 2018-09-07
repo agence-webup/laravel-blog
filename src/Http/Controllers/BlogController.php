@@ -16,20 +16,23 @@ class BlogController extends Controller
      * @param $name
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request, $locale)
     {
-        $posts = Post::leftJoin('post_translations', 'posts.id', 'post_translations.post_id')
-            ->where('post_translations.locale', app()->getLocale())
-            ->where('post_translations.isPublished', true)
-            ->where('post_translations.published_at', Carbon::now())
-            ->get();
+        app()->setLocale($locale);
+        Carbon::setLocale($locale);
 
-        return view('laravel-blog::web.index');
+        $posts = Post::with("translations")->whereHas('translations', function ($query) use ($locale) {
+            $query->where('post_translations.lang', $locale)
+                ->where('post_translations.isPublished', true)
+                ->where('post_translations.published_at', "<=", Carbon::now());
+        })->get();
+
+        return view('laravel-blog::web.index', ["posts" => $posts, "locale" => $locale]);
     }
 
-    public function show(Request $request, $id, $slug)
+    public function show(Request $request, $locale, $id, $slug)
     {
-        Post::findOrFail($id);
+        $post = Post::findOrFail($id);
         return view('laravel-blog::web.show', compact("post"));
     }
 }

@@ -28,4 +28,8 @@ class PostTranslation extends BaseModel
   protected $casts = [
     "seo" => "array",
   ];
+
+  protected $dates = [
+    "published_at"
+  ];
 }

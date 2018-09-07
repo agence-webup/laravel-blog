@@ -5,14 +5,13 @@ use Webup\LaravelBlog\Entities\BaseModel;
 
 class Post extends BaseModel
 {
-
-  /**
-   * The attributes that are mass assignable.
-   *
-   * @var array
-   */
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
-      'user_id',
+        'user_id',
     ];
 
     public function author()
@@ -54,7 +53,7 @@ class Post extends BaseModel
     private function testAuthorizedLocal($locale)
     {
         if (!in_array($locale, config()->get('blog.locales'))) {
-            throw new \Exception("No '".$locale."' found in blog.locales");
+            throw new \Exception("No '" . $locale . "' found in blog.locales");
         }
     }
 
