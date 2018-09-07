@@ -7,6 +7,7 @@ let Editor = (() => {
 
         constructor() {
             this.ui = {
+                title: document.querySelector('[data-post=locale]'),
                 title: document.querySelector('[data-post=title]'),
                 editorContent: document.querySelector('#editorContent'),
             };
@@ -82,7 +83,6 @@ let Editor = (() => {
         getFormData() {
             let formData = new FormData();
 
-            formData.append("lang", this.ui.title.value);
             formData.append("title", this.ui.title.value);
             formData.append("content", this.quill.root.innerHTML);
             formData.append("quill_content", JSON.stringify(this.quill.getContents()));

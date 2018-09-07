@@ -38,6 +38,7 @@ class BlogUserCreate extends Command
             $admin = new User();
             $admin->name = $name;
             $admin->email = $email;
+            $admin->lang = config("blog.default_locale");
             $admin->password = bcrypt($password);
             $admin->isAdmin = true;
             $admin->save();

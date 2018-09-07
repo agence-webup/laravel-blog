@@ -12,12 +12,15 @@ var i18nSidebar = new Sidebar(
 
 // init status sidebar
 var statusSidebar = new Sidebar(
-    document.querySelector('[data-sidebar="status"]'), 
+    document.querySelector('[data-sidebar="publication"]'), 
     document.querySelector('[data-sidebar="triggerStatus"]') 
 ).init();
 
 // handle meta pannel
 var meta = new Meta().init();
+
+// handle publish pannel
+var meta = new Publication().init();
 
 // handle status bar
 var statusBar = new StatusBar().init();

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/agence-webup/laravel-blog#readme",
   "dependencies": {
+    "flatpickr": "^4.5.2",
     "timeago.js": "^3.0.2"
   },
   "devDependencies": {

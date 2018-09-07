@@ -11,10 +11,21 @@ class PostTranslation extends BaseModel
    *
    * @var array
    */
-    protected $fillable = [
-      'lang',
-      'title',
-      'content',
-      'quill_content',
-    ];
+  protected $fillable = [
+    'lang',
+    'title',
+    'content',
+    'quill_content',
+    'isFeatured',
+    'isIndexed',
+    'hyperlink',
+    'excerpt',
+    'seo',
+    'isPublished',
+    'published_at',
+  ];
+
+  protected $casts = [
+    "seo" => "array",
+  ];
 }

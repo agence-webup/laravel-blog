@@ -34,8 +34,18 @@ class CreateBlogPostsTables extends Migration
             $table->longText('content')->nullable();
             $table->longText('quill_content')->nullable();
 
+            $table->boolean('isFeatured')->default(false);
+            $table->boolean('isIndexed')->default(false);
 
-            $table->unique(['post_id','lang']);
+            $table->text('hyperlink')->nullable();
+            $table->text('excerpt')->nullable();
+
+            $table->json('seo')->nullable();
+
+            $table->boolean('isPublished')->default(false);
+            $table->datetime('published_at')->nullable();
+
+            $table->unique(['post_id', 'lang']);
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
 
             $table->timestamps();

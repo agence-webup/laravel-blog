@@ -2,16 +2,16 @@
 
 
 Route::group([
-  'middleware' => ['web'],
-  'namespace' => '\Webup\LaravelBlog\Http\Controllers\Admin',
-  'prefix' => 'blog/admin',
-  'as' => 'admin.blog.',
+    'middleware' => ['web'],
+    'namespace' => '\Webup\LaravelBlog\Http\Controllers\Admin',
+    'prefix' => 'blog/admin',
+    'as' => 'admin.blog.',
 ], function () {
     Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
     Route::post('/login', 'Auth\LoginController@login');
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
-    Route::group(['middleware' => ['blog.auth:blog','blog.translate:blog']], function () {
+    Route::group(['middleware' => ['blog.auth:blog', 'blog.translate:blog']], function () {
         Route::get('', function () {
             return redirect()->route("admin.blog.login");
         })->name("index");
@@ -36,6 +36,7 @@ Route::group([
             Route::get('/edit/{id}', 'PostController@edit')->name('edit')->where(['id' => '[0-9]+']);
             Route::post('/update/{id}', 'PostController@update')->name('update')->where(['id' => '[0-9]+']);
             Route::post('/updateMeta/{id}', 'PostController@updateMeta')->name('updateMeta')->where(['id' => '[0-9]+']);
+            Route::post('/updatePublication/{id}', 'PostController@updatePublication')->name('updatePublication')->where(['id' => '[0-9]+']);
         });
 
         Route::group(['prefix' => 'settings', 'as' => 'setting.'], function () {

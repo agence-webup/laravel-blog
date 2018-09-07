@@ -4,8 +4,12 @@ namespace Webup\LaravelBlog\Http\Controllers\Admin;
 
 use Webup\LaravelBlog\Http\Controllers\Admin\BaseController;
 use Webup\LaravelBlog\Entities\Post;
+use Webup\LaravelBlog\Http\Requests\UpdatePost;
+use Webup\LaravelBlog\Http\Requests\UpdatePostMeta;
+use Webup\LaravelBlog\Http\Requests\UpdatePostPublication;
 use Illuminate\Http\Request;
 use Auth;
+use Carbon\Carbon;
 
 class PostController extends BaseController
 {
@@ -28,7 +32,7 @@ class PostController extends BaseController
             $post->save();
         }
 
-        return redirect()->to(route("admin.blog.post.edit", ["id" => $post->id,"lang" =>  $this->guard()->user()->lang ?  $this->guard()->user()->lang : config()->get('blog.default_locale')]));
+        return redirect()->to(route("admin.blog.post.edit", ["id" => $post->id, "lang" => $this->guard()->user()->lang ? $this->guard()->user()->lang : config()->get('blog.default_locale')]));
     }
 
     public function edit(Request $request, $id)
@@ -42,26 +46,68 @@ class PostController extends BaseController
         return view('laravel-blog::admin.post.edit', compact('post', 'locale'));
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdatePost $request, $id)
     {
         try {
             $post = Post::findOrFail($id);
-            $translation = $post->translatedOrNew($request->get("lang"));
-            $translation->fill($request->except('_token'));
+            $data = $request->validated();
+            $translation = $post->translatedOrNew(array_get($data, "lang"));
+            if (!$translation->hyperlink) {
+                $data["hyperlink"] = str_slug(array_get($data, "title"));
+            }
+            $translation->fill($data);
             $translation->save();
         } catch (\Exception $e) {
             return response()->json([
-              "success" => false,
-              "errors" => $e->getMessage(),
-          ], 422);
+                "success" => false,
+                "errors" => $e->getMessage(),
+            ], 422);
         }
 
 
-        return response()->json(["success" => true]);
+        return response()->json(["success" => true, "post" => $post->translatedOrNew(array_get($data, "lang"))]);
     }
 
-    public function updateMeta(Request $request, $id)
+    public function updateMeta(UpdatePostMeta $request, $id)
     {
-        return response()->json(["success" => true]);
+        try {
+            $post = Post::findOrFail($id);
+            $data = $request->validated();
+            $translation = $post->translatedOrNew(array_get($data, "lang"));
+            if (!array_get($data, "hyperlink")) {
+                array_forget($data, "hyperlink");
+            }
+            $translation->fill($data);
+            $translation->save();
+        } catch (\Exception $e) {
+            return response()->json([
+                "success" => false,
+                "errors" => $e->getMessage(),
+            ], 422);
+        }
+
+        return response()->json(["success" => true, "post" => $post->translatedOrNew(array_get($data, "lang"))]);
     }
+
+    public function updatePublication(UpdatePostPublication $request, $id)
+    {
+        try {
+            $post = Post::findOrFail($id);
+            $data = $request->validated();
+            $translation = $post->translatedOrNew(array_get($data, "lang"));
+            if (!array_get($data, "published_at")) {
+                array_set($data, "published_at", Carbon::now());
+            }
+            $translation->fill($data);
+            $translation->save();
+        } catch (\Exception $e) {
+            return response()->json([
+                "success" => false,
+                "errors" => $e->getMessage(),
+            ], 422);
+        }
+
+        return response()->json(["success" => true, "post" => $post->translatedOrNew(array_get($data, "lang"))]);
+    }
+
 }

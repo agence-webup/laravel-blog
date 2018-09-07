@@ -1,19 +1,11 @@
-let Meta = (() => {
+let Publication = (() => {
 
     let model = [
-        'hyperlink',
-        'excerpt',
-        'isFeatured',
-        'isIndexed',
-        'seoTitle',
-        'seoDescription',
-        'twitterTitle',
-        'twitterDescription',
-        'facebookTitle',
-        'facebookDescription',
+        'isPublished',
+        'published_at',
     ];
 
-    class Meta {
+    class Publication {
         constructor() {
             this.fields = {};
         }
@@ -24,9 +16,16 @@ let Meta = (() => {
         }
 
         queryElements() {
+            let datePicker = document.getElementById("published_at")
+            flatpickr(datePicker,{
+                altInput: true,
+                altFormat: "d/m/Y à H:i",
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+            })
             model.forEach(elem => {
                 this.fields[elem] = document.getElementById(elem);
-            });
+            });            
         }
 
         initEvents() {
@@ -36,7 +35,6 @@ let Meta = (() => {
                     this.sendData(this.getFormData()).then(
                         // Success
                         (response) => {
-                            this.fields['hyperlink'].value = response.post.hyperlink
                             statusBar.lastSave = Date.now();
                             statusBar.updateTimeAgo();
                             statusBar.stateNormal();
@@ -69,7 +67,7 @@ let Meta = (() => {
             
             return new Promise((resolve, reject) => {
                 let request = new XMLHttpRequest();
-                request.open("POST", LBConfig.updateMetaUrl, true);
+                request.open("POST", LBConfig.updatePublicationUrl, true);
                 request.setRequestHeader('Accept', 'application/json');
                 request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
                 request.onload = function (event) {
@@ -88,5 +86,5 @@ let Meta = (() => {
 
     }
 
-    return Meta;
+    return Publication;
 })();
