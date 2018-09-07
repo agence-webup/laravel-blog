@@ -1,20 +1,30 @@
 @extends('laravel-blog::layouts.auth')
 
 @section('content')
-Index blog !
+
+<div>
+    Changer de langue : 
+    @foreach (config("blog.locales") as $avaiableLocale)
+    <a href="{{ route("blog.indexLocalized", ["locale" => $avaiableLocale]) }}">{{ $avaiableLocale }}</a> | 
+    @endforeach
+<div>
+
+<h1>Index blog {{ $locale }}!</h1>
+
+
+
 
 <hr>
 
 
 @forelse ($posts as $post)
     <article>  
-        Autheur : {{ $post->author->name }}<br>
-        Date de publication : {{ $post->translated($locale)->published_at->format("d/m/Y à H:i") }}
-
-        {{ $post->translated($locale)->title }}
-        {{ $post->translated($locale)->content }}
-        {{ $post->translated($locale)->hyperlink }}
-        {{ $post->translated($locale)->excerpt }}
+        Auteur : {{ $post->author->name }}<br>
+        Date de publication : {{ $post->translated($locale)->published_at->format("d/m/Y à H:i") }}<br>
+        {{ $post->translated($locale)->title }}<br>
+        {{ $post->translated($locale)->content }}<br>
+        {{ $post->translated($locale)->hyperlink }}<br>
+        {{ $post->translated($locale)->excerpt }}<br>
 
         <a href="{{ route("blog.show",[$locale,$post->id,$post->translated($locale)->hyperlink]) }}">Voir l"article</a>
     </article>
