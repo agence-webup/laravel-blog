@@ -97,10 +97,13 @@ class PostController extends BaseController
             $translation = $post->translatedOrNew(array_get($data, "lang"));
             if (!array_get($data, "published_at")) {
                 array_set($data, "published_at", Carbon::now());
+            } else {
+                array_set($data, "published_at", Carbon::createFromFormat("Y-m-d H:i", $data["published_at"]));
             }
             $translation->fill($data);
             $translation->save();
         } catch (\Exception $e) {
+            dd($e);
             return response()->json([
                 "success" => false,
                 "errors" => $e->getMessage(),
