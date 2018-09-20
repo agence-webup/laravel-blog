@@ -20,7 +20,10 @@ var statusSidebar = new Sidebar(
 var meta = new Meta().init();
 
 // handle publish pannel
-var meta = new Publication().init();
+var publication = new Publication().init();
+
+// handle translation panel
+var translation = new Translation();
 
 // handle status bar
 var statusBar = new StatusBar().init();

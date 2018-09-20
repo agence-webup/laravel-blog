@@ -33,6 +33,15 @@ class PostTranslation extends BaseModel
     "published_at"
   ];
 
+  protected $appends = [
+    "isDraw"
+  ];
+
+  public function getIsDrawAttribute()
+  {
+    return $this->exists && !$this->isPublished;
+  }
+
   public function post()
   {
     return $this->belongsTo("Webup\LaravelBlog\Entities\Post");

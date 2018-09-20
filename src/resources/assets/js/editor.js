@@ -69,6 +69,7 @@ let Editor = (() => {
                             statusBar.lastSave = Date.now();
                             statusBar.updateTimeAgo();
                             statusBar.stateNormal();
+                            translation.updateStateTags();
                         },
                         // Error
                         (error) => {

@@ -73,5 +73,10 @@ return [
     "publish" => "Publier l'article",
     "schedule" => "Date de publication",
     "update" => "Mettre à jour l'article",
+  ],
+  "state" => [
+    "published" => "Publié",
+    "draw" => "Brouillon",
+    "unknown" => "Inexistant",
   ]
 ];

@@ -73,5 +73,10 @@ return [
     "publish" => "Publish article",
     "schedule" => "Published date",
     "update" => "Update article",
+  ],
+  "state" => [
+    "published" => "Published",
+    "draw" => "Draw",
+    "unknown" => "Unknown",
   ]
 ];

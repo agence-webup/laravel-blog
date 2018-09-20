@@ -36,6 +36,17 @@
 
 </div>
 
+<script data-template-translation-status="published" type="text/x-template">
+    @include("laravel-blog::admin.post.elements.translations-status",["isDraw" => false,"isPublished" => true])
+</script>
+<script data-template-translation-status="draw" type="text/x-template">
+    @include("laravel-blog::admin.post.elements.translations-status",["isDraw" => true,"isPublished" => false])
+</script>
+<script data-template-translation-status="unknown" type="text/x-template">
+    @include("laravel-blog::admin.post.elements.translations-status",["isDraw" => false,"isPublished" => false])
+</script>
+
+
 @endsection
 
 @section('js')
@@ -55,6 +66,7 @@
 <script src="{{ asset('vendor/laravel-blog/js/publication.js') }}"></script>
 <script src="{{ asset('vendor/laravel-blog/js/editor.js') }}"></script>
 <script src="{{ asset('vendor/laravel-blog/js/meta.js') }}"></script>
+<script src="{{ asset('vendor/laravel-blog/js/translations.js') }}"></script>
 <script src="{{ asset('vendor/laravel-blog/node_modules/timeago.js/dist/timeago.min.js') }}"></script>
 <script src="{{ asset('vendor/laravel-blog/node_modules/timeago.js/dist/timeago.locales.min.js') }}"></script>
 <script src="{{ asset('vendor/laravel-blog/node_modules/flatpickr/dist/flatpickr.min.js') }}"></script>
