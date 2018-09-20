@@ -50,13 +50,6 @@ class Post extends BaseModel
         return null;
     }
 
-    private function testAuthorizedLocal($locale)
-    {
-        if (!in_array($locale, config()->get('blog.locales'))) {
-            throw new \Exception("No '" . $locale . "' found in blog.locales");
-        }
-    }
-
     public function translatedOrNew($code)
     {
         $tranlsation = $this->translated($code);
@@ -72,5 +65,12 @@ class Post extends BaseModel
     public function translations()
     {
         return $this->hasMany("Webup\LaravelBlog\Entities\PostTranslation");
+    }
+
+    private function testAuthorizedLocal($locale)
+    {
+        if (!in_array($locale, config()->get('blog.locales'))) {
+            throw new \Exception("No '" . $locale . "' found in blog.locales");
+        }
     }
 }

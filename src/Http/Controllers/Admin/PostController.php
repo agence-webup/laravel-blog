@@ -10,6 +10,11 @@ use Webup\LaravelBlog\Http\Requests\UpdatePostPublication;
 use Illuminate\Http\Request;
 use Auth;
 use Carbon\Carbon;
+use Webup\LaravelBlog\Events\Post\Create as BlogPostCreated;
+use Webup\LaravelBlog\Events\Post\Update as BlogPostUpdated;
+use Webup\LaravelBlog\Events\PostTranslation\Create as BlogPostTranslationCreated;
+use Webup\LaravelBlog\Events\PostTranslation\Update as BlogPostTranslationUpdated;
+use Webup\LaravelBlog\Entities\PostTranslation;
 
 class PostController extends BaseController
 {
@@ -30,6 +35,7 @@ class PostController extends BaseController
             $post = new Post();
             $post->user_id = $this->guard()->user()->id;
             $post->save();
+            event("laravel-blog.post.create", new BlogPostCreated($post));
         }
 
         return redirect()->to(route("admin.blog.post.edit", ["id" => $post->id, "lang" => $this->guard()->user()->lang ? $this->guard()->user()->lang : config()->get('blog.default_locale')]));
@@ -57,6 +63,10 @@ class PostController extends BaseController
             }
             $translation->fill($data);
             $translation->save();
+            // Update updated_at from parent post
+            $translation->post()->touch();
+            // Send Events
+            $this->sendEvents($post, $translation);
         } catch (\Exception $e) {
             return response()->json([
                 "success" => false,
@@ -79,6 +89,10 @@ class PostController extends BaseController
             }
             $translation->fill($data);
             $translation->save();
+            // Update updated_at from parent post
+            $translation->post()->touch();
+            // Send Events
+            $this->sendEvents($post, $translation);
         } catch (\Exception $e) {
             return response()->json([
                 "success" => false,
@@ -102,8 +116,11 @@ class PostController extends BaseController
             }
             $translation->fill($data);
             $translation->save();
+            // Update updated_at from parent post
+            $translation->post()->touch();
+            // Send Events
+            $this->sendEvents($post, $translation);
         } catch (\Exception $e) {
-            dd($e);
             return response()->json([
                 "success" => false,
                 "errors" => $e->getMessage(),
@@ -111,6 +128,17 @@ class PostController extends BaseController
         }
 
         return response()->json(["success" => true, "post" => $post->translatedOrNew(array_get($data, "lang"))]);
+    }
+
+    private function sendEvents(Post $post, PostTranslation $translation)
+    {
+        if ($translation->wasRecentlyCreated) {
+            event("laravel-blog.postTranslation.create", new BlogPostTranslationCreated($translation));
+        } else {
+            event("laravel-blog.postTranslation.update", new BlogPostTranslationUpdated($translation));
+        }
+        event("laravel-blog.post.update", new BlogPostUpdated($post));
+
     }
 
 }

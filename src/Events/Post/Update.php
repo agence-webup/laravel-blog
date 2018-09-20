@@ -1,28 +1,26 @@
 <?php
 
-namespace Webup\LaravelBlog\Events\User;
+namespace Webup\LaravelBlog\Events\Post;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Webup\LaravelBlog\Entities\User;
+use Webup\LaravelBlog\Entities\Post;
 
-class Register
+class Update
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
 
-    public $user;
-    public $password;
+    public $post;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(User $user, string $password)
+    public function __construct(Post $post)
     {
-        $this->user = $user;
-        $this->password = $password;
+        $this->post = $post;
     }
 }

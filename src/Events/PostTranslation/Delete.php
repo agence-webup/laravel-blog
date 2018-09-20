@@ -1,28 +1,26 @@
 <?php
 
-namespace Webup\LaravelBlog\Events\User;
+namespace Webup\LaravelBlog\Events\PostTranslation;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Webup\LaravelBlog\Entities\User;
+use Webup\LaravelBlog\Entities\PostTranslation;
 
-class Register
+class Delete
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
 
-    public $user;
-    public $password;
+    public $postTranslation;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(User $user, string $password)
+    public function __construct(PostTranslation $postTranslation)
     {
-        $this->user = $user;
-        $this->password = $password;
+        $this->postTranslation = $postTranslation;
     }
 }

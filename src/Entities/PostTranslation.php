@@ -32,4 +32,9 @@ class PostTranslation extends BaseModel
   protected $dates = [
     "published_at"
   ];
+
+  public function post()
+  {
+    return $this->belongsTo("Webup\LaravelBlog\Entities\Post");
+  }
 }
