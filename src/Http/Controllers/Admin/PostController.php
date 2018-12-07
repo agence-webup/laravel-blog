@@ -15,6 +15,7 @@ use Webup\LaravelBlog\Events\Post\Update as BlogPostUpdated;
 use Webup\LaravelBlog\Events\PostTranslation\Create as BlogPostTranslationCreated;
 use Webup\LaravelBlog\Events\PostTranslation\Update as BlogPostTranslationUpdated;
 use Webup\LaravelBlog\Entities\PostTranslation;
+use Webup\LaravelBlog\Http\Resources\PostTranslation as PostTranslationResource;
 
 class PostController extends BaseController
 {
@@ -75,7 +76,10 @@ class PostController extends BaseController
         }
 
 
-        return response()->json(["success" => true, "post" => $post->translatedOrNew(array_get($data, "lang"))]);
+        return response()->json([
+            "success" => true,
+            "post" => new PostTranslationResource($post->translatedOrNew(array_get($data, "lang")))
+        ]);
     }
 
     public function updateMeta(UpdatePostMeta $request, $id)
@@ -100,7 +104,10 @@ class PostController extends BaseController
             ], 422);
         }
 
-        return response()->json(["success" => true, "post" => $post->translatedOrNew(array_get($data, "lang"))]);
+        return response()->json([
+            "success" => true,
+            "post" => new PostTranslationResource($post->translatedOrNew(array_get($data, "lang")))
+        ]);
     }
 
     public function updatePublication(UpdatePostPublication $request, $id)
@@ -127,7 +134,10 @@ class PostController extends BaseController
             ], 422);
         }
 
-        return response()->json(["success" => true, "post" => $post->translatedOrNew(array_get($data, "lang"))]);
+        return response()->json([
+            "success" => true,
+            "post" => new PostTranslationResource($post->translatedOrNew(array_get($data, "lang")))
+        ]);
     }
 
     private function sendEvents(Post $post, PostTranslation $translation)

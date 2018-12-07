@@ -40,7 +40,7 @@ let Meta = (() => {
                             statusBar.lastSave = Date.now();
                             statusBar.updateTimeAgo();
                             statusBar.stateNormal();
-                            translation.updateStateTags();
+                            translation.updateStateTags(response.post.langs);
                         },
                         // Error
                         (error) => {
@@ -53,11 +53,11 @@ let Meta = (() => {
 
         getFormData() {
             let formData = new FormData();
-            
+
             for (var prop in this.fields) {
-                
-                if(this.fields[prop].type === 'checkbox') {
-                    formData.append(this.fields[prop].name, (this.fields[prop].checked) ? 1 : 0 );
+
+                if (this.fields[prop].type === 'checkbox') {
+                    formData.append(this.fields[prop].name, (this.fields[prop].checked) ? 1 : 0);
                 } else {
                     formData.append(this.fields[prop].name, this.fields[prop].value);
                 }
@@ -67,7 +67,7 @@ let Meta = (() => {
         }
 
         sendData(data) {
-            
+
             return new Promise((resolve, reject) => {
                 let request = new XMLHttpRequest();
                 request.open("POST", LBConfig.updateMetaUrl, true);

@@ -1,5 +1,10 @@
 # laravel-blog
 
+gd or imagick
+
+=> php artisan vendor:publish --provider=Intervention\Image\ImageServiceProviderLaravel5
++ edit `[Project]/config/image.php`
+
 # Config
 
 ## Database

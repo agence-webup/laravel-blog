@@ -65,11 +65,14 @@ let Editor = (() => {
                     this.sendData(this.getFormData()).then(
                         // Success
                         (response) => {
+                            console.log(response);
+
                             // update save status
                             statusBar.lastSave = Date.now();
                             statusBar.updateTimeAgo();
                             statusBar.stateNormal();
-                            translation.updateStateTags();
+
+                            translation.updateStateTags(response.post.langs);
                         },
                         // Error
                         (error) => {

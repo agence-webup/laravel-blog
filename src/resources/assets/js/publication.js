@@ -17,7 +17,7 @@ let Publication = (() => {
 
         queryElements() {
             let datePicker = document.getElementById("published_at")
-            flatpickr(datePicker,{
+            flatpickr(datePicker, {
                 altInput: true,
                 altFormat: "d/m/Y à H:i",
                 enableTime: true,
@@ -25,7 +25,7 @@ let Publication = (() => {
             })
             model.forEach(elem => {
                 this.fields[elem] = document.getElementById(elem);
-            });            
+            });
         }
 
         initEvents() {
@@ -38,7 +38,7 @@ let Publication = (() => {
                             statusBar.lastSave = Date.now();
                             statusBar.updateTimeAgo();
                             statusBar.stateNormal();
-                            translation.updateStateTags();
+                            translation.updateStateTags(response.post.langs);
                         },
                         // Error
                         (error) => {
@@ -51,11 +51,11 @@ let Publication = (() => {
 
         getFormData() {
             let formData = new FormData();
-            
+
             for (var prop in this.fields) {
-                
-                if(this.fields[prop].type === 'checkbox') {
-                    formData.append(this.fields[prop].name, (this.fields[prop].checked) ? 1 : 0 );
+
+                if (this.fields[prop].type === 'checkbox') {
+                    formData.append(this.fields[prop].name, (this.fields[prop].checked) ? 1 : 0);
                 } else {
                     formData.append(this.fields[prop].name, this.fields[prop].value);
                 }
@@ -65,7 +65,7 @@ let Publication = (() => {
         }
 
         sendData(data) {
-            
+
             return new Promise((resolve, reject) => {
                 let request = new XMLHttpRequest();
                 request.open("POST", LBConfig.updatePublicationUrl, true);

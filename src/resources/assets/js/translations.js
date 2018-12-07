@@ -11,10 +11,16 @@ let Translation = (() => {
             this.translationsTags = document.querySelectorAll("[data-translation]");
         }
 
-        updateStateTags(){
-            console.log("louloulou");
+        updateStateTags(langs) {
+
             this.translationsTags.forEach(element => {
-                element.innerHTML = STATE.PUBLISHED;
+                if (langs[element.dataset.translation].isPublished) {
+                    element.innerHTML = STATE.PUBLISHED;
+                } else if (langs[element.dataset.translation].isDraw) {
+                    element.innerHTML = STATE.DRAW;
+                } else {
+                    element.innerHTML = STATE.UNKNOWN;
+                }
             });
         }
 
