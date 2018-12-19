@@ -20,7 +20,6 @@ let StatusBar = (() => {
                 statusSaving: document.querySelector('[data-status="saving"]'),
                 statusError: document.querySelector('[data-status="error"]'),
             };
-            console.log(this.ui);
             // keep last save 
             this.lastSave = null;
         }
@@ -28,7 +27,7 @@ let StatusBar = (() => {
         init() {
             this.initTimeAgo();
             return this;
-        } 
+        }
 
         initTimeAgo() {
             // init timeago
@@ -60,7 +59,7 @@ let StatusBar = (() => {
             this.ui.statusIndicator.classList.remove(CSS.LOADER);
             this.ui.statusWrapper.classList.remove(CSS.STATUS_NORMAL);
             this.ui.statusWrapper.classList.remove(CSS.STATUS_SAVING);
-            this.ui.statusWrapper.classList.remove(CSS.STATUS_ERROR); 
+            this.ui.statusWrapper.classList.remove(CSS.STATUS_ERROR);
         }
 
         updateTimeAgo() {

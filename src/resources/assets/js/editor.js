@@ -5,14 +5,24 @@ let Editor = (() => {
 
     class Editor {
 
+        /*
+            Properties
+        */
+        // ui = { title: null, editorContent: null }
+        // placeholder;
+        // content;
+        // quill;
+        // change;
+        // needSave
+
         constructor() {
             this.ui = {
-                title: document.querySelector('[data-post=locale]'),
                 title: document.querySelector('[data-post=title]'),
                 editorContent: document.querySelector('#editorContent'),
             };
             this.placeholder = this.ui.editorContent.dataset.quillPlaceholder;
             this.content = LBConfig.quillContent;
+            this.needSave = false;
         }
 
         init() {
@@ -51,12 +61,16 @@ let Editor = (() => {
                 this.change = this.change.compose(delta);
                 statusBar.updateCounter(this.countWords(this.ui.editorContent.innerText));
             });
+
+            this.ui.title.addEventListener("keydown", () => {
+                this.needSave = true;
+            })
         }
 
         initTimer() {
             setInterval(() => {
                 // if there are changes
-                if (this.change.length() > 0) {
+                if (this.change.length() > 0 || this.needSave) {
                     this.change = new Delta();
 
                     // saving state
@@ -65,8 +79,7 @@ let Editor = (() => {
                     this.sendData(this.getFormData()).then(
                         // Success
                         (response) => {
-                            console.log(response);
-
+                            this.needSave = false;
                             // update save status
                             statusBar.lastSave = Date.now();
                             statusBar.updateTimeAgo();
