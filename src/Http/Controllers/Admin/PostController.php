@@ -90,7 +90,10 @@ class PostController extends BaseController
             $translation = $post->translatedOrNew(array_get($data, "lang"));
             if (!array_get($data, "hyperlink")) {
                 array_forget($data, "hyperlink");
+            } else {
+                $data["hyperlink"] = str_slug($data["hyperlink"]);
             }
+
             $translation->fill($data);
             $translation->save();
             // Update updated_at from parent post
