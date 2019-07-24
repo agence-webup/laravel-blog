@@ -1,0 +1,19 @@
+/* ----------------------------------------------------------- */
+/* == quill */
+/* ----------------------------------------------------------- */
+
+.ql-snow .ql-editor h2 {
+  @include flow(22);
+}
+
+.ql-snow .ql-editor h3 {
+  @include flow(20);
+}
+
+.ql-snow .ql-editor h4 {
+  @include flow(18);
+}
+
+.ql-snow .ql-editor h5 {
+  @include flow(16);
+}
