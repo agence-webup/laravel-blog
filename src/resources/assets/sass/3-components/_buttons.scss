@@ -30,7 +30,7 @@ $btn-radius: .2rem;
   color: #fff;
   vertical-align: middle;
   text-align: center;
-  text-decoration: none !important;
+  text-decoration: none;
   line-height: normal;
   cursor: pointer;
   transition: background-color .4s;
@@ -87,6 +87,24 @@ $btn-radius: .2rem;
 
 .btn--wide {
   width: 100%;
+}
+
+.btn--link {
+  margin: 0;
+  padding: .5rem;
+  background: none;
+  color: $color-dark-text;
+}
+
+.btn--icon svg {
+  height: 2.5rem;
+  vertical-align: middle;
+}
+
+.btn--icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* size

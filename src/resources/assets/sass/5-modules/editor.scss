@@ -179,6 +179,8 @@
   top: 4rem;
   right: 0;
   bottom: 4rem;
+  display: flex;
+  flex-direction: column;
   overflow: scroll;
   padding: 0 2rem;
   width: 30rem;
@@ -209,6 +211,10 @@
 .editor-sidebar input,
 .editor-sidebar textarea {
   min-width: 0;
+}
+
+.editor-sidebar__bottom {
+  margin-top: auto;
 }
 
 /* sidebar list
