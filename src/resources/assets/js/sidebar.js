@@ -1,6 +1,7 @@
 let Sidebar = (() => {
 
     let numberOfSidebarsOpened = 0;
+    let openedSidebars = []
 
     const CSS = {
         EDITOR_SIDEBAR_OPEN: 'editor-sidebar--open',
@@ -42,8 +43,7 @@ let Sidebar = (() => {
 
         close() {
             numberOfSidebarsOpened--;
-            this.target.classList.remove(CSS.EDITOR_SIDEBAR_OPEN);
-            this.triggers.classList.remove(CSS.EDITOR_SIDEBAR_CLOSING_MODE);
+            this._closeSidebar(this);
             this.onTransitionEnd(()=> {
                 this.target.style['z-index'] = null;
             });
@@ -51,9 +51,21 @@ let Sidebar = (() => {
 
         open() {
             numberOfSidebarsOpened++;
+
+            while(openedSidebars.length > 0) {
+                let sidebar = openedSidebars.shift();
+                this._closeSidebar(sidebar);
+            }
+
+            openedSidebars.push(this)
             this.target.classList.add(CSS.EDITOR_SIDEBAR_OPEN);
             this.triggers.classList.add(CSS.EDITOR_SIDEBAR_CLOSING_MODE);
             this.target.style['z-index'] = 10 + numberOfSidebarsOpened;
+        }
+
+        _closeSidebar(sidebar) {
+            sidebar.target.classList.remove(CSS.EDITOR_SIDEBAR_OPEN);
+            sidebar.triggers.classList.remove(CSS.EDITOR_SIDEBAR_CLOSING_MODE);
         }
     }
 
