@@ -7,7 +7,7 @@
         <h1>{{ __('laravel-blog::user.edit.title') }} : {{ $user->name }}</h1>
     </div>
 
-    @if(Auth::guard("blog")->user()->id != $user->id)
+    @if(Auth::user()->id != $user->id)
     <form action="{{ route('admin.blog.user.delete',[$user->id]) }}" method="post">
         {{ method_field('DELETE') }}
         {{ csrf_field() }}

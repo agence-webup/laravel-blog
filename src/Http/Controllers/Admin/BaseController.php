@@ -12,8 +12,8 @@ class BaseController extends Controller
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected function guard()
-    {
-        return AuthFacade::guard("blog");
-    }
+    // protected function guard()
+    // {
+    //     return AuthFacade::guard("blog");
+    // }
 }

@@ -21,6 +21,7 @@ class PostController extends BaseController
 {
     public function index()
     {
+        $this->authorize('list', Post::class);
         $posts = Post::with('author')->get();
 
         return view('laravel-blog::admin.post.index', compact('posts'));
@@ -28,35 +29,41 @@ class PostController extends BaseController
 
     public function create()
     {
+        $this->authorize('create', Post::class);
+
         //get last post for user
-        $post = Post::where("user_id", $this->guard()->user()->id)->orderBy("created_at", "DESC")->first();
+        $post = Post::where("user_id", Auth::user()->id)->orderBy("created_at", "DESC")->first();
 
         //Check if last post is recently created (avoid empty post list)
         if (!$post || !$post->isRecentlyCreated()) {
             $post = new Post();
-            $post->user_id = $this->guard()->user()->id;
+            $post->user_id = Auth::user()->id;
             $post->save();
             event("laravel-blog.post.create", new BlogPostCreated($post));
         }
 
-        return redirect()->to(route("admin.blog.post.edit", ["id" => $post->id, "lang" => $this->guard()->user()->lang ? $this->guard()->user()->lang : config()->get('blog.default_locale')]));
+        return redirect()->to(route("admin.blog.post.edit", ["id" => $post->id, "lang" => Auth::user()->lang ? Auth::user()->lang : config()->get('blog.default_locale')]));
     }
 
     public function edit(Request $request, $id)
     {
-        if (!in_array($request->get("lang"), config()->get('blog.locales'))) {
+        $post = Post::findOrFail($id);
+        $this->authorize('update', $post);
+        $locale = $request->get("lang");
+
+        if (!in_array($locale, config()->get('blog.locales'))) {
             abort(404);
         }
 
-        $post = Post::findOrFail($id);
-        $locale = $request->get("lang");
         return view('laravel-blog::admin.post.edit', compact('post', 'locale'));
     }
 
     public function update(UpdatePost $request, $id)
     {
+        $post = Post::findOrFail($id);
+        $this->authorize('update', $post);
+
         try {
-            $post = Post::findOrFail($id);
             $data = $request->validated();
             $translation = $post->translatedOrNew(array_get($data, "lang"));
             if (!$translation->hyperlink) {
@@ -84,8 +91,10 @@ class PostController extends BaseController
 
     public function updateMeta(UpdatePostMeta $request, $id)
     {
+        $post = Post::findOrFail($id);
+        $this->authorize('update', $post);
+
         try {
-            $post = Post::findOrFail($id);
             $data = $request->validated();
             $translation = $post->translatedOrNew(array_get($data, "lang"));
             if (!array_get($data, "hyperlink")) {
@@ -115,8 +124,10 @@ class PostController extends BaseController
 
     public function updatePublication(UpdatePostPublication $request, $id)
     {
+        $post = Post::findOrFail($id);
+        $this->authorize('update', $post);
+
         try {
-            $post = Post::findOrFail($id);
             $data = $request->validated();
             $translation = $post->translatedOrNew(array_get($data, "lang"));
             if (!array_get($data, "published_at")) {
@@ -151,7 +162,5 @@ class PostController extends BaseController
             event("laravel-blog.postTranslation.update", new BlogPostTranslationUpdated($translation));
         }
         event("laravel-blog.post.update", new BlogPostUpdated($post));
-
     }
-
 }

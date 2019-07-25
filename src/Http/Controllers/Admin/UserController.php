@@ -17,6 +17,8 @@ class UserController extends BaseController
 {
     public function index()
     {
+        $this->authorize('list', User::class);
+
         $users = User::get();
 
         return view('laravel-blog::admin.user.index', compact('users'));
@@ -24,19 +26,23 @@ class UserController extends BaseController
 
     public function create()
     {
+        $this->authorize('create', User::class);
+
         $user = new User();
         return view('laravel-blog::admin.user.create', compact('user'));
     }
 
     public function store(Request $request)
     {
+        $this->authorize('create', User::class);
+
         $data = $this->validate($request, [
             "name" => "required|string",
             "email" => [
                 "required",
                 "string",
                 "email",
-                "unique:".(new User())->getConnectionName().".".(new User())->getTable().",email",
+                "unique:" . (new User())->getConnectionName() . "." . (new User())->getTable() . ",email",
             ],
             "lang" => "required",
             "picture" => "",
@@ -68,25 +74,28 @@ class UserController extends BaseController
     public function edit($id)
     {
         $user = User::findOrFail($id);
+        $this->authorize('update', $user);
+
         return view('laravel-blog::admin.user.edit', compact('user'));
     }
 
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
+        $this->authorize('update', $user);
 
         $data = $this->validate($request, [
-          "name" => "required|string",
-          "email" => [
-              "required",
-              "string",
-              "email",
-              "unique:".(new User())->getConnectionName().".".(new User())->getTable().",email,".$user->id,
-          ],
-          "lang" => "required",
-          "picture" => "",
-          "biography" => "nullable|string",
-          "isAdmin" => "",
+            "name" => "required|string",
+            "email" => [
+                "required",
+                "string",
+                "email",
+                "unique:" . (new User())->getConnectionName() . "." . (new User())->getTable() . ",email," . $user->id,
+            ],
+            "lang" => "required",
+            "picture" => "",
+            "biography" => "nullable|string",
+            "isAdmin" => "",
         ]);
 
         $data["isAdmin"] = (array_get($data, "isAdmin", "") == "on") ? true : false;
@@ -107,6 +116,7 @@ class UserController extends BaseController
     public function delete(Request $request, $id)
     {
         $user = User::findOrFail($id);
+        $this->authorize('delete', $user);
 
         event("laravel-blog.user.delete", new BlogUserDeleted($user));
 

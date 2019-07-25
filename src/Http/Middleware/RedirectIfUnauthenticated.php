@@ -24,6 +24,7 @@ class RedirectIfUnauthenticated
                 return redirect()->guest(route('admin.blog.login'));
             }
         }
+        Auth::shouldUse($guard);
 
         return $next($request);
     }

@@ -20,7 +20,7 @@ let StatusBar = (() => {
                 statusSaving: document.querySelector('[data-status="saving"]'),
                 statusError: document.querySelector('[data-status="error"]'),
             };
-            // keep last save 
+            // keep last save
             this.lastSave = null;
         }
 
