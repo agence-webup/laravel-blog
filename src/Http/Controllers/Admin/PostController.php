@@ -22,7 +22,7 @@ class PostController extends BaseController
     public function index()
     {
         $this->authorize('list', Post::class);
-        $posts = Post::with('author')->get();
+        $posts = Post::with('author', 'translations')->orderBy("created_at", "DESC")->get();
 
         return view('laravel-blog::admin.post.index', compact('posts'));
     }
