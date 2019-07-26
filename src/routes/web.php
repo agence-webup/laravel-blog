@@ -1,16 +1,16 @@
 <?php
 
 Route::group([
-  'middleware' => ['web'],
-  'namespace' => '\Webup\LaravelBlog\Http\Controllers',
-  'prefix' => 'blog',
-  'as' => 'blog.',
+    'middleware' => ['web', 'blog.settings:blog'],
+    'namespace' => '\Webup\LaravelBlog\Http\Controllers',
+    'prefix' => 'blog',
+    'as' => 'blog.',
 ], function () {
 
-  Route::get('/', function () {
-    return redirect()->to(route("blog.indexLocalized", ["locale" => "fr"]));
-  })->name('index');
+    Route::get('/', function () {
+        return redirect()->to(route("blog.indexLocalized", ["locale" => "fr"]));
+    })->name('index');
 
-  Route::get('/{locale}', 'BlogController@index')->name('indexLocalized');
-  Route::get('/{locale}/{id}-{slug}', 'BlogController@show')->name('show');
+    Route::get('/{locale}', 'BlogController@index')->name('indexLocalized');
+    Route::get('/{locale}/{id}-{slug}', 'BlogController@show')->name('show');
 });

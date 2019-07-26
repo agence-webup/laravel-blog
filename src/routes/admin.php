@@ -2,7 +2,7 @@
 
 
 Route::group([
-    'middleware' => ['web'],
+    'middleware' => ['web', 'blog.settings:blog'],
     'namespace' => '\Webup\LaravelBlog\Http\Controllers\Admin',
     'prefix' => 'blog/admin',
     'as' => 'admin.blog.',
@@ -41,6 +41,7 @@ Route::group([
 
         Route::group(['prefix' => 'settings', 'as' => 'setting.'], function () {
             Route::get('', 'SettingController@index')->name('index');
+            Route::post('/update', 'SettingController@update')->name('update');
         });
 
 

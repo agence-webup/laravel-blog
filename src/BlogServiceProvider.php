@@ -16,6 +16,7 @@ use Webup\LaravelBlog\Policies\PostPolicy;
 use Webup\LaravelBlog\Policies\PostTranslationPolicy;
 use Webup\LaravelBlog\Policies\UserPolicy;
 use Illuminate\Support\Facades\Auth;
+use Webup\LaravelBlog\Http\Middleware\ShareSetting;
 
 class BlogServiceProvider extends ServiceProvider
 {
@@ -44,6 +45,7 @@ class BlogServiceProvider extends ServiceProvider
         $router->aliasMiddleware('blog.auth', RedirectIfUnauthenticated::class);
         $router->aliasMiddleware('blog.guest', RedirectIfAuthenticated::class);
         $router->aliasMiddleware('blog.translate', TranslateAdmin::class);
+        $router->aliasMiddleware('blog.settings', ShareSetting::class);
 
         $this->loadMigrationsFrom(__DIR__ . '/../database');
 
@@ -77,8 +79,6 @@ class BlogServiceProvider extends ServiceProvider
         $this->defineConnection();
         $this->defineAuth();
     }
-
-
 
     public function registerPolicies()
     {

@@ -4,7 +4,6 @@ let Meta = (() => {
         'hyperlink',
         'excerpt',
         'isFeatured',
-        'isIndexed',
         'seoTitle',
         'seoDescription',
         'twitterTitle',
@@ -31,23 +30,25 @@ let Meta = (() => {
 
         initEvents() {
             for (var prop in this.fields) {
-                this.fields[prop].addEventListener('change', (e) => {
-                    statusBar.stateSaving();
-                    this.sendData(this.getFormData()).then(
-                        // Success
-                        (response) => {
-                            this.fields['hyperlink'].value = response.post.hyperlink
-                            statusBar.lastSave = Date.now();
-                            statusBar.updateTimeAgo();
-                            statusBar.stateNormal();
-                            translation.updateStateTags(response.post.langs);
-                        },
-                        // Error
-                        (error) => {
-                            statusBar.stateError();
-                        }
-                    );
-                });
+                if(this.fields[prop]){
+                    this.fields[prop].addEventListener('change', (e) => {
+                        statusBar.stateSaving();
+                        this.sendData(this.getFormData()).then(
+                            // Success
+                            (response) => {
+                                this.fields['hyperlink'].value = response.post.hyperlink
+                                statusBar.lastSave = Date.now();
+                                statusBar.updateTimeAgo();
+                                statusBar.stateNormal();
+                                translation.updateStateTags(response.post.langs);
+                            },
+                            // Error
+                            (error) => {
+                                statusBar.stateError();
+                            }
+                        );
+                    });
+                }
             }
         }
 

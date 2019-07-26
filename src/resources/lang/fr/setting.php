@@ -2,6 +2,13 @@
 
 return [
     "index" => [
-      'title' => 'Paramètres',
+        'title' => 'Paramètres',
     ],
+    "form" => [
+        "name" => "Nom du blog",
+        "articleNumber" => "Nombre d'article par page",
+    ],
+    "update" => [
+        "submit" => "Modifier"
+    ]
 ];
