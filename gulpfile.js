@@ -4,12 +4,13 @@ const sass = require('gulp-sass');
 const gnf = require('gulp-npm-files');
 const autoprefixer = require('gulp-autoprefixer');
 
+let basePath = '../../public/vendor/laravel-blog/'
 
 gulp.task('sass', function () {
     return gulp.src('./src/resources/assets/sass/*.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer())
-        .pipe(gulp.dest('../../public/vendor/laravel-blog/css'));
+        .pipe(gulp.dest(basePath+'css'));
 });
 
 gulp.task('js', () =>
@@ -17,13 +18,13 @@ gulp.task('js', () =>
     .pipe(babel({
         presets: ['env']
     }))
-    .pipe(gulp.dest('../../public/vendor/laravel-blog/js'))
+    .pipe(gulp.dest(basePath+'js'))
 );
 
 gulp.task('copy-npm', () => {
     return gulp.src(gnf(), {
         base: './'
-    }).pipe(gulp.dest('../../public/vendor/laravel-blog/'));
+    }).pipe(gulp.dest(basePath));
 });
 
 

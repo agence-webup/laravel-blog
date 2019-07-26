@@ -17,6 +17,10 @@
   },
   "homepage": "https://github.com/agence-webup/laravel-blog#readme",
   "dependencies": {
+    "filepond": "^4.4.11",
+    "filepond-plugin-image-preview": "^4.2.1",
+    "filepond-plugin-image-resize": "^2.0.4",
+    "filepond-plugin-image-transform": "^3.3.3",
     "flatpickr": "^4.5.2",
     "timeago.js": "^3.0.2"
   },

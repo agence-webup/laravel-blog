@@ -7,14 +7,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    @yield('css')
     <link rel="stylesheet" href="{{ asset('vendor/laravel-blog/css/laravel-blog.css') }}" type="text/css">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <link rel="stylesheet" href="https://cdn.rawgit.com/agence-webup/colibri/83b76ae3/dist/colibri.css">
-    @yield('css')
 </head>
 <body>
     <div class="app">
@@ -50,7 +49,6 @@
             @yield('content')
         </main>
     <div>
-    <script src="https://cdn.rawgit.com/agence-webup/colibri/83b76ae3/dist/colibri.js"></script>
     @yield('js')
 </body>
 </html>

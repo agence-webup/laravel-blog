@@ -52,6 +52,7 @@ class UserController extends BaseController
 
         $data["isAdmin"] = (array_get($data, "isAdmin", "") == "on") ? true : false;
 
+
         $user = new User($data);
         $password = str_random(10);
         $user->password = Hash::make($password);

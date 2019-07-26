@@ -39,6 +39,10 @@ class User extends Authenticatable
         if (!$this->picture) {
             return "https://randomuser.me/api/portraits/women/21.jpg";
         }
-        return Storage::url($this->picture);
+        $url = Storage::url($this->picture);
+        if (substr($url, 0, 1) == "/") {
+            $url = config("app.url") . $url;
+        }
+        return $url;
     }
 }

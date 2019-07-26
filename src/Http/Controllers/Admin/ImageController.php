@@ -17,33 +17,26 @@ class ImageController extends BaseController
             return response()->json("Cannot find `$fieldName` key in sent data", 422);
         }
 
-        $ext = '.'.$file->getClientOriginalExtension();
-        $name = str_replace($ext, "", str_slug($file->getClientOriginalName())).'-'.uniqid().$ext;
+        $ext = '.' . $file->getClientOriginalExtension();
+        $name = str_replace($ext, "", str_slug($file->getClientOriginalName())) . '-' . uniqid() . $ext;
 
-        $img = $this->resizeIfOutOfBounds(Image::make($file), $request->get("maxWidth", null), $request->get("maxHeight", null));
+        $img = Image::make($file);
         $img->save();
 
         $path = Storage::putFileAs("/public/blog/images", new \SplFileInfo($file), $name, 'public');
 
+        return response($path, 200)->header('Content-Type', 'text/plain');
+
+        echo $path;
+        die();
         return response()->json([
             "url" => Storage::url($path),
             "path" => $path,
         ]);
     }
 
-    private function resizeIfOutOfBounds(\Intervention\Image\Image $image, $maxWidth = null, $maxHeight = null)
+    public function fetch(Request $request)
     {
-        if ($maxWidth && $image->width() > $maxWidth) {
-            $image->resize($maxWidth, null, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-        }
-        if ($maxHeight && $image->height() > $maxHeight) {
-            $image->resize(null, $maxHeight, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-        }
-
-        return $image;
+        dd($request->all());
     }
 }

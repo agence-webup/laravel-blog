@@ -29,12 +29,7 @@
 
   <div>
     <label for="picture">{{ __("laravel-blog::user.form.picture") }}</label>
-    <div class="colibri" id="colibri" data-pic="{{ $user->pictureUrl }}" data-post="{{ route('admin.blog.image.upload')."?fieldName=picture&maxWidth=500&maxHeight=500&_token=".csrf_token() }}">
-        <label for="file">
-            <div>{{ __("laravel-blog::user.form.choose") }}</div>
-        </label>
-        <input type="file" id="file" data-message="{{ __("laravel-blog::user.form.uploading") }}">
-    </div>
+    <input  data-pic="{{ $user->pictureUrl }}" data-post="{{ route('admin.blog.image.upload')."?fieldName=filepond&_token=".csrf_token() }}" type="file" id="file" data-message="{{ __("laravel-blog::user.form.uploading") }}">
     <input type="hidden" name="picture" data-js="picture" value="">
   </div>
 

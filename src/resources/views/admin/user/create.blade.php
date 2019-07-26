@@ -1,5 +1,10 @@
 @extends('laravel-blog::layouts.admin')
 
+@section('css')
+<link href="{{ asset("vendor/laravel-blog/node_modules/filepond/dist/filepond.min.css") }}" rel="stylesheet">
+<link href="{{ asset("vendor/laravel-blog/node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css") }}" rel="stylesheet">
+@endsection
+
 @section('content')
 
 <div class="content-pa">
@@ -23,15 +28,5 @@
 @endsection
 
 @section('js')
-  <script>
-    var colibri = new Colibri('.colibri', {
-        onUploadComplete: function(code, response) {
-          var response = JSON.parse(response);
-          var pictureInput = document.querySelector('[data-js=picture]');
-          if(response.path){
-            pictureInput.value = response.path;
-          }
-        }
-    });
-    </script>
+@include("laravel-blog::admin.user.elements.javascript")
 @endsection
