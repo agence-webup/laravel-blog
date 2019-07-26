@@ -14,9 +14,16 @@
     FilePond.create(
         fileInput,
         {
+            labelIdle: `Drag & Drop your picture or <span class="filepond--label-action">Browse</span>`,
+            imagePreviewHeight: 170,
+            imageCropAspectRatio: '1:1',
             imageResizeTargetWidth:400,
             imageResizeTargetHeight:400,
-            imageCropAspectRatio: 1,
+            stylePanelLayout: 'compact circle',
+            styleLoadIndicatorPosition: 'center bottom',
+            styleProgressIndicatorPosition: 'center bottom',
+            styleButtonRemoveItemPosition: 'center bottom',
+            styleButtonProcessItemPosition: 'center bottom',
             files: [
                 {
                     source: fileInput.dataset.pic,

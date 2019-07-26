@@ -27,9 +27,9 @@
     </select>
   </div>
 
-  <div>
+  <div style="width:170px">
     <label for="picture">{{ __("laravel-blog::user.form.picture") }}</label>
-    <input  data-pic="{{ $user->pictureUrl }}" data-post="{{ route('admin.blog.image.upload')."?fieldName=filepond&_token=".csrf_token() }}" type="file" id="file" data-message="{{ __("laravel-blog::user.form.uploading") }}">
+    <input data-pic="{{ $user->pictureUrl }}" data-post="{{ route('admin.blog.image.upload')."?fieldName=filepond&_token=".csrf_token() }}" type="file" id="file" data-message="{{ __("laravel-blog::user.form.uploading") }}">
     <input type="hidden" name="picture" data-js="picture" value="">
   </div>
 
