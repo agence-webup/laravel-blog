@@ -11,8 +11,12 @@
     <div class="mt3">
         <button class="btn btn--primary btn--wide">{{ __("laravel-blog::post.publication.update") }}</button>
     </div>
-    <div class="editor-sidebar__bottom mb2">
-        <button class="btn btn--link btn--wide btn--icon">@include('laravel-blog::svg.trash') Supprimer l'article</button>
-    </div>
     @endif
+    <div class="editor-sidebar__bottom mb2">
+        <form action="{{ route("admin.blog.post.deleteLang",["id" => $post->id,"locale" => $locale])}}" method="POST">
+            @csrf
+            @method('delete')
+            <button class="btn btn--link btn--wide btn--icon" data-confirm="{{ __("laravel-blog::post.publication.delete_message") }}">@include('laravel-blog::svg.trash'){{ __("laravel-blog::post.publication.delete") }}</button>
+        </form>
+    </div>
 </aside>

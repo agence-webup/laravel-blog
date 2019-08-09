@@ -73,6 +73,8 @@ return [
         "publish" => "Publish article",
         "schedule" => "Published date",
         "update" => "Update article",
+        "delete" => "Delete article",
+        "delete_message" => "Are you sure you want to delete this lang ?",
     ],
     "state" => [
         "published" => "Published",

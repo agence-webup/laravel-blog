@@ -49,6 +49,7 @@
             @yield('content')
         </main>
     <div>
+    <script src="{{ asset('vendor/laravel-blog/js/helpers.js') }}"></script>
     @yield('js')
 </body>
 </html>

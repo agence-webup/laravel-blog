@@ -16,6 +16,7 @@ use Webup\LaravelBlog\Events\PostTranslation\Create as BlogPostTranslationCreate
 use Webup\LaravelBlog\Events\PostTranslation\Update as BlogPostTranslationUpdated;
 use Webup\LaravelBlog\Entities\PostTranslation;
 use Webup\LaravelBlog\Http\Resources\PostTranslation as PostTranslationResource;
+use Webup\LaravelBlog\Http\Requests\DeletePostTranslation;
 
 class PostController extends BaseController
 {
@@ -152,6 +153,23 @@ class PostController extends BaseController
             "success" => true,
             "post" => new PostTranslationResource($post->translatedOrNew(array_get($data, "lang")))
         ]);
+    }
+
+    public function deleteLang(DeletePostTranslation $request, $id, $locale)
+    {
+        $post = Post::findOrFail($id);
+        $this->authorize('delete', $post);
+
+        try {
+            $translation = $post->translatedOrNew($locale);
+            $translation->post()->touch();
+            $translation->delete();
+            // $this->sendEvents($post, $translation);
+        } catch (\Throwable $th) {
+            return redirect()->back();
+        }
+
+        return redirect()->to(route("admin.blog.post.index"));
     }
 
     private function sendEvents(Post $post, PostTranslation $translation)

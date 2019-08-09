@@ -37,6 +37,8 @@ Route::group([
             Route::post('/update/{id}', 'PostController@update')->name('update')->where(['id' => '[0-9]+']);
             Route::post('/updateMeta/{id}', 'PostController@updateMeta')->name('updateMeta')->where(['id' => '[0-9]+']);
             Route::post('/updatePublication/{id}', 'PostController@updatePublication')->name('updatePublication')->where(['id' => '[0-9]+']);
+
+            Route::delete('/delete/{id}/lang/{locale}', 'PostController@deleteLang')->name('deleteLang')->where(['id' => '[0-9]+']);
         });
 
         Route::group(['prefix' => 'settings', 'as' => 'setting.'], function () {

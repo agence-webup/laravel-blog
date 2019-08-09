@@ -73,6 +73,8 @@ return [
         "publish" => "Publier l'article",
         "schedule" => "Date de publication",
         "update" => "Mettre à jour l'article",
+        "delete" => "Supprimer l'article",
+        "delete_message" => "Voulez vous vraiment supprimer cette traduction ?",
     ],
     "state" => [
         "published" => "Publié",
