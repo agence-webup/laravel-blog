@@ -5,17 +5,11 @@ namespace Webup\LaravelBlog;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Routing\Router;
 use Webup\LaravelBlog\Entities\User;
-use Webup\LaravelBlog\Entities\Post;
-use Webup\LaravelBlog\Entities\PostTranslation;
 use Webup\LaravelBlog\Console\BlogUserCreate;
 use Webup\LaravelBlog\Http\Middleware\RedirectIfUnauthenticated;
 use Webup\LaravelBlog\Http\Middleware\RedirectIfAuthenticated;
 use Webup\LaravelBlog\Http\Middleware\TranslateAdmin;
 use Illuminate\Support\Facades\Gate;
-use Webup\LaravelBlog\Policies\PostPolicy;
-use Webup\LaravelBlog\Policies\PostTranslationPolicy;
-use Webup\LaravelBlog\Policies\UserPolicy;
-use Illuminate\Support\Facades\Auth;
 use Webup\LaravelBlog\Http\Middleware\ShareSetting;
 
 class BlogServiceProvider extends ServiceProvider
@@ -38,7 +32,9 @@ class BlogServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__ . '/../config/blog.php' => config_path('blog.php'),
-            __DIR__ . '/../public/assets/' => public_path('vendor/laravel-blog'),
+            __DIR__ . '/../public/assets/js/bundle.js' => public_path('vendor/laravel-blog/js/bundle.js'),
+            __DIR__ . '/../public/assets/css/laravel-blog.css' => public_path('vendor/laravel-blog/css/laravel-blog.css'),
+            __DIR__ . '/../public/node_modules' => public_path('vendor/laravel-blog/node_modules'),
             __DIR__ . '/resources/lang/' => resource_path('lang/vendor/laravel-blog'),
         ]);
 

@@ -1,36 +1,22 @@
-const gulp = require('gulp');
-const babel = require('gulp-babel');
-const sass = require('gulp-sass');
-const gnf = require('gulp-npm-files');
-const autoprefixer = require('gulp-autoprefixer');
+const gulp = require('gulp')
+const Gulpy = require('@agence-webup/gulpy')
 
-let basePath = '../../../public/vendor/laravel-blog/'
+// config
+const gulpy = new Gulpy({
+  publicFolder: 'public/assets/'
+})
 
-gulp.task('sass', function () {
-    return gulp.src('./src/resources/assets/sass/*.scss')
-        .pipe(sass().on('error', sass.logError))
-        .pipe(autoprefixer())
-        .pipe(gulp.dest(basePath+'css'));
-});
+// front
+const sass = gulpy.sass('src/resources/assets/sass/laravel-blog.scss', 'public/assets/css')
+const bundle = gulpy.bundle('src/resources/assets/js/*.js', 'public/assets/js', 'bundle.js')
+const clean = gulpy.clean(['public/assets/**'])
+const copyNpm = gulpy.copyNpm('public/node_modules')
 
-gulp.task('js', () =>
-    gulp.src('./src/resources/assets/js/**/*.js')
-    .pipe(babel({
-        presets: ['env']
-    }))
-    .pipe(gulp.dest(basePath+'js'))
-);
+// export
+exports.default = gulp.series(clean, gulp.parallel(sass, bundle, copyNpm))
 
-gulp.task('copy-npm', () => {
-    return gulp.src(gnf(), {
-        base: './'
-    }).pipe(gulp.dest(basePath));
-});
+if (gulpy.isProduction()) {
+  exports.default = gulp.series(exports.default)
+}
 
-
-gulp.task('watch', function () {
-    gulp.watch('./src/resources/assets/sass/**/*', gulp.series('sass'));
-    gulp.watch('./src/resources/assets/js/**/*', gulp.series('js'));
-});
-
-gulp.task('default', gulp.parallel('sass', 'js', 'copy-npm'));
+exports.watch = gulpy.watch()
