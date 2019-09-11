@@ -4,7 +4,7 @@ const sass = require('gulp-sass');
 const gnf = require('gulp-npm-files');
 const autoprefixer = require('gulp-autoprefixer');
 
-let basePath = '../../public/vendor/laravel-blog/'
+let basePath = '../../../public/vendor/laravel-blog/'
 
 gulp.task('sass', function () {
     return gulp.src('./src/resources/assets/sass/*.scss')

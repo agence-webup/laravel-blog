@@ -11,6 +11,7 @@ return [
             'register' => true,
         ],
     ],
+    "custom_guard" => null,
     'default_locale' => 'en',
     'locales' => [
         'en',

@@ -1,4 +1,5 @@
 <?php
+
 namespace Webup\LaravelBlog\Entities;
 
 use Webup\LaravelBlog\Entities\BaseModel;
@@ -16,7 +17,7 @@ class Post extends BaseModel
 
     public function author()
     {
-        return $this->belongsTo("Webup\LaravelBlog\Entities\User", "user_id");
+        return $this->belongsTo(auth('blog')->getProvider()->getModel(), "user_id");
     }
 
     public function isRecentlyCreated()

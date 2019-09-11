@@ -5,8 +5,9 @@ namespace Webup\LaravelBlog\Entities;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Storage;
+use Webup\LaravelBlog\Entities\Interfaces\UserInterface;
 
-class User extends Authenticatable
+class User extends Authenticatable implements UserInterface
 {
     use Notifiable;
 
@@ -33,6 +34,27 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function unauthenticatedRedirectRoute()
+    {
+        return route('admin.blog.login');
+    }
+
+    public function getIsAdminAttribute()
+    {
+        return $this->attributes['isAdmin'];
+    }
+
+    public function getLangAttribute()
+    {
+        return $this->attributes['lang'];
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->attributes['name'];
+    }
+
 
     public function getPictureUrlAttribute()
     {

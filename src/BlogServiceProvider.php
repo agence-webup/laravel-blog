@@ -84,7 +84,7 @@ class BlogServiceProvider extends ServiceProvider
     {
         Gate::policy("Webup\LaravelBlog\Entities\Post", "\Webup\LaravelBlog\Policies\PostPolicy");
         Gate::policy("Webup\LaravelBlog\Entities\PostTranslation", "\Webup\LaravelBlog\Policies\PostTranslationPolicy");
-        Gate::policy("Webup\LaravelBlog\Entities\User", "\Webup\LaravelBlog\Policies\UserPolicy");
+        Gate::policy(auth('blog')->getProvider()->getModel(), "\Webup\LaravelBlog\Policies\UserPolicy");
     }
 
     /**

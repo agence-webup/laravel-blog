@@ -30,7 +30,7 @@
                         <a href="{{route('admin.blog.post.index')}}" class="{{ BlogHelper::current_blog_route("admin.blog.post.index","is-active") }}">@include('laravel-blog::svg.list') {{ __("laravel-blog::menu.posts") }}</a>
                     @endif
                     <a href="{{route('blog.index')}}" target="_blank">@include('laravel-blog::svg.website') {{ __("laravel-blog::menu.website") }}</a>
-                    @if (Auth::user()->can('list', \Webup\LaravelBlog\Entities\User::class))
+                    @if ((config()->get("blog.custom_guard", null) ?: "blog") == "blog" && Auth::user()->can('list', \Webup\LaravelBlog\Entities\User::class))
                         <a href="{{route('admin.blog.user.index')}}" class="{{ BlogHelper::current_blog_route("admin.blog.user","is-active") }}">@include('laravel-blog::svg.user') {{ __("laravel-blog::menu.users") }}</a>
                     @endif
                     {{-- @if (Auth::user()->can('update', $post)) --}}

@@ -1,17 +1,22 @@
 <?php
 
 
+$customguard = config()->get("blog.custom_guard", null) ?: "blog";
+
 Route::group([
-    'middleware' => ['web', 'blog.settings:blog'],
+    'middleware' => ['web', 'blog.settings:' . $customguard],
     'namespace' => '\Webup\LaravelBlog\Http\Controllers\Admin',
     'prefix' => 'blog/admin',
     'as' => 'admin.blog.',
-], function () {
-    Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
-    Route::post('/login', 'Auth\LoginController@login');
+], function () use ($customguard) {
+
+    Route::group(['middleware' => ['blog.guest:' . $customguard]], function () {
+        Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
+        Route::post('/login', 'Auth\LoginController@login');
+    });
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
-    Route::group(['middleware' => ['blog.auth:blog', 'blog.translate:blog']], function () {
+    Route::group(['middleware' => ['blog.auth:' . $customguard, 'blog.translate:' . $customguard]], function () {
         Route::get('', function () {
             return redirect()->route("admin.blog.login");
         })->name("index");
