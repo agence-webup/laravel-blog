@@ -3,6 +3,8 @@
 @section('css')
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 <link href="{{ asset("node_modules/flatpickr/dist/flatpickr.min.css") }}" rel="stylesheet">
+<link href="{{ asset("node_modules/filepond/dist/filepond.min.css") }}" rel="stylesheet">
+<link href="{{ asset("node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css") }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -60,6 +62,11 @@
         quillContent : {!! $post->translatedOrNew($locale)->quill_content ?? "{}" !!}
     };
 </script>
+
+<script src="{{ asset("node_modules/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.min.js") }}"></script>
+<script src="{{ asset("node_modules/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.min.js") }}"></script>
+<script src="{{ asset("node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js") }}"></script>
+<script src="{{ asset("node_modules/filepond/dist/filepond.min.js") }}"></script>
 <script src="{{ asset('vendor/laravel-blog/js/pages/post.js') }}"></script>
 
 @endsection

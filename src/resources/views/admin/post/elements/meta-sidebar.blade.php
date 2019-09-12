@@ -9,11 +9,24 @@
     <label for="excerpt">{{ __("laravel-blog::post.meta.post.excerpt") }}</label>
     <textarea id="excerpt" name="excerpt">{{ $post->translatedOrNew($locale)->excerpt }}</textarea>
 
-    <label>{{ __("laravel-blog::post.meta.post.other_settings") }}</label>
+
     <div>
+        <label for="thumbnail">{{ __("laravel-blog::user.form.thumbnail") }}</label>
+
+        <input data-pic="{{ $post->translatedOrNew($locale)->thumbnailUrl }}" 
+            data-post="{{ route('admin.blog.image.upload')."?fieldName=filepond&_token=".csrf_token() }}" 
+            type="thumbnail_input" 
+            id="thumbnail_input" 
+            data-message="{{ __("laravel-blog::user.form.uploading") }}">
+
+        <input type="hidden" class="hidden" id="thumbnail" name="thumbnail" value="">
+    </div>
+
+    {{-- <label>{{ __("laravel-blog::post.meta.post.other_settings") }}</label> --}}
+    {{-- <div>
         <input type="checkbox" name="isFeatured" id="isFeatured" class="switch" @if($post->translatedOrNew($locale)->isFeatured) checked @endif>
         <label for="isFeatured">{{ __("laravel-blog::post.meta.post.featured") }}</label>
-    </div>
+    </div> --}}
     {{-- <div>
         <input type="checkbox" name="isIndexed" id="isIndexed" class="switch" @if($post->translatedOrNew($locale)->isIndexed) checked @endif>
         <label for="isIndexed">{{ __("laravel-blog::post.meta.post.indexed") }}</label>

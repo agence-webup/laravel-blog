@@ -27,6 +27,7 @@ class UpdatePostMeta extends FormRequest
             "lang" => "required|in:" . implode(',', config("blog.locales")),
             "hyperlink" => "",
             "excerpt" => "",
+            "thumbnail" => "",
             "isFeatured" => "",
             "isIndexed" => "",
             "seo.seo.title" => "",

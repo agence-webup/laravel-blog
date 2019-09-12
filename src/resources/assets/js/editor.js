@@ -140,7 +140,7 @@ let Editor = (() => {
   
           request.onload = function (event) {
             if (request.status == 200) {
-              resolve(request.response);
+              resolve(request.response.url);
             } else {
               const data = JSON.parse(request.response)
               reject(data)

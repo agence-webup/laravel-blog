@@ -38,6 +38,8 @@ class CreateBlogPostsTables extends Migration
             $table->text('hyperlink')->nullable();
             $table->text('excerpt')->nullable();
 
+            $table->text('thumbnail')->nullable();
+
             $table->json('seo')->nullable();
 
             $table->boolean('isPublished')->default(false);

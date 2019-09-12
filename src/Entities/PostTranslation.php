@@ -1,6 +1,8 @@
 <?php
+
 namespace Webup\LaravelBlog\Entities;
 
+use Illuminate\Support\Facades\Storage;
 use Webup\LaravelBlog\Entities\BaseModel;
 
 class PostTranslation extends BaseModel
@@ -20,6 +22,7 @@ class PostTranslation extends BaseModel
     'isIndexed',
     'hyperlink',
     'excerpt',
+    'thumbnail',
     'seo',
     'isPublished',
     'published_at',
@@ -40,6 +43,16 @@ class PostTranslation extends BaseModel
   public function getIsDrawAttribute()
   {
     return $this->exists && !$this->isPublished;
+  }
+
+
+  public function getThumbnailUrlAttribute()
+  {
+    if (!$this->thumbnail) {
+      return null;
+    }
+
+    return Storage::url($this->thumbnail);
   }
 
   public function post()

@@ -24,6 +24,9 @@ class ImageController extends BaseController
         $path = Storage::putFileAs("/public/blog/images", new \SplFileInfo($file), $name, 'public');
 
 
-        return response(Storage::url($path), 200)->header('Content-Type', 'text/plain');
+        return response([
+            "url" => Storage::url($path),
+            "path" => $path
+        ], 200)->header('Content-Type', 'text/plain');
     }
 }
