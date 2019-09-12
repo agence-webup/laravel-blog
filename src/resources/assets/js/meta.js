@@ -63,7 +63,8 @@ let Meta = (() => {
               method: 'POST',
               onload: (response) => {
                 var pictureInput = document.querySelector('[name=thumbnail]')
-                pictureInput.value = response.path
+                var data = JSON.parse(response)
+                pictureInput.value = data.path
 
                 // Trigger on change for input
                 if ('createEvent' in document) {
