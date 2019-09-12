@@ -32,7 +32,20 @@ class BlogController extends Controller
 
     public function show(Request $request, $locale, $id, $slug)
     {
-        $post = Post::findOrFail($id);
-        return view('laravel-blog::web.show', compact("post"));
+        app()->setLocale($locale);
+        Carbon::setLocale($locale);
+
+        $post = Post::with("translations")->whereHas('translations', function ($query) use ($locale) {
+            $query->where('post_translations.lang', $locale)
+                ->where('post_translations.isPublished', true)
+                ->where('post_translations.published_at', "<=", Carbon::now());
+        })->where("id", $id)->first();
+
+
+        if (!$post) {
+            abort(404);
+        }
+
+        return view('laravel-blog::web.show', ["post" => $post, "locale" => $locale]);
     }
 }
