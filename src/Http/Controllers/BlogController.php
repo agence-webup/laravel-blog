@@ -25,7 +25,7 @@ class BlogController extends Controller
             $query->where('post_translations.lang', $locale)
                 ->where('post_translations.isPublished', true)
                 ->where('post_translations.published_at', "<=", Carbon::now());
-        })->get();
+        })->paginate(config('blog.articleNumber'));
 
         return view('laravel-blog::web.index', ["posts" => $posts, "locale" => $locale]);
     }
