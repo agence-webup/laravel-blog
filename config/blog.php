@@ -21,5 +21,9 @@ return [
     'default' => [
         'blogName' => 'Blog',
         'articleNumber' => 10,
+    ],
+    'custom_link' => [
+        'name' => null,
+        'link' => null
     ]
 ];

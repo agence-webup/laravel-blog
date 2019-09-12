@@ -36,6 +36,10 @@
                     {{-- @if (Auth::user()->can('update', $post)) --}}
                         <a href="{{route('admin.blog.setting.index')}}" class="{{ BlogHelper::current_blog_route("admin.blog.setting","is-active") }}">@include('laravel-blog::svg.settings') {{ __("laravel-blog::menu.settings") }}</a>
                     {{-- @endif --}}
+
+                    @if( config("blog.custom_link.link") &&  config("blog.custom_link.name"))
+                        <a href="{{ config("blog.custom_link.link") }}">@include('laravel-blog::svg.settings') {{ config("blog.custom_link.name") }}</a>
+                    @endif
                 </div>
                 <div class="navigation-menu__bottom">
                     <form action="{{ route("admin.blog.logout") }}" method="post">
