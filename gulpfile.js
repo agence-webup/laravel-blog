@@ -16,8 +16,4 @@ const copyNpm = gulpy.copyNpm('public/node_modules')
 // export
 exports.default = gulp.series(clean, gulp.parallel(sass, js, bundle, copyNpm))
 
-if (gulpy.isProduction()) {
-  exports.default = gulp.series(exports.default)
-}
-
 exports.watch = gulpy.watch()

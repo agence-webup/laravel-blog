@@ -6,11 +6,6 @@ Route::group([
     'prefix' => 'blog',
     'as' => 'blog.',
 ], function () {
-
-    Route::get('/', function () {
-        return redirect()->to(route("blog.indexLocalized", ["locale" => "fr"]));
-    })->name('index');
-
-    Route::get('/{locale}', 'BlogController@index')->name('indexLocalized');
-    Route::get('/{locale}/{id}-{slug}', 'BlogController@show')->name('show');
+    Route::get('/', 'BlogController@index')->name('index');
+    Route::get('/{id}-{slug}', 'BlogController@show')->name('show');
 });

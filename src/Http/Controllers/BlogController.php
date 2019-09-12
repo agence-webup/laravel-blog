@@ -3,37 +3,30 @@
 namespace Webup\LaravelBlog\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use Webup\LaravelBlog\Events\User\Login as BlogUserLogin;
-use Webup\LaravelBlog\Events\User\Logout as BlogUserLogout;
-use Webup\LaravelBlog\Entities\User;
 use Webup\LaravelBlog\Entities\Post;
+use Webup\LaravelBlog\Entities\PostTranslation;
 use Illuminate\Support\Facades\Request;
 use Carbon\Carbon;
 
 class BlogController extends Controller
 {
-    /**
-     * @param $name
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function index(Request $request, $locale)
+    public function index(Request $request)
     {
-        app()->setLocale($locale);
-        Carbon::setLocale($locale);
+        $locale = app()->getLocale() ?? config("blog.default_locale");
 
-        $posts = Post::with("translations")->whereHas('translations', function ($query) use ($locale) {
-            $query->where('post_translations.lang', $locale)
-                ->where('post_translations.isPublished', true)
-                ->where('post_translations.published_at', "<=", Carbon::now());
-        })->paginate(config('blog.articleNumber'));
+        $postTranslations = PostTranslation::with("post")
+            ->where('lang', $locale)
+            ->where('isPublished', true)
+            ->where('published_at', "<=", Carbon::now())
+            ->orderBy('published_at', "DESC")
+            ->paginate(config('blog.articleNumber'));
 
-        return view('laravel-blog::web.index', ["posts" => $posts, "locale" => $locale]);
+        return view('laravel-blog::web.index', ["postTranslations" => $postTranslations, "locale" => $locale]);
     }
 
-    public function show(Request $request, $locale, $id, $slug)
+    public function show(Request $request, $id, $slug)
     {
-        app()->setLocale($locale);
-        Carbon::setLocale($locale);
+        $locale = app()->getLocale() ?? config("blog.default_locale");
 
         $post = Post::with("translations")->whereHas('translations', function ($query) use ($locale) {
             $query->where('post_translations.lang', $locale)
@@ -41,11 +34,12 @@ class BlogController extends Controller
                 ->where('post_translations.published_at', "<=", Carbon::now());
         })->where("id", $id)->first();
 
+        $postTranslation = $post->translated($locale);
 
-        if (!$post) {
+        if (!$postTranslation) {
             abort(404);
         }
 
-        return view('laravel-blog::web.show', ["post" => $post, "locale" => $locale]);
+        return view('laravel-blog::web.show', ["postTranslation" =>  $postTranslation, "locale" => $locale]);
     }
 }

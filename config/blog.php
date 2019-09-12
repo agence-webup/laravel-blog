@@ -25,5 +25,16 @@ return [
     'custom_link' => [
         'name' => null,
         'link' => null
+    ],
+    'pictures' => [
+        'avatar' => [
+            'small' => [300, 200],
+            'medium' => [600, 400],
+        ],
+        'cover' => [
+            'small' => [300, 200],
+            'medium' => [1000, 800],
+            'large' => [2000, 1600]
+        ]
     ]
 ];
