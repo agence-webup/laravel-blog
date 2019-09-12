@@ -16,7 +16,7 @@ class PostPolicy
      * @param  \Webup\LaravelBlog\Entities\User  $laravelBlogUser
      * @return mixed
      */
-    public function list(LaravelBlogUser $laravelBlogUser)
+    public function list($laravelBlogUser)
     {
         return true;
     }
@@ -27,7 +27,7 @@ class PostPolicy
      * @param  \Webup\LaravelBlog\Entities\User  $laravelBlogUser
      * @return mixed
      */
-    public function create(LaravelBlogUser $laravelBlogUser)
+    public function create($laravelBlogUser)
     {
         return true;
     }
@@ -39,7 +39,7 @@ class PostPolicy
      * @param  \Webup\LaravelBlog\Entities\Post  $laravelBlogPost
      * @return mixed
      */
-    public function update(LaravelBlogUser $laravelBlogUser, LaravelBlogPost $laravelBlogPost)
+    public function update($laravelBlogUser, LaravelBlogPost $laravelBlogPost)
     {
         return true;
     }
@@ -51,7 +51,7 @@ class PostPolicy
      * @param  \Webup\LaravelBlog\Entities\Post  $laravelBlogPost
      * @return mixed
      */
-    public function delete(LaravelBlogUser $laravelBlogUser, LaravelBlogPost $laravelBlogPost)
+    public function delete($laravelBlogUser, LaravelBlogPost $laravelBlogPost)
     {
         return true;
     }
@@ -63,7 +63,7 @@ class PostPolicy
      * @param  \Webup\LaravelBlog\Entities\Post  $laravelBlogPost
      * @return mixed
      */
-    public function restore(LaravelBlogUser $laravelBlogUser, LaravelBlogPost $laravelBlogPost)
+    public function restore($laravelBlogUser, LaravelBlogPost $laravelBlogPost)
     {
         return true;
     }
@@ -75,7 +75,7 @@ class PostPolicy
      * @param  \Webup\LaravelBlog\Entities\Post  $laravelBlogPost
      * @return mixed
      */
-    public function forceDelete(LaravelBlogUser $laravelBlogUser, LaravelBlogPost $laravelBlogPost)
+    public function forceDelete($laravelBlogUser, LaravelBlogPost $laravelBlogPost)
     {
         return true;
     }

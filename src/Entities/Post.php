@@ -17,7 +17,7 @@ class Post extends BaseModel
 
     public function author()
     {
-        return $this->belongsTo(auth('blog')->getProvider()->getModel(), "user_id");
+        return $this->belongsTo(auth()->getProvider()->getModel(), "user_id");
     }
 
     public function isRecentlyCreated()

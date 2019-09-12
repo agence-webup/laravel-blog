@@ -8,12 +8,13 @@ const gulpy = new Gulpy({
 
 // front
 const sass = gulpy.sass('src/resources/assets/sass/laravel-blog.scss', 'public/assets/css')
+const js = gulpy.js(['src/resources/assets/js/**/*', '!src/resources/assets/js/*.js'], 'public/assets/js')
 const bundle = gulpy.bundle('src/resources/assets/js/*.js', 'public/assets/js', 'bundle.js')
 const clean = gulpy.clean(['public/assets/**'])
 const copyNpm = gulpy.copyNpm('public/node_modules')
 
 // export
-exports.default = gulp.series(clean, gulp.parallel(sass, bundle, copyNpm))
+exports.default = gulp.series(clean, gulp.parallel(sass, js, bundle, copyNpm))
 
 if (gulpy.isProduction()) {
   exports.default = gulp.series(exports.default)

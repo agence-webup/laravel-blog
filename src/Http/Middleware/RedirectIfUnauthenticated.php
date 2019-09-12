@@ -21,7 +21,7 @@ class RedirectIfUnauthenticated
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->guest(resolve(auth('blog')->getProvider()->getModel())->unauthenticatedRedirectRoute() ?? route('admin.blog.login'));
+                return redirect()->guest(resolve(auth($guard)->getProvider()->getModel())->unauthenticatedRedirectRoute() ?? route('admin.blog.login'));
             }
         }
         Auth::shouldUse($guard);

@@ -19,7 +19,7 @@
     <div class="app">
         <nav class="navigation">
             <div class="navigation-profil">
-                <img src="{{ Auth::user()->pictureUrl }}" width="40" height="40" alt="Profil picture" class="avatar--rounded avatar--small mr05"> {{ Auth::user()->name }}
+                @if(Auth::user()->pictureUrl)<img src="{{ Auth::user()->pictureUrl }}" width="40" height="40" alt="Profil picture" class="avatar--rounded avatar--small mr05">@endif {{ Auth::user()->name }}
             </div>
             <div class="navigation-menu">
                 <div class="navigation-menu__main">
@@ -49,7 +49,11 @@
             @yield('content')
         </main>
     <div>
-    <script src="{{ asset('vendor/laravel-blog/js/helpers.js') }}"></script>
-    @yield('js')
+        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+        <script src="{{ asset('node_modules/timeago.js/dist/timeago.min.js') }}"></script>
+        <script src="{{ asset('node_modules/timeago.js/dist/timeago.locales.min.js') }}"></script>
+        <script src="{{ asset('node_modules/flatpickr/dist/flatpickr.min.js') }}"></script>
+        <script src="{{ asset('vendor/laravel-blog/js/bundle.js') }}"></script>
+        @yield('js')
 </body>
 </html>

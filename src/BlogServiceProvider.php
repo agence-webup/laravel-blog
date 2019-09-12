@@ -32,9 +32,9 @@ class BlogServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__ . '/../config/blog.php' => config_path('blog.php'),
-            __DIR__ . '/../public/assets/js/bundle.js' => public_path('vendor/laravel-blog/js/bundle.js'),
+            __DIR__ . '/../public/assets/js' => public_path('vendor/laravel-blog/js'),
             __DIR__ . '/../public/assets/css/laravel-blog.css' => public_path('vendor/laravel-blog/css/laravel-blog.css'),
-            __DIR__ . '/../public/node_modules' => public_path('vendor/laravel-blog/node_modules'),
+            __DIR__ . '/../public/node_modules' => public_path('node_modules'),
             __DIR__ . '/resources/lang/' => resource_path('lang/vendor/laravel-blog'),
         ]);
 
@@ -80,7 +80,7 @@ class BlogServiceProvider extends ServiceProvider
     {
         Gate::policy("Webup\LaravelBlog\Entities\Post", "\Webup\LaravelBlog\Policies\PostPolicy");
         Gate::policy("Webup\LaravelBlog\Entities\PostTranslation", "\Webup\LaravelBlog\Policies\PostTranslationPolicy");
-        Gate::policy(auth('blog')->getProvider()->getModel(), "\Webup\LaravelBlog\Policies\UserPolicy");
+        Gate::policy(auth()->getProvider()->getModel(), "\Webup\LaravelBlog\Policies\UserPolicy");
     }
 
     /**

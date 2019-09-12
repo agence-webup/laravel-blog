@@ -2,7 +2,7 @@
 
 @section('css')
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-<link href="{{ asset("vendor/laravel-blog/node_modules/flatpickr/dist/flatpickr.min.css") }}" rel="stylesheet">
+<link href="{{ asset("node_modules/flatpickr/dist/flatpickr.min.css") }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -57,18 +57,9 @@
         updateMetaUrl : "{{ route("admin.blog.post.updateMeta",["id" => $post->id,"lang" => $locale]) }}",
         updatePublicationUrl : "{{ route("admin.blog.post.updatePublication",["id" => $post->id,"lang" => $locale]) }}",
         uploadImageUrl : "{{ route("admin.blog.image.upload") }}",
-        quillContent : {!! ($post->translatedOrNew($locale)->quill_content) ? $post->translatedOrNew($locale)->quill_content : "{}" !!}
+        quillContent : {!! $post->translatedOrNew($locale)->quill_content ?? "{}" !!}
     };
 </script>
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-<script src="{{ asset('vendor/laravel-blog/js/sidebar.js') }}"></script>
-<script src="{{ asset('vendor/laravel-blog/js/status-bottom-bar.js') }}"></script>
-<script src="{{ asset('vendor/laravel-blog/js/publication.js') }}"></script>
-<script src="{{ asset('vendor/laravel-blog/js/editor.js') }}"></script>
-<script src="{{ asset('vendor/laravel-blog/js/meta.js') }}"></script>
-<script src="{{ asset('vendor/laravel-blog/js/translations.js') }}"></script>
-<script src="{{ asset('vendor/laravel-blog/node_modules/timeago.js/dist/timeago.min.js') }}"></script>
-<script src="{{ asset('vendor/laravel-blog/node_modules/timeago.js/dist/timeago.locales.min.js') }}"></script>
-<script src="{{ asset('vendor/laravel-blog/node_modules/flatpickr/dist/flatpickr.min.js') }}"></script>
 <script src="{{ asset('vendor/laravel-blog/js/pages/post.js') }}"></script>
+
 @endsection
