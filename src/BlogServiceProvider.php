@@ -29,6 +29,7 @@ class BlogServiceProvider extends ServiceProvider
     public function boot(Router $router)
     {
         $this->loadTranslationsFrom(__DIR__ . '/resources/lang/', 'laravel-blog');
+        $this->loadViewsFrom(__DIR__ . '/resources/views', 'laravel-blog');
 
         $this->publishes([
             __DIR__ . '/../config/blog.php' => config_path('blog.php'),
@@ -36,6 +37,7 @@ class BlogServiceProvider extends ServiceProvider
             __DIR__ . '/../public/assets/css/laravel-blog.css' => public_path('vendor/laravel-blog/css/laravel-blog.css'),
             __DIR__ . '/../public/node_modules' => public_path('node_modules'),
             __DIR__ . '/resources/lang/' => resource_path('lang/vendor/laravel-blog'),
+            __DIR__ . '/resources/views/web/' => resource_path('views/vendor/laravel-blog/web/'),
         ]);
 
         $router->aliasMiddleware('blog.auth', RedirectIfUnauthenticated::class);
@@ -49,7 +51,6 @@ class BlogServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
 
 
-        $this->loadViewsFrom(__DIR__ . '/resources/views', 'laravel-blog');
 
         if ($this->app->runningInConsole()) {
             $this->commands([
