@@ -46,6 +46,7 @@ return [
             "section" => "Post properties",
             "hyperlink" => "Hyperlink",
             "excerpt" => "Excerpt",
+            "thumbnail" => "Thumbnail",
             "other_settings" => "Other settings",
             "featured" => "Featured",
             "indexed" => "Indexed",

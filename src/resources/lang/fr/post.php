@@ -46,6 +46,7 @@ return [
             "section" => "Propriétés de l'article",
             "hyperlink" => "Hyperlien",
             "excerpt" => "Résumé",
+            "thumbnail" => "Miniature",
             "other_settings" => "Autres paramètres",
             "featured" => "Mettre en avant",
             "indexed" => "Indexer",
