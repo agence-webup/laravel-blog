@@ -38,6 +38,8 @@ let Editor = (() => {
         placeholder: this.placeholder,
         theme: 'snow',
         modules: {
+          ImageResize: {},
+          imageDrop: true,
           toolbar: {
             container: '#topbar',
             handlers: {

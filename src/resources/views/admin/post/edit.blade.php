@@ -1,7 +1,7 @@
 @extends('laravel-blog::layouts.admin')
 
 @section('css')
-<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<link href="{{ asset("node_modules/quill/dist/quill.snow.css") }}" rel="stylesheet">
 <link href="{{ asset("node_modules/flatpickr/dist/flatpickr.min.css") }}" rel="stylesheet">
 <link href="{{ asset("node_modules/filepond/dist/filepond.min.css") }}" rel="stylesheet">
 <link href="{{ asset("node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css") }}" rel="stylesheet">
