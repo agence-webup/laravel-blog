@@ -55,7 +55,7 @@
     <div>
         <script src="{{ asset('node_modules/quill/dist/quill.min.js') }}"></script>
         <script src="{{ asset('node_modules/quill-image-drop-module/image-drop.min.js') }}"></script>
-        <script src="{{ asset('node_modules/quill-image-resize-module/image-resize.min.js') }}"></script>
+        <script src="{{ asset('node_modules/quill-image-resize/image-resize.min.js') }}"></script>
         <script src="{{ asset('node_modules/timeago.js/dist/timeago.min.js') }}"></script>
         <script src="{{ asset('node_modules/timeago.js/dist/timeago.locales.min.js') }}"></script>
         <script src="{{ asset('node_modules/flatpickr/dist/flatpickr.min.js') }}"></script>
