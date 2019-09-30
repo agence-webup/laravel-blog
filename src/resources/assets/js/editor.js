@@ -38,7 +38,7 @@ let Editor = (() => {
         placeholder: this.placeholder,
         theme: 'snow',
         modules: {
-          ImageResize: {},
+          imageResize: {},
           imageDrop: true,
           toolbar: {
             container: '#topbar',
