@@ -1,2 +1,4 @@
-node_modules
-vendor
+/node_modules
+
+/public/node_modules/gulp
+/public/node_modules/@agence-webup
