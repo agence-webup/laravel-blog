@@ -41,7 +41,7 @@ class BlogServiceProvider extends ServiceProvider
             __DIR__ . '/../public/assets/js' => public_path('vendor/laravel-blog/js'),
             __DIR__ . '/../public/assets/css/laravel-blog.css' => public_path('vendor/laravel-blog/css/laravel-blog.css'),
             __DIR__ . '/../public/node_modules' => public_path('node_modules'),
-        ], "assets");
+        ], "blog.assets");
 
         $router->aliasMiddleware('blog.auth', RedirectIfUnauthenticated::class);
         $router->aliasMiddleware('blog.guest', RedirectIfAuthenticated::class);
