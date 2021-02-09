@@ -39,6 +39,7 @@ let Editor = (() => {
         theme: 'snow',
         modules: {
           imageResize: {},
+          videoResize: {},
           imageDrop: true,
           toolbar: {
             container: '#topbar',
@@ -144,7 +145,7 @@ let Editor = (() => {
           if (request.status == 200) {
             var data = JSON.parse(request.response)
             resolve(data.url)
-            } else {
+          } else {
             const data = JSON.parse(request.response)
             reject(data)
           }

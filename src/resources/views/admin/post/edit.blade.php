@@ -6,6 +6,12 @@
 <link href="{{ asset("node_modules/filepond/dist/filepond.min.css") }}" rel="stylesheet">
 <link href="{{ asset("node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css") }}"
     rel="stylesheet">
+<style>
+    .ql-editor iframe {
+        pointer-events: none;
+    }
+</style>
+
 @endsection
 
 @section('content')
@@ -67,13 +73,14 @@
     };
 </script>
 
-<script src="{{ asset("node_modules/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.min.js") }}">
+<script src="{{ asset('node_modules/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.min.js') }}">
 </script>
-<script src="{{ asset("node_modules/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.min.js") }}">
+<script src="{{ asset('node_modules/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.min.js') }}">
 </script>
-<script src="{{ asset("node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js") }}">
+<script src="{{ asset('node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js') }}">
 </script>
-<script src="{{ asset("node_modules/filepond/dist/filepond.min.js") }}"></script>
+<script src="{{ asset('node_modules/filepond/dist/filepond.min.js') }}"></script>
+<script src="{{ asset('node_modules/quill-video-resize-module/video-resize.min.js') }}"></script>
 <script src="{{ asset('vendor/laravel-blog/js/pages/post.js') }}"></script>
 
 @endsection
