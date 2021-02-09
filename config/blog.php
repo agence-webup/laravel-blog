@@ -18,6 +18,7 @@ return [
         'fr',
         'es',
     ],
+    'upload_shortcut' => null,
     'default' => [
         'blogName' => 'Blog',
         'articleNumber' => 10,

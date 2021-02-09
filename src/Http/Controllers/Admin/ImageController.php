@@ -4,7 +4,7 @@ namespace Webup\LaravelBlog\Http\Controllers\Admin;
 
 use Webup\LaravelBlog\Http\Controllers\Admin\BaseController;
 use Illuminate\Http\Request;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class ImageController extends BaseController
 {

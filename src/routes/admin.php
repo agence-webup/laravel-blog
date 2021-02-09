@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 
 $customguard = config()->get("blog.custom_guard", null) ?: "blog";
 
