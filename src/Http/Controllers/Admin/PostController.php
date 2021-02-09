@@ -8,8 +8,8 @@ use Webup\LaravelBlog\Http\Requests\UpdatePost;
 use Webup\LaravelBlog\Http\Requests\UpdatePostMeta;
 use Webup\LaravelBlog\Http\Requests\UpdatePostPublication;
 use Illuminate\Http\Request;
-use Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Webup\LaravelBlog\Events\Post\Create as BlogPostCreated;
 use Webup\LaravelBlog\Events\Post\Update as BlogPostUpdated;
 use Webup\LaravelBlog\Events\PostTranslation\Create as BlogPostTranslationCreated;
@@ -164,6 +164,10 @@ class PostController extends BaseController
             $translation = $post->translatedOrNew($locale);
             $translation->post()->touch();
             $translation->delete();
+            // If there is no more translation attached to the post -> delete de post
+            if ($post->translations()->count() == 0) {
+                $post->delete();
+            }
             // $this->sendEvents($post, $translation);
         } catch (\Throwable $th) {
             return redirect()->back();
